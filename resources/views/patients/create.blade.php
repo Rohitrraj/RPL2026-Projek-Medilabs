@@ -46,7 +46,7 @@
         </form>
 
         <aside class="patient-info-card">
-            <img src="{{ asset('assets/images/patient-info.svg') }}" alt="Ikon data pasien">
+            <img src="{{ asset('assets/images/formdatapasien.png') }}" alt="Ikon data pasien">
             <p>Pastikan data pasien diisi dengan benar. Data akan digunakan untuk proses reservasi dan pemeriksaan.</p>
         </aside>
     </section>

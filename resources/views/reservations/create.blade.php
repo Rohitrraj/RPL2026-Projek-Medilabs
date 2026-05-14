@@ -51,7 +51,7 @@
         </form>
 
         <aside class="reservation-media">
-            <img class="staff-image" src="{{ asset('assets/images/reservation-team.svg') }}" alt="Petugas klinik memproses reservasi">
+            <img class="staff-image" src="{{ asset('assets/images/formreservasi.png') }}" alt="Petugas klinik memproses reservasi">
         </aside>
     </section>
 @endsection

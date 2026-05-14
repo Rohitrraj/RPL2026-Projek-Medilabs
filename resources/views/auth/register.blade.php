@@ -38,7 +38,7 @@
         </form>
 
         <aside class="illustration-card">
-            <img src="{{ asset('assets/images/doctor-card.svg') }}" alt="Ilustrasi dokter MediLabs">
+            <img src="{{ asset('assets/images/Loginpage.png') }}" alt="Ilustrasi dokter MediLabs">
             <h2>Bergabung bersama MediLabs</h2>
             <p>Daftarkan diri Anda untuk menikmati kemudahan reservasi dan layanan laboratorium klinik terpercaya.</p>
         </aside>

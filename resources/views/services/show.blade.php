@@ -51,7 +51,7 @@
         </article>
 
         <aside class="service-side">
-            <img class="lab-image" src="{{ asset('assets/images/lab.svg') }}" alt="Pemeriksaan sampel di laboratorium">
+            <img class="lab-image" src="{{ asset('assets/images/laypophematologipage.jpg') }}" alt="Pemeriksaan sampel di laboratorium">
 
             <div class="white-info-card">
                 <span class="circle-icon clock-symbol"></span>

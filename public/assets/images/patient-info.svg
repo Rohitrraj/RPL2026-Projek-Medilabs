@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 210" role="img" aria-labelledby="title">
-    <title id="title">Data pasien</title>
-    <circle cx="72" cy="55" r="35" fill="none" stroke="#58677c" stroke-width="8"/>
-    <path d="M23 178c8-54 27-81 58-81s51 27 59 81" fill="none" stroke="#58677c" stroke-width="8" stroke-linecap="round"/>
-    <rect x="133" y="50" width="65" height="112" rx="8" fill="none" stroke="#58677c" stroke-width="8"/>
-    <path d="M166 78v46M143 101h46" stroke="#58677c" stroke-width="8" stroke-linecap="round"/>
-    <path d="M153 48h27l5 17h-37z" fill="#fff" stroke="#58677c" stroke-width="7"/>
-</svg>

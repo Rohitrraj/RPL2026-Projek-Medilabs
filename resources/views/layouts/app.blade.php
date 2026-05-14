@@ -7,10 +7,19 @@
     <link rel="stylesheet" href="{{ asset('assets/css/medilabs.css') }}">
 </head>
 <body>
+    @php
+        /*
+         | Ganti logo kecil MediLabs dari sini.
+         | Contoh:
+         | $brandLogo = 'assets/images/logo-baru.png';
+         */
+        $brandLogo = 'assets/images/logo.png';
+    @endphp
+
     <div class="app-shell">
         <header class="site-header">
             <a class="brand" href="{{ route('home') }}" aria-label="MediLabs">
-                <img src="{{ asset('assets/images/logo.svg') }}" alt="MediLabs logo">
+                <img src="{{ asset($brandLogo) }}" alt="MediLabs logo">
                 <span>
                     <strong>MediLabs</strong>
                     <small>Sistem Reservasi dan Pendaftaran Laboratorium Klinik</small>
@@ -18,10 +27,21 @@
             </a>
 
             <nav class="main-nav" aria-label="Navigasi utama">
-                <a class="{{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Beranda</a>
-                <a class="{{ request()->routeIs('services.show') ? 'active' : '' }}" href="{{ route('services.show') }}">Layanan</a>
-                <a class="{{ request()->routeIs('reservations.create') ? 'active' : '' }}" href="{{ route('reservations.create') }}">Reservasi</a>
-                <a class="{{ request()->routeIs('reservations.result') ? 'active' : '' }}" href="{{ route('reservations.result') }}">Cek Status</a>
+                <a class="{{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">
+                    Beranda
+                </a>
+
+                <a class="{{ request()->routeIs('services.*') ? 'active' : '' }}" href="{{ route('services.index') }}">
+                    Layanan
+                </a>
+
+                <a class="{{ request()->routeIs('patients.create') || request()->routeIs('reservations.create') ? 'active' : '' }}" href="{{ route('patients.create') }}">
+                    Reservasi
+                </a>
+
+                <a class="{{ request()->routeIs('reservations.status') || request()->routeIs('reservations.history') ? 'active' : '' }}" href="{{ route('reservations.status') }}">
+                    Cek Status
+                </a>
             </nav>
         </header>
 
