@@ -1,0 +1,1369 @@
+:root {
+    --nav: #c1c6cc;
+    --page: #d8dde3;
+    --panel: #2f435d;
+    --panel-strong: #263954;
+    --ink: #172033;
+    --muted: #5d6978;
+    --line: #a9b2bd;
+    --white: #f8fafc;
+    --blue: #2f86f6;
+    --blue-dark: #09407c;
+    --radius: 8px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font-family: Poppins, "Segoe UI", Arial, sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+.app-shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--page);
+}
+
+.site-header {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 54px;
+    background: var(--nav);
+    border-bottom: 1px solid #aeb5bd;
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 320px;
+}
+
+.brand img {
+    width: 49px;
+    height: 35px;
+    border-radius: 5px;
+}
+
+.brand strong {
+    display: block;
+    color: #1d2430;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 22px;
+    line-height: 1;
+}
+
+.brand small {
+    display: block;
+    margin-top: 2px;
+    color: #1c2530;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 12px;
+    color: #111827;
+}
+
+.main-nav a {
+    padding: 10px 0;
+}
+
+.main-nav a.active,
+.main-nav a:hover {
+    color: var(--blue-dark);
+}
+
+.page-content {
+    width: min(1120px, calc(100% - 72px));
+    margin: 0 auto;
+    flex: 1;
+    padding: 48px 0;
+}
+
+.site-footer {
+    height: 44px;
+    display: grid;
+    place-items: center;
+    background: var(--nav);
+    color: #111827;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.dark-panel {
+    background: var(--panel);
+    color: var(--white);
+    border-radius: var(--radius);
+}
+
+.dark-panel h1 {
+    margin: 0 0 32px;
+    font-size: 33px;
+    line-height: 1.05;
+    letter-spacing: 0;
+}
+
+.dark-panel h2,
+.dark-panel h3,
+.dark-panel p {
+    margin: 0;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0 28px;
+    border: 0;
+    border-radius: 8px;
+    font: 700 11px/1 Poppins, "Segoe UI", Arial, sans-serif;
+    cursor: pointer;
+}
+
+.button-primary {
+    background: var(--blue);
+    color: #fff;
+}
+
+.button-outline {
+    background: transparent;
+    color: #fff;
+    border: 1px solid #7fb2f8;
+}
+
+.button-secondary {
+    background: #06478c;
+    color: #fff;
+}
+
+.button-dark {
+    background: #18243b;
+    color: #fff;
+}
+
+.full-button {
+    width: 100%;
+}
+
+.home-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 52px;
+    align-items: stretch;
+}
+
+.hero-card {
+    align-self: center;
+    padding: 33px 29px;
+    background: var(--panel);
+    border-radius: var(--radius);
+    color: #fff;
+}
+
+.hero-card h1 {
+    margin: 0;
+    max-width: 390px;
+    font-size: 32px;
+    line-height: 0.98;
+    letter-spacing: 0;
+}
+
+.hero-card p {
+    margin: 10px 0 31px;
+    max-width: 430px;
+    font-size: 11px;
+    line-height: 1.25;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 22px;
+}
+
+.hero-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 7px;
+}
+
+.feature-row {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 26px;
+}
+
+.feature-card {
+    min-height: 75px;
+    display: grid;
+    grid-template-columns: 38px 1fr;
+    gap: 12px;
+    align-items: center;
+    padding: 13px 12px;
+    background: var(--panel);
+    border-radius: var(--radius);
+    color: #fff;
+}
+
+.feature-card h2 {
+    margin: 0 0 3px;
+    font-size: 11px;
+    line-height: 1.05;
+}
+
+.feature-card p {
+    margin: 0;
+    color: #d9e3ee;
+    font-size: 8px;
+    line-height: 1.25;
+}
+
+.feature-icon {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    background: #d6dbe1;
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+}
+
+.feature-icon-user {
+    mask-image: radial-gradient(circle at 50% 26%, #000 0 25%, transparent 27%), radial-gradient(ellipse at 50% 82%, #000 0 45%, transparent 47%);
+}
+
+.feature-icon-calendar {
+    mask-image: linear-gradient(#000 0 0);
+    border-radius: 3px;
+}
+
+.feature-icon-flask {
+    clip-path: polygon(37% 0, 63% 0, 63% 33%, 90% 88%, 83% 100%, 17% 100%, 10% 88%, 37% 33%);
+}
+
+.feature-icon-clipboard {
+    mask-image: linear-gradient(#000 0 0);
+    border-radius: 4px;
+}
+
+.popular-section {
+    margin-top: 42px;
+}
+
+.popular-section > h2 {
+    margin: 0 0 14px 6px;
+    color: var(--panel);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 29px;
+}
+
+.service-card {
+    min-height: 82px;
+    padding: 13px 15px;
+    border-radius: 8px;
+    color: #fff;
+    background:
+        linear-gradient(90deg, rgba(47, 67, 93, 0.94), rgba(47, 67, 93, 0.7)),
+        linear-gradient(135deg, #90a6b8, #f0f3f7);
+}
+
+.service-card h3 {
+    margin: 0 0 4px;
+    font-size: 11px;
+}
+
+.service-card p {
+    margin: 0;
+    color: #e7edf5;
+    font-size: 8px;
+    line-height: 1.3;
+}
+
+.auth-layout,
+.two-column-layout,
+.reservation-layout,
+.service-detail-layout,
+.result-layout {
+    min-height: 484px;
+    display: grid;
+    align-items: center;
+}
+
+.auth-layout {
+    grid-template-columns: minmax(420px, 520px) 360px;
+    gap: 76px;
+    justify-content: center;
+}
+
+.auth-layout-login {
+    grid-template-columns: minmax(420px, 520px) 392px;
+}
+
+.auth-panel {
+    padding: 31px 38px;
+}
+
+.auth-panel label,
+.patient-panel label,
+.reservation-panel label {
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+    color: #d8e1eb;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.auth-panel input,
+.patient-panel input,
+.patient-panel textarea,
+.reservation-panel input,
+.reservation-panel select,
+.reservation-panel textarea {
+    width: 100%;
+    min-height: 31px;
+    border: 0;
+    border-radius: 5px;
+    background: #dfe8f0;
+    color: #182233;
+    padding: 0 11px;
+    font: 500 11px/1 Poppins, "Segoe UI", Arial, sans-serif;
+}
+
+.auth-panel button {
+    margin-left: 186px;
+    min-width: 152px;
+}
+
+.auth-layout-login .auth-panel button {
+    margin-left: 170px;
+    width: calc(100% - 170px);
+}
+
+.form-note {
+    margin: 14px 0 0 186px;
+    color: #e5edf5;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.auth-layout-login .form-note {
+    margin-left: 170px;
+}
+
+.form-note a {
+    color: #84bdfc;
+}
+
+.illustration-card {
+    min-height: 382px;
+    align-self: center;
+    padding: 36px 34px 29px;
+    background: #f9fbfd;
+    border-radius: 18px;
+    box-shadow: 0 10px 24px rgba(53, 67, 86, 0.12);
+    text-align: center;
+}
+
+.illustration-card img {
+    width: 210px;
+    margin: 0 auto 18px;
+}
+
+.illustration-card h2 {
+    margin: 0 0 7px;
+    color: var(--panel);
+    font-size: 13px;
+}
+
+.illustration-card p {
+    margin: 0 auto;
+    max-width: 230px;
+    color: #5a6674;
+    font-size: 10px;
+    line-height: 1.45;
+    font-weight: 600;
+}
+
+.two-column-layout {
+    grid-template-columns: minmax(480px, 610px) 250px;
+    gap: 80px;
+    justify-content: center;
+}
+
+.patient-panel {
+    padding: 34px 39px;
+}
+
+.patient-panel textarea {
+    min-height: 62px;
+    resize: vertical;
+    padding-top: 8px;
+}
+
+.patient-panel .form-button,
+.reservation-panel .form-button {
+    display: flex;
+    width: max-content;
+    margin: 26px auto 0;
+}
+
+.patient-info-card {
+    width: 220px;
+    min-height: 310px;
+    padding: 34px 25px 26px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 18px rgba(50, 63, 80, 0.12);
+    text-align: center;
+}
+
+.patient-info-card img {
+    width: 122px;
+    margin: 0 auto 28px;
+}
+
+.patient-info-card p {
+    margin: 0;
+    color: #374253;
+    font-size: 12px;
+    line-height: 1.45;
+    font-weight: 700;
+}
+
+.reservation-layout {
+    grid-template-columns: minmax(520px, 660px) 280px;
+    gap: 64px;
+    justify-content: center;
+}
+
+.reservation-panel {
+    padding: 34px 39px 40px;
+}
+
+.reservation-panel label {
+    grid-template-columns: 220px 1fr;
+}
+
+.reservation-panel .wide-label {
+    margin-top: 50px;
+}
+
+.reservation-panel textarea {
+    min-height: 62px;
+    resize: vertical;
+    padding-top: 10px;
+}
+
+.reservation-media {
+    align-self: stretch;
+    display: grid;
+    align-items: center;
+}
+
+.staff-image {
+    width: 245px;
+    height: 384px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.service-detail-layout {
+    grid-template-columns: minmax(540px, 650px) 360px;
+    gap: 50px;
+    justify-content: center;
+}
+
+.service-detail-card {
+    min-height: 462px;
+    padding: 23px 27px 28px;
+}
+
+.service-detail-card h1 {
+    margin-bottom: 6px;
+    font-size: 28px;
+}
+
+.service-info-block {
+    display: grid;
+    grid-template-columns: 38px 1fr;
+    gap: 13px;
+    margin-top: 12px;
+    align-items: start;
+}
+
+.service-info-block h2 {
+    font-size: 17px;
+    line-height: 1;
+}
+
+.service-info-block p {
+    margin-top: 3px;
+    color: #e1e9f2;
+    font-size: 10px;
+    line-height: 1.35;
+}
+
+.line-icon,
+.circle-icon {
+    display: inline-block;
+    border: 2px solid currentColor;
+    color: #edf3fa;
+}
+
+.line-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+}
+
+.pulse-icon {
+    border-radius: 50%;
+}
+
+.tag-icon {
+    transform: rotate(-35deg);
+}
+
+.service-button {
+    display: flex;
+    width: max-content;
+    margin: 22px auto 0;
+}
+
+.service-side {
+    display: grid;
+    gap: 18px;
+}
+
+.lab-image {
+    width: 360px;
+    height: 214px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.white-info-card {
+    display: grid;
+    grid-template-columns: 58px 1fr;
+    gap: 16px;
+    align-items: center;
+    min-height: 108px;
+    padding: 18px 19px;
+    background: #fff;
+    border: 1px solid #9aa6b4;
+    border-radius: 8px;
+}
+
+.white-info-card h2 {
+    margin: 0 0 4px;
+    color: var(--panel);
+    font-size: 20px;
+}
+
+.white-info-card p {
+    margin: 0;
+    color: #243247;
+    font-size: 10px;
+    line-height: 1.35;
+    font-weight: 700;
+}
+
+.circle-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    color: var(--panel);
+}
+
+.info-symbol,
+.clock-symbol {
+    position: relative;
+}
+
+.info-symbol::after {
+    content: "i";
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: var(--panel);
+    font: 700 27px/1 Georgia, serif;
+}
+
+.clock-symbol::before {
+    content: "";
+    position: absolute;
+    width: 13px;
+    height: 2px;
+    left: 14px;
+    top: 22px;
+    background: var(--panel);
+    transform: rotate(-40deg);
+    transform-origin: left center;
+}
+
+.clock-symbol::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 14px;
+    left: 21px;
+    top: 11px;
+    background: var(--panel);
+}
+
+.result-layout {
+    grid-template-columns: minmax(560px, 690px) 220px;
+    gap: 74px;
+    justify-content: center;
+}
+
+.result-card {
+    padding: 31px 33px;
+    box-shadow: 0 0 0 4px #0698ff;
+}
+
+.result-card h1 {
+    margin-bottom: 26px;
+}
+
+.result-body {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 34px;
+    align-items: center;
+}
+
+.checkmark {
+    width: 135px;
+    height: 135px;
+    position: relative;
+    border-radius: 50%;
+    background: #020305;
+}
+
+.checkmark::before {
+    content: "";
+    position: absolute;
+    width: 68px;
+    height: 34px;
+    left: 34px;
+    top: 43px;
+    border-left: 8px solid #2f435d;
+    border-bottom: 8px solid #2f435d;
+    transform: rotate(-45deg);
+}
+
+.result-body dl {
+    margin: 0;
+    padding-left: 27px;
+    border-left: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.result-body dl div {
+    display: grid;
+    grid-template-columns: 145px 1fr;
+    gap: 16px;
+    margin-bottom: 9px;
+    color: #eef4fb;
+    font-size: 13px;
+}
+
+.result-body dt {
+    font-weight: 500;
+}
+
+.result-body dt::after {
+    content: " :";
+    float: right;
+}
+
+.result-body dd {
+    margin: 0;
+}
+
+.result-actions {
+    display: grid;
+    align-content: center;
+    gap: 31px;
+}
+
+.result-actions .button {
+    width: 170px;
+}
+
+@media (max-width: 900px) {
+    .site-header {
+        height: auto;
+        min-height: 76px;
+        padding: 16px 24px;
+        align-items: flex-start;
+        gap: 14px;
+        flex-direction: column;
+    }
+
+    .brand {
+        min-width: 0;
+    }
+
+    .main-nav {
+        width: 100%;
+        gap: 0;
+        justify-content: space-between;
+        font-size: 11px;
+    }
+
+    .page-content {
+        width: min(100% - 32px, 680px);
+        padding: 28px 0;
+    }
+
+    .home-grid,
+    .feature-row,
+    .service-grid,
+    .auth-layout,
+    .auth-layout-login,
+    .two-column-layout,
+    .reservation-layout,
+    .service-detail-layout,
+    .result-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .hero-image,
+    .staff-image,
+    .lab-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .auth-panel label,
+    .patient-panel label,
+    .reservation-panel label {
+        grid-template-columns: 1fr;
+        gap: 7px;
+    }
+
+    .auth-panel button,
+    .auth-layout-login .auth-panel button,
+    .form-note,
+    .auth-layout-login .form-note {
+        margin-left: 0;
+    }
+
+    .auth-layout-login .auth-panel button {
+        width: 100%;
+    }
+
+    .patient-info-card,
+    .illustration-card {
+        width: 100%;
+    }
+
+    .result-body {
+        grid-template-columns: 1fr;
+    }
+
+    .result-body dl {
+        padding-left: 0;
+        border-left: 0;
+    }
+}
+
+@media print {
+    .site-header,
+    .site-footer,
+    .result-actions {
+        display: none;
+    }
+
+    .page-content {
+        width: 100%;
+        padding: 0;
+    }
+
+    .result-card {
+        box-shadow: none;
+    }
+}
+
+/* =========================================================
+   Desktop responsive refinement
+   Tujuan: menjaga layout dan fitur tetap sama, tetapi ukuran
+   container, gap, gambar, dan panel lebih fleksibel pada desktop
+   1024px sampai 1440px agar tidak overflow.
+   ========================================================= */
+
+@media (min-width: 901px) {
+    .site-header {
+        padding-left: clamp(28px, 4vw, 54px);
+        padding-right: clamp(28px, 4vw, 54px);
+    }
+
+    .main-nav {
+        gap: clamp(28px, 4vw, 56px);
+        white-space: nowrap;
+    }
+
+    .page-content {
+        width: min(1120px, calc(100% - clamp(48px, 6vw, 72px)));
+    }
+
+    .home-grid {
+        gap: clamp(32px, 4vw, 52px);
+    }
+
+    .feature-row {
+        gap: clamp(18px, 2.4vw, 26px);
+    }
+
+    .service-grid {
+        gap: clamp(18px, 2.6vw, 29px);
+    }
+
+    .auth-layout {
+        grid-template-columns: minmax(390px, 520px) minmax(300px, 360px);
+        gap: clamp(40px, 6vw, 76px);
+    }
+
+    .auth-layout-login {
+        grid-template-columns: minmax(390px, 520px) minmax(320px, 392px);
+    }
+
+    .two-column-layout {
+        grid-template-columns: minmax(460px, 610px) minmax(220px, 250px);
+        gap: clamp(44px, 6vw, 80px);
+    }
+
+    .reservation-layout {
+        grid-template-columns: minmax(500px, 660px) minmax(240px, 280px);
+        gap: clamp(40px, 5vw, 64px);
+    }
+
+    .service-detail-layout {
+        grid-template-columns: minmax(500px, 650px) minmax(300px, 360px);
+        gap: clamp(34px, 4vw, 50px);
+    }
+
+    .result-layout {
+        grid-template-columns: minmax(520px, 690px) minmax(180px, 220px);
+        gap: clamp(42px, 6vw, 74px);
+    }
+
+    .hero-card h1 {
+        font-size: clamp(28px, 3vw, 32px);
+    }
+
+    .dark-panel h1 {
+        font-size: clamp(28px, 3vw, 33px);
+    }
+
+    .hero-image {
+        height: clamp(230px, 22vw, 250px);
+    }
+
+    .staff-image {
+        width: min(245px, 100%);
+        height: clamp(330px, 34vw, 384px);
+    }
+
+    .lab-image {
+        width: 100%;
+        height: clamp(190px, 19vw, 214px);
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+    .brand {
+        min-width: 280px;
+        gap: 10px;
+    }
+
+    .brand img {
+        width: 44px;
+        height: 32px;
+    }
+
+    .brand strong {
+        font-size: 20px;
+    }
+
+    .brand small {
+        font-size: 9px;
+    }
+
+    .main-nav {
+        gap: 26px;
+    }
+
+    .page-content {
+        width: min(100% - 48px, 980px);
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .home-grid {
+        grid-template-columns: minmax(330px, 1fr) minmax(420px, 1.25fr);
+        gap: 32px;
+    }
+
+    .feature-row {
+        gap: 16px;
+    }
+
+    .service-grid {
+        gap: 18px;
+    }
+
+    .auth-layout,
+    .auth-layout-login {
+        grid-template-columns: minmax(360px, 1.2fr) minmax(260px, .8fr);
+        gap: 34px;
+    }
+
+    .auth-panel {
+        padding: 30px 32px;
+    }
+
+    .auth-panel label {
+        grid-template-columns: 145px 1fr;
+        gap: 14px;
+        font-size: 14px;
+    }
+
+    .auth-panel button {
+        margin-left: 159px;
+    }
+
+    .auth-layout-login .auth-panel button {
+        margin-left: 145px;
+        width: calc(100% - 145px);
+    }
+
+    .form-note {
+        margin-left: 159px;
+    }
+
+    .auth-layout-login .form-note {
+        margin-left: 145px;
+    }
+
+    .two-column-layout {
+        grid-template-columns: minmax(460px, 1fr) 220px;
+        gap: 42px;
+    }
+
+    .reservation-layout {
+        grid-template-columns: minmax(500px, 1fr) 230px;
+        gap: 36px;
+    }
+
+    .reservation-panel label {
+        grid-template-columns: 190px 1fr;
+    }
+
+    .service-detail-layout {
+        grid-template-columns: minmax(500px, 1fr) 290px;
+        gap: 34px;
+    }
+
+    .result-layout {
+        grid-template-columns: minmax(520px, 1fr) 180px;
+        gap: 34px;
+    }
+
+    .result-body {
+        grid-template-columns: 150px 1fr;
+        gap: 26px;
+    }
+
+    .result-body dl div {
+        grid-template-columns: 130px 1fr;
+        gap: 12px;
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 901px) and (max-width: 980px) {
+    .site-header {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .brand {
+        min-width: 250px;
+    }
+
+    .main-nav {
+        gap: 20px;
+        font-size: 11px;
+    }
+
+    .page-content {
+        width: calc(100% - 40px);
+    }
+
+    .home-grid {
+        grid-template-columns: minmax(310px, .95fr) minmax(360px, 1.05fr);
+        gap: 26px;
+    }
+
+    .hero-card {
+        padding: 30px 26px;
+    }
+
+    .feature-card {
+        grid-template-columns: 32px 1fr;
+        gap: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .feature-icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .auth-layout,
+    .auth-layout-login {
+        grid-template-columns: minmax(350px, 1fr) minmax(240px, .72fr);
+        gap: 28px;
+    }
+
+    .illustration-card {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .two-column-layout {
+        grid-template-columns: minmax(430px, 1fr) 210px;
+        gap: 32px;
+    }
+
+    .patient-panel label {
+        grid-template-columns: 145px 1fr;
+    }
+
+    .reservation-layout {
+        grid-template-columns: minmax(470px, 1fr) 210px;
+        gap: 30px;
+    }
+
+    .reservation-panel {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+
+    .reservation-panel label {
+        grid-template-columns: 170px 1fr;
+    }
+
+    .staff-image {
+        width: 210px;
+    }
+
+    .service-detail-layout {
+        grid-template-columns: minmax(480px, 1fr) 260px;
+        gap: 28px;
+    }
+
+    .service-detail-card h1 {
+        font-size: 26px;
+    }
+
+    .service-info-block h2 {
+        font-size: 16px;
+    }
+
+    .result-layout {
+        grid-template-columns: minmax(500px, 1fr) 170px;
+        gap: 26px;
+    }
+
+    .result-card {
+        padding-left: 28px;
+        padding-right: 28px;
+    }
+
+    .checkmark {
+        width: 118px;
+        height: 118px;
+    }
+
+    .checkmark::before {
+        width: 58px;
+        height: 30px;
+        left: 29px;
+        top: 36px;
+    }
+}
+
+html,
+body {
+    overflow-x: hidden;
+}
+/* =========================
+   DESKTOP RESPONSIVE FIX
+   Membuat tampilan lebih penuh di desktop
+   tanpa mengubah fitur dan struktur layout
+========================= */
+
+@media (min-width: 901px) {
+    .site-header {
+        height: 84px;
+        padding: 0 72px;
+    }
+
+    .brand {
+        min-width: 420px;
+        gap: 14px;
+    }
+
+    .brand img {
+        width: 64px;
+        height: 48px;
+    }
+
+    .brand strong {
+        font-size: 30px;
+    }
+
+    .brand small {
+        font-size: 13px;
+    }
+
+    .main-nav {
+        gap: 72px;
+        font-size: 14px;
+    }
+
+    .page-content {
+        width: min(1500px, calc(100% - 96px));
+        padding: 64px 0;
+    }
+
+    .home-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+        gap: 64px;
+    }
+
+    .hero-card {
+        min-height: 315px;
+        padding: 48px 44px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .hero-card h1 {
+        max-width: 560px;
+        font-size: clamp(42px, 3vw, 54px);
+        line-height: 1;
+    }
+
+    .hero-card p {
+        max-width: 560px;
+        margin: 18px 0 38px;
+        font-size: 16px;
+        line-height: 1.4;
+    }
+
+    .hero-actions {
+        gap: 28px;
+    }
+
+    .button {
+        min-height: 48px;
+        padding: 0 40px;
+        font-size: 14px;
+    }
+
+    .hero-image {
+        height: 315px;
+    }
+
+    .feature-row {
+        margin-top: 42px;
+        gap: 32px;
+    }
+
+    .feature-card {
+        min-height: 102px;
+        grid-template-columns: 48px 1fr;
+        gap: 18px;
+        padding: 20px 18px;
+    }
+
+    .feature-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .feature-card h2 {
+        font-size: 15px;
+    }
+
+    .feature-card p {
+        font-size: 11px;
+        line-height: 1.35;
+    }
+
+    .popular-section {
+        margin-top: 56px;
+    }
+
+    .popular-section > h2 {
+        margin-bottom: 22px;
+        font-size: 18px;
+    }
+
+    .service-grid {
+        gap: 32px;
+    }
+
+    .service-card {
+        min-height: 112px;
+        padding: 22px 20px;
+    }
+
+    .service-card h3 {
+        font-size: 15px;
+        margin-bottom: 8px;
+    }
+
+    .service-card p {
+        font-size: 11px;
+        line-height: 1.4;
+    }
+
+    .auth-layout {
+        grid-template-columns: minmax(560px, 680px) minmax(360px, 440px);
+        gap: 96px;
+    }
+
+    .auth-layout-login {
+        grid-template-columns: minmax(560px, 680px) minmax(380px, 460px);
+    }
+
+    .auth-panel {
+        padding: 44px 48px;
+    }
+
+    .illustration-card {
+        min-height: 440px;
+    }
+
+    .illustration-card img {
+        width: 260px;
+    }
+
+    .two-column-layout {
+        grid-template-columns: minmax(640px, 760px) minmax(280px, 340px);
+        gap: 96px;
+    }
+
+    .reservation-layout {
+        grid-template-columns: minmax(680px, 820px) minmax(300px, 360px);
+        gap: 88px;
+    }
+
+    .reservation-panel {
+        padding: 44px 48px;
+    }
+
+    .staff-image {
+        width: 320px;
+        height: 460px;
+    }
+
+    .service-detail-layout {
+        grid-template-columns: minmax(720px, 860px) minmax(360px, 440px);
+        gap: 72px;
+    }
+
+    .service-detail-card {
+        min-height: 540px;
+        padding: 36px 42px;
+    }
+
+    .service-detail-card h1 {
+        font-size: 36px;
+    }
+
+    .service-info-block h2 {
+        font-size: 20px;
+    }
+
+    .service-info-block p {
+        font-size: 13px;
+    }
+
+    .lab-image {
+        width: 100%;
+        height: 270px;
+    }
+
+    .white-info-card {
+        min-height: 128px;
+    }
+
+    .result-layout {
+        grid-template-columns: minmax(700px, 860px) 240px;
+        gap: 96px;
+    }
+
+    .result-card {
+        padding: 42px 46px;
+    }
+
+    .result-body {
+        grid-template-columns: 220px 1fr;
+        gap: 48px;
+    }
+
+    .checkmark {
+        width: 170px;
+        height: 170px;
+    }
+
+    .result-body dl div {
+        font-size: 15px;
+    }
+}

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 520" role="img" aria-labelledby="title">
+    <title id="title">Petugas reservasi</title>
+    <rect width="360" height="520" rx="10" fill="#d7e6f1"/>
+    <rect x="36" y="48" width="230" height="410" rx="13" fill="#edf4f8"/>
+    <circle cx="138" cy="152" r="50" fill="#2f435d"/>
+    <path d="M70 380c11-97 55-146 128-146 50 0 86 26 108 78" fill="#ffffff" stroke="#2f435d" stroke-width="9" stroke-linecap="round"/>
+    <path d="M96 169c24 37 74 42 101 0v79H96z" fill="#fff" stroke="#2f435d" stroke-width="7"/>
+    <rect x="184" y="268" width="125" height="178" rx="8" fill="#ffffff" stroke="#87a2b7" stroke-width="5"/>
+    <path d="M205 306h78M205 338h78M205 370h78M205 402h48" stroke="#8fa4b6" stroke-width="8" stroke-linecap="round"/>
+    <rect x="120" y="430" width="220" height="58" rx="6" fill="#2f435d"/>
+    <rect x="137" y="447" width="50" height="12" fill="#dfe8f0"/>
+    <rect x="204" y="447" width="112" height="12" fill="#dfe8f0"/>
+    <rect x="137" y="468" width="179" height="10" fill="#9ab0c5"/>
+</svg>

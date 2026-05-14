@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" role="img" aria-labelledby="title">
+    <title id="title">Gedung klinik</title>
+    <defs>
+        <linearGradient id="sky" x1="0" x2="1">
+            <stop offset="0" stop-color="#b9d1df"/>
+            <stop offset="1" stop-color="#eef5f9"/>
+        </linearGradient>
+    </defs>
+    <rect width="720" height="320" fill="url(#sky)"/>
+    <rect y="240" width="720" height="80" fill="#8ea9a0"/>
+    <rect x="95" y="86" width="420" height="165" fill="#f4f2ec"/>
+    <rect x="130" y="55" width="125" height="196" fill="#e2ded6"/>
+    <rect x="266" y="35" width="150" height="216" fill="#d6d0c6"/>
+    <rect x="468" y="116" width="115" height="135" fill="#f6f3ec"/>
+    <rect x="96" y="172" width="487" height="36" fill="#f0f2f5"/>
+    <text x="222" y="198" fill="#d74739" font-family="Arial, sans-serif" font-size="34" font-weight="700">EMERGENCY</text>
+    <g fill="#a7b8c6">
+        <rect x="152" y="83" width="39" height="40"/>
+        <rect x="216" y="83" width="39" height="40"/>
+        <rect x="287" y="69" width="39" height="40"/>
+        <rect x="356" y="69" width="39" height="40"/>
+        <rect x="498" y="143" width="39" height="40"/>
+    </g>
+    <rect x="290" y="215" width="88" height="36" fill="#5c6f82"/>
+    <path d="M0 260h720" stroke="#d4dfe8" stroke-width="7"/>
+</svg>

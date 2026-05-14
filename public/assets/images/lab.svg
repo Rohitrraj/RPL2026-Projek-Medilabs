@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 310" role="img" aria-labelledby="title">
+    <title id="title">Laboratorium</title>
+    <rect width="520" height="310" fill="#cfe3ee"/>
+    <rect x="0" y="222" width="520" height="88" fill="#e6eef3"/>
+    <rect x="320" y="32" width="110" height="206" rx="8" fill="#c7d3df"/>
+    <rect x="341" y="54" width="68" height="38" fill="#9eb6c7"/>
+    <rect x="341" y="110" width="68" height="38" fill="#9eb6c7"/>
+    <rect x="342" y="166" width="68" height="38" fill="#9eb6c7"/>
+    <path d="M88 178c55-20 104-37 143-52 35-14 73-7 88 21 17 32-6 64-43 68-47 5-109 5-188-1z" fill="#fff" stroke="#2f435d" stroke-width="7"/>
+    <path d="M132 177l106-42" stroke="#2f86f6" stroke-width="16" stroke-linecap="round"/>
+    <circle cx="258" cy="130" r="24" fill="#2f435d"/>
+    <path d="M246 89l25 70" stroke="#ffffff" stroke-width="9" stroke-linecap="round"/>
+    <rect x="43" y="214" width="236" height="35" rx="4" fill="#2f435d"/>
+    <rect x="53" y="224" width="80" height="9" fill="#dfe8f0"/>
+</svg>
