@@ -3,25 +3,33 @@
 @section('title', 'MediLabs - Daftar Layanan')
 
 @section('content')
-    <section class="services-index-page">
+    <section class="services-list-page">
         <div class="section-heading">
             <h1>Daftar Layanan Pemeriksaan</h1>
             <p>Pilih layanan pemeriksaan laboratorium sesuai kebutuhan pasien.</p>
         </div>
 
-        <div class="services-index-grid">
+        <div class="services-list-grid">
             @foreach ($services as $service)
-                <a
-                    class="dark-panel services-index-card"
-                    href="{{ $service['route'] }}"
-                    style="--service-bg: url('{{ asset($service['image']) }}')"
-                >
-                    <div class="services-index-content">
-                        <h2>{{ $service['title'] }}</h2>
-                        <p>{{ $service['text'] }}</p>
+                @php
+                    $images = [
+                        'hematologi-lengkap' => 'assets/images/laypophematologi.jpeg',
+                        'gula-darah-puasa' => 'assets/images/laypopguladarah.jpg',
+                        'profil-lipid-lengkap' => 'assets/images/laypopkolesterol.jpg',
+                        'asam-urat' => 'assets/images/laypopasamurat.png',
+                    ];
+                    $image = $images[$service->slug] ?? 'assets/images/laypophematologi.jpeg';
+                @endphp
 
-                        <div class="services-index-footer">
-                            <strong>{{ $service['price'] }}</strong>
+                <a class="services-list-card" href="{{ route('services.show', $service->slug) }}">
+                    <img class="services-list-image" src="{{ asset($image) }}" alt="{{ $service->name }}">
+
+                    <div class="services-list-body">
+                        <h2>{{ $service->name }}</h2>
+                        <p>{{ $service->description }}</p>
+
+                        <div class="services-list-footer">
+                            <strong>Rp{{ number_format($service->price, 0, ',', '.') }}</strong>
                             <span class="button button-primary">Detail</span>
                         </div>
                     </div>

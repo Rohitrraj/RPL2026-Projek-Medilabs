@@ -8,11 +8,6 @@
 </head>
 <body>
     @php
-        /*
-         | Ganti logo kecil MediLabs dari sini.
-         | Contoh:
-         | $brandLogo = 'assets/images/logo-baru.png';
-         */
         $brandLogo = 'assets/images/logo.png';
     @endphp
 
@@ -27,25 +22,42 @@
             </a>
 
             <nav class="main-nav" aria-label="Navigasi utama">
-                <a class="{{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">
-                    Beranda
-                </a>
+                <a class="{{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Beranda</a>
+                <a class="{{ request()->routeIs('services.*') ? 'active' : '' }}" href="{{ route('services.index') }}">Layanan</a>
+                <a class="{{ request()->routeIs('patients.*') || request()->routeIs('reservations.create') ? 'active' : '' }}" href="{{ route('patients.create') }}">Reservasi</a>
+                <a class="{{ request()->routeIs('reservations.status') || request()->routeIs('reservations.history') ? 'active' : '' }}" href="{{ route('reservations.status') }}">Cek Status</a>
 
-                <a class="{{ request()->routeIs('services.*') ? 'active' : '' }}" href="{{ route('services.index') }}">
-                    Layanan
-                </a>
-
-                <a class="{{ request()->routeIs('patients.create') || request()->routeIs('reservations.create') ? 'active' : '' }}" href="{{ route('patients.create') }}">
-                    Reservasi
-                </a>
-
-                <a class="{{ request()->routeIs('reservations.status') || request()->routeIs('reservations.history') ? 'active' : '' }}" href="{{ route('reservations.status') }}">
-                    Cek Status
-                </a>
+                @auth
+                    <a class="{{ request()->routeIs('profile') ? 'active' : '' }}" href="{{ route('profile') }}">Profile</a>
+                    @if(auth()->user()->role === 'admin')
+                        <a href="{{ route('admin.dashboard') }}">Admin</a>
+                    @endif
+                    <form class="nav-logout-form" action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit">Logout</button>
+                    </form>
+                @else
+                    <a class="{{ request()->routeIs('login') ? 'active' : '' }}" href="{{ route('login') }}">Login</a>
+                @endauth
             </nav>
         </header>
 
         <main class="page-content">
+            @if (session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+
+            @if ($errors->any())
+                <div class="alert alert-error">
+                    <strong>Data belum valid.</strong>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             @yield('content')
         </main>
 

@@ -31,15 +31,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($reservations as $reservation)
+                    @forelse ($reservations as $reservation)
                         <tr>
-                            <td>{{ $reservation['code'] }}</td>
-                            <td>{{ $reservation['patient'] }}</td>
-                            <td>{{ $reservation['test'] }}</td>
-                            <td>{{ $reservation['date'] }} {{ $reservation['hour'] }}</td>
-                            <td>{{ $reservation['status'] }}</td>
+                            <td>{{ $reservation->code }}</td>
+                            <td>{{ $reservation->patient->full_name ?? '-' }}</td>
+                            <td>{{ $reservation->labTest->name ?? '-' }}</td>
+                            <td>{{ optional($reservation->reservation_date)->format('d M Y') }} {{ substr((string) $reservation->reservation_time, 0, 5) }}</td>
+                            <td>{{ $reservation->status }}</td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="5">Belum ada data reservasi.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

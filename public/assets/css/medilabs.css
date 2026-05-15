@@ -3569,3 +3569,263 @@ body {
 .feature-image-icon {
     transition: transform 0.2s ease;
 }
+/* Backend 25% integration helpers */
+.alert {
+    margin: 0 0 20px;
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.alert ul {
+    margin: 8px 0 0 18px;
+    padding: 0;
+}
+
+.alert-success {
+    background: #dff7e8;
+    color: #14532d;
+    border: 1px solid #86efac;
+}
+
+.alert-error {
+    background: #fee2e2;
+    color: #7f1d1d;
+    border: 1px solid #fca5a5;
+}
+
+.nav-logout-form,
+.admin-logout-form,
+.admin-sidebar-logout-form,
+.inline-status-form {
+    margin: 0;
+}
+
+.nav-logout-form button,
+.admin-logout-form button,
+.admin-sidebar-logout-form button {
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    padding: 0;
+}
+
+.inline-status-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.inline-status-form select {
+    min-height: 34px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0 8px;
+}
+
+.admin-search-card .button {
+    margin-top: 14px;
+}
+
+.auth-panel input,
+.patient-panel input,
+.patient-panel select,
+.patient-panel textarea,
+.reservation-panel input,
+.reservation-panel select,
+.reservation-panel textarea {
+    outline: none;
+}
+
+/* =========================================================
+   PATCH BACKEND 25% UX FIX
+   - pasien muncul di reservasi
+   - jenis tes tanpa harga di dropdown
+   - halaman layanan tampil jelas
+   - profile pengguna
+========================================================= */
+
+.form-helper-note {
+    margin: -8px 0 14px 236px;
+    color: #e5edf5;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.form-helper-note a {
+    color: #8dc2ff;
+    text-decoration: underline;
+}
+
+.services-list-page {
+    width: 100%;
+}
+
+.services-list-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.services-list-card {
+    display: flex;
+    min-height: 380px;
+    overflow: hidden;
+    flex-direction: column;
+    border-radius: 12px;
+    background: var(--panel);
+    color: #fff;
+    box-shadow: 0 12px 24px rgba(18, 31, 49, 0.08);
+}
+
+.services-list-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.services-list-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 22px 22px 24px;
+}
+
+.services-list-body h2 {
+    margin: 0 0 12px;
+    color: #fff;
+    font-size: 21px;
+    line-height: 1.15;
+}
+
+.services-list-body p {
+    margin: 0;
+    color: #e1e9f2;
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.services-list-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: auto;
+}
+
+.services-list-footer strong {
+    color: #fff;
+    font-size: 15px;
+}
+
+.profile-page {
+    display: grid;
+    gap: 28px;
+}
+
+.profile-header h1 {
+    margin: 0 0 8px;
+    color: #172033;
+    font-size: 36px;
+    line-height: 1.1;
+}
+
+.profile-header p {
+    margin: 0;
+    color: #536174;
+    font-size: 14px;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px;
+}
+
+.profile-card {
+    min-height: 300px;
+    padding: 32px;
+}
+
+.profile-card h2,
+.profile-history-card h2 {
+    margin: 0 0 20px;
+    font-size: 24px;
+}
+
+.profile-card dl {
+    margin: 0;
+}
+
+.profile-card dl div {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 16px;
+    margin-bottom: 12px;
+    color: #eef4fb;
+    font-size: 14px;
+}
+
+.profile-card dt {
+    font-weight: 700;
+}
+
+.profile-card dd {
+    margin: 0;
+}
+
+.profile-empty {
+    margin: 0 0 18px;
+    color: #e1e9f2;
+}
+
+.profile-history-card {
+    padding: 28px 32px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 10px 22px rgba(34, 47, 66, 0.08);
+}
+
+.profile-history-card table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.profile-history-card th,
+.profile-history-card td {
+    padding: 13px 14px;
+    border-bottom: 1px solid #d9e0e8;
+    text-align: left;
+    font-size: 13px;
+}
+
+.profile-history-card th {
+    background: var(--panel);
+    color: #fff;
+}
+
+.profile-history-card td {
+    color: #243247;
+    font-weight: 600;
+}
+
+@media (max-width: 900px) {
+    .form-helper-note {
+        margin-left: 0;
+    }
+
+    .services-list-grid,
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-card dl div {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+}

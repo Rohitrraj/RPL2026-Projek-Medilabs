@@ -12,8 +12,9 @@
         <form class="dark-panel admin-search-card manage-search-card" action="{{ route('admin.reservations.manage') }}" method="get">
             <label>
                 <span>Cari Kode Reservasi</span>
-                <input type="text" name="code" value="A01000">
+                <input type="text" name="code" value="{{ request('code') }}" placeholder="A01000">
             </label>
+            <button class="button admin-button" type="submit">Cari</button>
         </form>
 
         <div class="table-card admin-table-card manage-table-card">
@@ -26,19 +27,36 @@
                         <th>Tanggal</th>
                         <th>Jam</th>
                         <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($reservations as $reservation)
+                    @forelse ($reservations as $reservation)
                         <tr>
-                            <td>{{ $reservation['code'] }}</td>
-                            <td>{{ $reservation['patient'] }}</td>
-                            <td>{{ $reservation['test'] }}</td>
-                            <td>{{ $reservation['date'] }}</td>
-                            <td>{{ $reservation['hour'] }}</td>
-                            <td>{{ $reservation['status'] }}</td>
+                            <td>{{ $reservation->code }}</td>
+                            <td>{{ $reservation->patient->full_name ?? '-' }}</td>
+                            <td>{{ $reservation->labTest->name ?? '-' }}</td>
+                            <td>{{ optional($reservation->reservation_date)->format('d M Y') }}</td>
+                            <td>{{ substr((string) $reservation->reservation_time, 0, 5) }}</td>
+                            <td>{{ $reservation->status }}</td>
+                            <td>
+                                <form action="{{ route('admin.reservations.update-status', $reservation) }}" method="POST" class="inline-status-form">
+                                    @csrf
+                                    @method('PATCH')
+                                    <select name="status">
+                                        @foreach (['Menunggu', 'Terjadwal', 'Diproses', 'Selesai', 'Dibatalkan'] as $status)
+                                            <option value="{{ $status }}" @selected($reservation->status === $status)>{{ $status }}</option>
+                                        @endforeach
+                                    </select>
+                                    <button class="button admin-button" type="submit">Simpan</button>
+                                </form>
+                            </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="7">Belum ada data reservasi.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -46,10 +64,8 @@
         <div class="quick-actions">
             <h2>Aksi Cepat</h2>
             <div>
-                <button class="button admin-button" type="button">Konfirmasi</button>
-                <button class="button admin-button" type="button">Ubah ke Diproses</button>
-                <button class="button admin-button" type="button">Selesai</button>
-                <button class="button admin-button" type="button">Batalkan</button>
+                <a class="button admin-button" href="{{ route('admin.reservations.manage') }}">Refresh Data</a>
+                <a class="button admin-button" href="{{ route('admin.reservations.status') }}">Cek Detail</a>
             </div>
         </div>
     </section>

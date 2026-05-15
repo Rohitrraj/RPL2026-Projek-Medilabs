@@ -4,32 +4,33 @@
 
 @section('content')
     <section class="auth-layout">
-        <form class="dark-panel auth-panel" action="{{ route('login') }}" method="get">
+        <form class="dark-panel auth-panel" action="{{ route('register.store') }}" method="POST">
+            @csrf
             <h1>Daftar Akun</h1>
 
             <label>
                 <span>Nama Lengkap</span>
-                <input type="text" name="name" placeholder="Masukkan nama lengkap">
+                <input type="text" name="name" value="{{ old('name') }}" placeholder="Masukkan nama lengkap" required>
             </label>
 
             <label>
                 <span>Email</span>
-                <input type="email" name="email" placeholder="nama@gmail.com">
+                <input type="email" name="email" value="{{ old('email') }}" placeholder="nama@gmail.com" required>
             </label>
 
             <label>
                 <span>No. Telepon</span>
-                <input type="tel" name="phone" placeholder="08xxxxxxxxxx">
+                <input type="tel" name="phone" value="{{ old('phone') }}" placeholder="08xxxxxxxxxx">
             </label>
 
             <label>
                 <span>Password</span>
-                <input type="password" name="password" placeholder="Minimal 8 karakter">
+                <input type="password" name="password" placeholder="Minimal 8 karakter" required>
             </label>
 
             <label>
                 <span>Konfirmasi Password</span>
-                <input type="password" name="password_confirmation" placeholder="Ulangi Password">
+                <input type="password" name="password_confirmation" placeholder="Ulangi Password" required>
             </label>
 
             <button class="button button-primary" type="submit">Daftar</button>

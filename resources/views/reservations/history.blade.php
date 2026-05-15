@@ -11,7 +11,7 @@
 
         <form class="history-search-fixed" action="{{ route('reservations.history') }}" method="get">
             <label for="history-code">Cari Kode</label>
-            <input id="history-code" type="text" name="code" placeholder="Masukkan kode reservasi">
+            <input id="history-code" type="text" name="code" value="{{ request('code') }}" placeholder="Masukkan kode reservasi">
             <button class="button button-primary" type="submit">Cari</button>
         </form>
 
@@ -28,19 +28,23 @@
                 </thead>
 
                 <tbody>
-                    @foreach ($reservations as $item)
+                    @forelse ($reservations as $item)
                         <tr>
-                            <td>{{ $item['Kode'] }}</td>
-                            <td>{{ $item['Jenis Tes'] }}</td>
-                            <td>{{ $item['Tanggal'] }}</td>
-                            <td>{{ $item['Jam'] }}</td>
+                            <td>{{ $item->code }}</td>
+                            <td>{{ $item->labTest->name ?? '-' }}</td>
+                            <td>{{ optional($item->reservation_date)->format('d M Y') }}</td>
+                            <td>{{ substr((string) $item->reservation_time, 0, 5) }}</td>
                             <td>
                                 <span class="history-status-badge">
-                                    {{ $item['Status'] }}
+                                    {{ $item->status }}
                                 </span>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="5">Belum ada data reservasi.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -50,17 +54,17 @@
 
             <div class="history-summary-grid">
                 <div>
-                    <strong>1</strong>
+                    <strong>{{ $reservations->whereIn('status', ['Menunggu', 'Terjadwal', 'Diproses'])->count() }}</strong>
                     <span>Aktif</span>
                 </div>
 
                 <div>
-                    <strong>1</strong>
+                    <strong>{{ $reservations->where('status', 'Selesai')->count() }}</strong>
                     <span>Selesai</span>
                 </div>
 
                 <div>
-                    <strong>1</strong>
+                    <strong>{{ $reservations->where('status', 'Menunggu')->count() }}</strong>
                     <span>Menunggu</span>
                 </div>
             </div>

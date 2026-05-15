@@ -10,7 +10,7 @@
             <div class="result-body">
                 <div class="checkmark" aria-hidden="true"></div>
                 <dl>
-                    @foreach ($reservation as $label => $value)
+                    @foreach ($reservationData as $label => $value)
                         <div>
                             <dt>{{ $label }}</dt>
                             <dd>{{ $value }}</dd>

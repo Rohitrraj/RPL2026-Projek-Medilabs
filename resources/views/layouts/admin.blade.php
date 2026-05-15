@@ -13,7 +13,10 @@
                 <img src="{{ asset('assets/images/logo.png') }}" alt="MediLabs logo">
                 <span>MediLabs Admin Panel</span>
             </a>
-            <a href="{{ route('home') }}">Logout</a>
+            <form class="admin-logout-form" action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit">Logout</button>
+            </form>
         </header>
 
         <div class="admin-layout">
@@ -30,10 +33,28 @@
                     <a href="{{ route('reservations.history') }}">Lihat Semua</a>
                 </nav>
 
-                <a class="admin-sidebar-logout" href="{{ route('home') }}">Logout</a>
+                <form class="admin-sidebar-logout-form" action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button class="admin-sidebar-logout" type="submit">Logout</button>
+                </form>
             </aside>
 
             <main class="admin-page">
+                @if (session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-error">
+                        <strong>Data belum valid.</strong>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 @yield('content')
             </main>
         </div>

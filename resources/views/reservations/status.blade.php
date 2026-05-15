@@ -11,7 +11,7 @@
 
                 <div class="status-form-row">
                     <label for="code">Kode Reservasi</label>
-                    <input id="code" type="text" name="code" placeholder="Masukkan kode reservasi">
+                    <input id="code" type="text" name="code" value="{{ request('code') }}" placeholder="Masukkan kode reservasi">
                 </div>
 
                 <div class="status-form-row">
@@ -32,20 +32,24 @@
         <article class="dark-panel status-detail-fixed">
             <h2>Detail Reservasi</h2>
 
-            <dl>
-                @foreach ($reservation as $label => $value)
-                    <div>
-                        <dt>{{ $label }}</dt>
-                        <dd>{{ $value }}</dd>
-                    </div>
-                @endforeach
-            </dl>
+            @if ($reservation)
+                <dl>
+                    @foreach ($reservationData as $label => $value)
+                        <div>
+                            <dt>{{ $label }}</dt>
+                            <dd>{{ $value }}</dd>
+                        </div>
+                    @endforeach
+                </dl>
 
-            <div class="status-action-row">
-                <button class="button button-secondary" type="button" data-print>Cetak Bukti</button>
-                <a class="button button-primary" href="{{ route('reservations.history') }}">Lihat Riwayat</a>
-                <a class="button button-dark" href="{{ route('home') }}">Kembali</a>
-            </div>
+                <div class="status-action-row">
+                    <button class="button button-secondary" type="button" data-print>Cetak Bukti</button>
+                    <a class="button button-primary" href="{{ route('reservations.history') }}">Lihat Riwayat</a>
+                    <a class="button button-dark" href="{{ route('home') }}">Kembali</a>
+                </div>
+            @else
+                <p>Belum ada data reservasi yang dapat ditampilkan.</p>
+            @endif
         </article>
     </section>
 @endsection

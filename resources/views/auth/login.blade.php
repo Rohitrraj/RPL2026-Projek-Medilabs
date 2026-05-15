@@ -4,17 +4,18 @@
 
 @section('content')
     <section class="auth-layout auth-layout-login">
-        <form class="dark-panel auth-panel" action="{{ route('home') }}" method="get">
+        <form class="dark-panel auth-panel" action="{{ route('login.store') }}" method="POST">
+            @csrf
             <h1>Login</h1>
 
             <label>
                 <span>Email</span>
-                <input type="email" name="email" placeholder="nama@gmail.com">
+                <input type="email" name="email" value="{{ old('email') }}" placeholder="nama@gmail.com" required>
             </label>
 
             <label>
                 <span>Password</span>
-                <input type="password" name="password" placeholder="Minimal 8 karakter">
+                <input type="password" name="password" placeholder="Minimal 8 karakter" required>
             </label>
 
             <button class="button button-primary full-button" type="submit">Login</button>

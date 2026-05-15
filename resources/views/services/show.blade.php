@@ -3,15 +3,23 @@
 @section('title', 'MediLabs - Layanan Populer')
 
 @section('content')
+    @php
+        $serviceName = $service->name ?? 'Hematologi Lengkap';
+        $description = $service->description ?? 'Pemeriksaan darah komprehensif untuk mengevaluasi komponen darah.';
+        $benefit = $service->benefit ?? 'Membantu mendeteksi kondisi kesehatan melalui pemeriksaan laboratorium.';
+        $preparation = $service->preparation ?? 'Ikuti arahan petugas sebelum pemeriksaan.';
+        $price = $service->price ?? 145000;
+    @endphp
+
     <section class="service-detail-layout">
         <article class="dark-panel service-detail-card">
-            <h1>Hematologi Lengkap</h1>
+            <h1>{{ $serviceName }}</h1>
 
             <div class="service-info-block">
                 <span class="line-icon clipboard-icon"></span>
                 <div>
                     <h2>Nama Layanan</h2>
-                    <p>Hematologi Lengkap</p>
+                    <p>{{ $serviceName }}</p>
                 </div>
             </div>
 
@@ -19,7 +27,7 @@
                 <span class="line-icon list-icon"></span>
                 <div>
                     <h2>Deskripsi</h2>
-                    <p>Hematologi lengkap adalah pemeriksaan darah komprehensif untuk mengevaluasi komponen darah, seperti hemoglobin, eritrosit, leukosit, trombosit, dan hematokrit.</p>
+                    <p>{{ $description }}</p>
                 </div>
             </div>
 
@@ -27,7 +35,7 @@
                 <span class="line-icon pulse-icon"></span>
                 <div>
                     <h2>Manfaat Pemeriksaan</h2>
-                    <p>Tes ini membantu mendeteksi infeksi, anemia, leukemia, hingga gangguan pembekuan darah.</p>
+                    <p>{{ $benefit }}</p>
                 </div>
             </div>
 
@@ -35,7 +43,7 @@
                 <span class="line-icon calendar-icon"></span>
                 <div>
                     <h2>Persiapan Sebelum Pemeriksaan</h2>
-                    <p>Puasa tidak diperlukan, namun pasien disarankan menjaga kondisi tubuh dan mengikuti arahan petugas.</p>
+                    <p>{{ $preparation }}</p>
                 </div>
             </div>
 
@@ -43,7 +51,7 @@
                 <span class="line-icon tag-icon"></span>
                 <div>
                     <h2>Estimasi Harga</h2>
-                    <p>Rp.145.000</p>
+                    <p>Rp{{ number_format($price, 0, ',', '.') }}</p>
                 </div>
             </div>
 
