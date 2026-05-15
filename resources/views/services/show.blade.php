@@ -55,7 +55,7 @@
                 </div>
             </div>
 
-            <a class="button button-primary service-button" href="{{ route('patients.create') }}">Reservasi Sekarang</a>
+            <a class="button button-primary service-button" href="{{ route('reservations.create') }}">Reservasi Sekarang</a>
         </article>
 
         <aside class="service-side">

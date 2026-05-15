@@ -8,22 +8,25 @@
             @csrf
             <h1>Form Reservasi</h1>
 
-            <label>
-                <span>Pilih Pasien</span>
-                <select name="patient_id" required>
-                    <option value="">Pilih Pasien</option>
-                    @foreach ($patients as $patient)
-                        <option value="{{ $patient->id }}" @selected(old('patient_id', session('current_patient_id')) == $patient->id)>
-                            {{ $patient->full_name }}
-                        </option>
-                    @endforeach
-                </select>
-            </label>
-
-            @if ($patients->isEmpty())
-                <p class="form-helper-note">
-                    Data pasien belum tersedia. Silakan isi <a href="{{ route('patients.create') }}">Form Data Pasien</a> terlebih dahulu.
-                </p>
+            @if ($patients->count() === 1)
+                @php $patient = $patients->first(); @endphp
+                <label>
+                    <span>Pasien</span>
+                    <div class="readonly-value">{{ $patient->full_name }}</div>
+                    <input type="hidden" name="patient_id" value="{{ $patient->id }}">
+                </label>
+            @else
+                <label>
+                    <span>Pilih Pasien</span>
+                    <select name="patient_id" required>
+                        <option value="">Pilih Pasien</option>
+                        @foreach ($patients as $patient)
+                            <option value="{{ $patient->id }}" @selected(old('patient_id', session('current_patient_id')) == $patient->id)>
+                                {{ $patient->full_name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </label>
             @endif
 
             <label>

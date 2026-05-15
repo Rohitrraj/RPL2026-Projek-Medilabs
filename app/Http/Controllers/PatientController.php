@@ -10,17 +10,35 @@ use Illuminate\View\View;
 
 class PatientController extends Controller
 {
-    public function create(): View
+    public function create(Request $request): View|RedirectResponse
     {
-        $patient = Auth::check()
-            ? Patient::where('user_id', Auth::id())->latest()->first()
-            : null;
+        if (! Auth::check()) {
+            return redirect()
+                ->route('login')
+                ->with('success', 'Silakan login terlebih dahulu sebelum mengisi data pasien.');
+        }
+
+        $patient = Patient::where('user_id', Auth::id())->latest()->first();
+
+        // Jika data pasien sudah ada, halaman /data-pasien tidak perlu menampilkan ulang form kosong.
+        // Form hanya ditampilkan untuk edit melalui /data-pasien?edit=1.
+        if ($patient && ! $request->boolean('edit')) {
+            return redirect()
+                ->route('profile.show')
+                ->with('success', 'Data pasien sudah tersimpan. Data dapat dilihat melalui halaman profil.');
+        }
 
         return view('patients.create', compact('patient'));
     }
 
     public function store(Request $request): RedirectResponse
     {
+        if (! Auth::check()) {
+            return redirect()
+                ->route('login')
+                ->with('success', 'Silakan login terlebih dahulu sebelum menyimpan data pasien.');
+        }
+
         $validated = $request->validate([
             'full_name' => ['required', 'string', 'max:100'],
             'nik' => ['required', 'string', 'max:30'],
@@ -31,18 +49,15 @@ class PatientController extends Controller
             'blood_type' => ['nullable', 'string', 'max:5'],
         ]);
 
-        $patient = Patient::where('nik', $validated['nik'])->first();
-
-        if ($patient) {
-            $patient->update(array_merge($validated, ['user_id' => Auth::id()]));
-        } else {
-            $patient = Patient::create(array_merge($validated, ['user_id' => Auth::id()]));
-        }
+        $patient = Patient::updateOrCreate(
+            ['user_id' => Auth::id()],
+            $validated
+        );
 
         session(['current_patient_id' => $patient->id]);
 
         return redirect()
             ->route('reservations.create')
-            ->with('success', 'Data pasien berhasil disimpan ke database. Silakan lanjutkan reservasi.');
+            ->with('success', 'Data pasien berhasil disimpan. Silakan lanjutkan reservasi.');
     }
 }

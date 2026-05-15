@@ -3640,186 +3640,126 @@ body {
     outline: none;
 }
 
-/* =========================================================
-   PATCH BACKEND 25% UX FIX
-   - pasien muncul di reservasi
-   - jenis tes tanpa harga di dropdown
-   - halaman layanan tampil jelas
-   - profile pengguna
-========================================================= */
-
-.form-helper-note {
-    margin: -8px 0 14px 236px;
-    color: #e5edf5;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.form-helper-note a {
-    color: #8dc2ff;
-    text-decoration: underline;
-}
-
-.services-list-page {
-    width: 100%;
-}
-
-.services-list-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 28px;
-}
-
-.services-list-card {
-    display: flex;
-    min-height: 380px;
+/* ==== Backend phase fixes: services, profile, and visible dynamic content ==== */
+.service-card-bg,
+.services-index-card {
+    position: relative;
     overflow: hidden;
-    flex-direction: column;
-    border-radius: 12px;
-    background: var(--panel);
-    color: #fff;
-    box-shadow: 0 12px 24px rgba(18, 31, 49, 0.08);
-}
-
-.services-list-image {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-}
-
-.services-list-body {
     display: flex;
-    flex: 1;
-    flex-direction: column;
-    padding: 22px 22px 24px;
+    align-items: flex-end;
+    background-image:
+        linear-gradient(180deg, rgba(47, 67, 93, 0.2), rgba(47, 67, 93, 0.96)),
+        var(--service-bg) !important;
+    background-size: cover !important;
+    background-position: center !important;
 }
 
-.services-list-body h2 {
-    margin: 0 0 12px;
+.service-card-bg::before,
+.services-index-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.08), rgba(15, 23, 42, 0.68));
+    z-index: 0;
+}
+
+.service-card-content,
+.services-index-content {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+}
+
+.service-card-content h3,
+.service-card-content p,
+.services-index-content h2,
+.services-index-content p,
+.services-index-footer strong {
+    display: block;
     color: #fff;
-    font-size: 21px;
-    line-height: 1.15;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
 }
 
-.services-list-body p {
-    margin: 0;
-    color: #e1e9f2;
-    font-size: 12px;
-    line-height: 1.55;
+.services-index-card {
+    min-height: 300px;
+    padding: 28px;
+    border-radius: 12px;
 }
 
-.services-list-footer {
+.services-index-content h2 {
+    margin: 0 0 10px;
+    font-size: 22px;
+}
+
+.services-index-content p {
+    margin: 0 0 22px;
+    color: #e5edf5;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.services-index-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 14px;
-    margin-top: auto;
+    gap: 16px;
 }
 
-.services-list-footer strong {
-    color: #fff;
-    font-size: 15px;
+.profile-layout {
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.profile-page {
-    display: grid;
-    gap: 28px;
-}
-
-.profile-header h1 {
-    margin: 0 0 8px;
-    color: #172033;
-    font-size: 36px;
-    line-height: 1.1;
-}
-
-.profile-header p {
-    margin: 0;
-    color: #536174;
-    font-size: 14px;
+.profile-card {
+    width: min(980px, 100%);
+    padding: 42px 48px;
 }
 
 .profile-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 26px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 36px;
 }
 
-.profile-card {
-    min-height: 300px;
-    padding: 32px;
-}
-
-.profile-card h2,
-.profile-history-card h2 {
-    margin: 0 0 20px;
-    font-size: 24px;
+.profile-card h2 {
+    margin: 0 0 18px;
+    font-size: 22px;
 }
 
 .profile-card dl {
     margin: 0;
+    display: grid;
+    gap: 12px;
 }
 
 .profile-card dl div {
     display: grid;
     grid-template-columns: 150px 1fr;
     gap: 16px;
-    margin-bottom: 12px;
-    color: #eef4fb;
-    font-size: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .profile-card dt {
+    color: #d8e1eb;
     font-weight: 700;
 }
 
 .profile-card dd {
     margin: 0;
-}
-
-.profile-empty {
-    margin: 0 0 18px;
-    color: #e1e9f2;
-}
-
-.profile-history-card {
-    padding: 28px 32px;
-    border-radius: 12px;
-    background: #fff;
-    box-shadow: 0 10px 22px rgba(34, 47, 66, 0.08);
-}
-
-.profile-history-card table {
-    width: 100%;
-    border-collapse: collapse;
-    overflow: hidden;
-    border-radius: 8px;
-}
-
-.profile-history-card th,
-.profile-history-card td {
-    padding: 13px 14px;
-    border-bottom: 1px solid #d9e0e8;
-    text-align: left;
-    font-size: 13px;
-}
-
-.profile-history-card th {
-    background: var(--panel);
     color: #fff;
 }
 
-.profile-history-card td {
-    color: #243247;
-    font-weight: 600;
+.profile-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 34px;
 }
 
-@media (max-width: 900px) {
-    .form-helper-note {
-        margin-left: 0;
-    }
-
-    .services-list-grid,
+@media (max-width: 800px) {
     .profile-grid {
         grid-template-columns: 1fr;
     }
@@ -3827,5 +3767,195 @@ body {
     .profile-card dl div {
         grid-template-columns: 1fr;
         gap: 4px;
+    }
+}
+/* =========================================================
+   PATCH BACKEND SESSION 2 - MEDILABS
+   Perbaikan layanan card, flow reservasi, dan tampilan data pasien.
+   File ini aman ditempel di akhir public/assets/css/medilabs.css.
+========================================================= */
+
+.service-card-popular-bg,
+.services-index-card-bg {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    isolation: isolate;
+    background-image:
+        linear-gradient(180deg, rgba(38, 59, 86, 0.58), rgba(29, 45, 68, 0.94)),
+        var(--service-bg);
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+}
+
+.service-card-popular-bg::before,
+.services-index-card-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background-image: var(--service-bg);
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.03);
+    transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.service-card-popular-bg::after,
+.services-index-card-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(25, 39, 59, 0.35), rgba(25, 39, 59, 0.9));
+}
+
+.service-card-popular-bg:hover::before,
+.services-index-card-bg:hover::before {
+    transform: scale(1.08);
+    filter: saturate(1.1);
+}
+
+.service-card-overlay,
+.services-index-overlay {
+    position: relative;
+    z-index: 1;
+}
+
+.service-card-popular-bg {
+    min-height: 132px;
+    padding: 0;
+}
+
+.service-card-overlay {
+    min-height: 132px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 18px;
+}
+
+.service-card-overlay h3 {
+    margin: 0 0 7px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.service-card-overlay p {
+    margin: 0;
+    color: #e8eef6;
+    font-size: 10px;
+    line-height: 1.35;
+}
+
+.services-index-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 28px;
+    align-items: stretch;
+}
+
+.services-index-card-bg {
+    min-height: 320px;
+    display: block;
+}
+
+.services-index-overlay {
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    padding: 26px;
+}
+
+.services-index-overlay h2 {
+    margin: 0 0 12px;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.services-index-overlay p {
+    margin: 0;
+    color: #e1e9f2;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.services-index-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: auto;
+}
+
+.services-index-footer strong {
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.readonly-value {
+    width: 100%;
+    min-height: 31px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    border-radius: 4px;
+    background: #dce6ef;
+    color: #111827;
+    font-weight: 600;
+}
+
+.profile-card {
+    padding: 38px 42px;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px;
+}
+
+.profile-card dl {
+    margin: 0;
+    display: grid;
+    gap: 10px;
+}
+
+.profile-card dl div {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 14px;
+}
+
+.profile-card dt {
+    color: #cbd5e1;
+    font-weight: 700;
+}
+
+.profile-card dd {
+    margin: 0;
+    color: #ffffff;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 14px;
+    margin-top: 34px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 1100px) {
+    .services-index-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 720px) {
+    .services-index-grid,
+    .profile-grid {
+        grid-template-columns: 1fr;
     }
 }

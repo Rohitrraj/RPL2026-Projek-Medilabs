@@ -12,12 +12,21 @@ use Illuminate\View\View;
 
 class ReservationController extends Controller
 {
-    public function create(): View
+    public function create(): View|RedirectResponse
     {
-        // Tahap 25%: tampilkan seluruh data pasien yang sudah masuk database
-        // agar bukti koneksi frontend -> backend -> database mudah diverifikasi.
-        // Pembatasan per akun pasien dapat dikembangkan pada tahap role/auth lanjutan.
-        $patients = Patient::latest()->get();
+        if (! Auth::check()) {
+            return redirect()
+                ->route('login')
+                ->with('success', 'Silakan login terlebih dahulu sebelum membuat reservasi.');
+        }
+
+        $patients = Patient::where('user_id', Auth::id())->latest()->get();
+
+        if ($patients->isEmpty()) {
+            return redirect()
+                ->route('patients.create')
+                ->with('success', 'Silakan isi data pasien terlebih dahulu sebelum membuat reservasi.');
+        }
 
         $labTests = LabTest::where('status', 'active')->orderBy('name')->get();
         $hours = $this->availableHours();
@@ -27,6 +36,12 @@ class ReservationController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        if (! Auth::check()) {
+            return redirect()
+                ->route('login')
+                ->with('success', 'Silakan login terlebih dahulu sebelum membuat reservasi.');
+        }
+
         $validated = $request->validate([
             'patient_id' => ['required', 'exists:patients,id'],
             'lab_test_id' => ['required', 'exists:lab_tests,id'],
@@ -35,9 +50,13 @@ class ReservationController extends Controller
             'notes' => ['nullable', 'string'],
         ]);
 
+        $patient = Patient::where('id', $validated['patient_id'])
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
+
         $reservation = Reservation::create([
             'code' => $this->generateReservationCode(),
-            'patient_id' => $validated['patient_id'],
+            'patient_id' => $patient->id,
             'lab_test_id' => $validated['lab_test_id'],
             'reservation_date' => $validated['reservation_date'],
             'reservation_time' => $validated['reservation_time'],
@@ -48,7 +67,7 @@ class ReservationController extends Controller
 
         return redirect()
             ->route('reservations.result', $reservation)
-            ->with('success', 'Reservasi berhasil dibuat dan tersimpan ke database.');
+            ->with('success', 'Reservasi berhasil dibuat.');
     }
 
     public function result(Reservation $reservation): View
@@ -71,8 +90,11 @@ class ReservationController extends Controller
                 ->first();
         }
 
-        if (! $reservation) {
-            $reservation = Reservation::with(['patient', 'labTest'])->latest()->first();
+        if (! $reservation && Auth::check()) {
+            $reservation = Reservation::with(['patient', 'labTest'])
+                ->whereHas('patient', fn ($query) => $query->where('user_id', Auth::id()))
+                ->latest()
+                ->first();
         }
 
         return view('reservations.status', [
@@ -98,19 +120,6 @@ class ReservationController extends Controller
         return view('reservations.history', compact('reservations'));
     }
 
-    private function availableHours(): array
-    {
-        $hours = [];
-        $start = strtotime('08:00');
-        $end = strtotime('15:00');
-
-        for ($time = $start; $time <= $end; $time += 30 * 60) {
-            $hours[] = date('H:i', $time);
-        }
-
-        return $hours;
-    }
-
     private function generateReservationCode(): string
     {
         $nextNumber = Reservation::count() + 1;
@@ -121,6 +130,23 @@ class ReservationController extends Controller
     private function generateQueueNumber(): string
     {
         return 'A-' . str_pad((string) (Reservation::count() + 1), 2, '0', STR_PAD_LEFT);
+    }
+
+    private function availableHours(): array
+    {
+        $hours = [];
+
+        for ($hour = 7; $hour <= 19; $hour++) {
+            foreach (['00', '30'] as $minute) {
+                if ($hour === 19 && $minute === '30') {
+                    continue;
+                }
+
+                $hours[] = sprintf('%02d:%s', $hour, $minute);
+            }
+        }
+
+        return $hours;
     }
 
     private function reservationDetailArray(Reservation $reservation): array

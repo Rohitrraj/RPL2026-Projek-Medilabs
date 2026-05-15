@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MediLabsController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,9 +14,9 @@ Route::get('/daftar', [MediLabsController::class, 'register'])->name('register')
 Route::post('/daftar', [AuthController::class, 'register'])->name('register.store');
 
 Route::get('/login', [MediLabsController::class, 'login'])->name('login');
-Route::get('/profile', [MediLabsController::class, 'profile'])->middleware('auth')->name('profile');
 Route::post('/login', [AuthController::class, 'login'])->name('login.store');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
 
 Route::get('/data-pasien', [PatientController::class, 'create'])->name('patients.create');
 Route::post('/data-pasien', [PatientController::class, 'store'])->name('patients.store');

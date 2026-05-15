@@ -24,11 +24,11 @@
             <nav class="main-nav" aria-label="Navigasi utama">
                 <a class="{{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Beranda</a>
                 <a class="{{ request()->routeIs('services.*') ? 'active' : '' }}" href="{{ route('services.index') }}">Layanan</a>
-                <a class="{{ request()->routeIs('patients.*') || request()->routeIs('reservations.create') ? 'active' : '' }}" href="{{ route('patients.create') }}">Reservasi</a>
+                <a class="{{ request()->routeIs('patients.*') || request()->routeIs('reservations.create') ? 'active' : '' }}" href="{{ route('reservations.create') }}">Reservasi</a>
                 <a class="{{ request()->routeIs('reservations.status') || request()->routeIs('reservations.history') ? 'active' : '' }}" href="{{ route('reservations.status') }}">Cek Status</a>
 
                 @auth
-                    <a class="{{ request()->routeIs('profile') ? 'active' : '' }}" href="{{ route('profile') }}">Profile</a>
+                    <a class="{{ request()->routeIs('profile.*') ? 'active' : '' }}" href="{{ route('profile.show') }}">Profil</a>
                     @if(auth()->user()->role === 'admin')
                         <a href="{{ route('admin.dashboard') }}">Admin</a>
                     @endif
