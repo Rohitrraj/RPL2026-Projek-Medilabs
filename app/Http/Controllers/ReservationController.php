@@ -120,6 +120,30 @@ class ReservationController extends Controller
         return view('reservations.history', compact('reservations'));
     }
 
+    public function destroy(Reservation $reservation): RedirectResponse
+    {
+        if (! Auth::check()) {
+            return redirect()
+                ->route('login')
+                ->with('success', 'Silakan login terlebih dahulu.');
+        }
+
+        if (Auth::user()->role !== 'admin') {
+            $owned = $reservation->patient
+                && (int) $reservation->patient->user_id === (int) Auth::id();
+
+            if (! $owned) {
+                abort(403, 'Reservasi ini bukan milik akun Anda.');
+            }
+        }
+
+        $reservation->delete();
+
+        return redirect()
+            ->route('reservations.history')
+            ->with('success', 'Reservasi berhasil dihapus dari riwayat.');
+    }
+
     private function generateReservationCode(): string
     {
         $nextNumber = Reservation::count() + 1;
