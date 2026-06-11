@@ -14,13 +14,11 @@ class AdminMiddleware
         if (! Auth::check()) {
             return redirect()
                 ->route('login')
-                ->with('success', 'Silakan login sebagai admin terlebih dahulu.');
+                ->with('success', 'Silakan login terlebih dahulu.');
         }
 
         if (Auth::user()->role !== 'admin') {
-            return redirect()
-                ->route('home')
-                ->withErrors(['access' => 'Akses admin hanya tersedia untuk pengguna dengan role admin.']);
+            abort(403, 'Akses hanya untuk admin.');
         }
 
         return $next($request);

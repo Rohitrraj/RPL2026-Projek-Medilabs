@@ -1,0 +1,942 @@
+/* =========================================================
+   PATIENT, RESERVATION, RESULT, STATUS, HISTORY
+========================================================= */
+
+.two-column-layout,
+.reservation-layout,
+.result-layout {
+    min-height: 500px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================================================
+   PATIENT FORM
+========================================================= */
+
+.two-column-layout {
+    grid-template-columns: minmax(680px, 820px) minmax(280px, 340px);
+    gap: 88px;
+}
+
+.patient-panel {
+    min-height: 520px;
+    padding: 42px 46px;
+    border-radius: 8px;
+}
+
+.patient-panel h1 {
+    margin-bottom: 28px;
+    font-size: 32px;
+}
+
+.patient-panel label {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 18px;
+    color: #d8e1eb;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.patient-panel input,
+.patient-panel select,
+.patient-panel textarea {
+    width: 100%;
+    min-height: 38px;
+    border: 0;
+    border-radius: 5px;
+    background: #dfe8f0;
+    color: #182233;
+    padding: 0 12px;
+    font: 500 13px/1.4 Poppins, "Segoe UI", Arial, sans-serif;
+    outline: none;
+}
+
+.patient-panel textarea {
+    min-height: 80px;
+    resize: vertical;
+    padding-top: 10px;
+}
+
+.patient-panel .form-button {
+    display: flex;
+    width: max-content;
+    margin: 26px auto 0;
+}
+
+.patient-info-card {
+    width: 320px;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 42px 34px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 18px rgba(50, 63, 80, 0.12);
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.patient-info-card img {
+    width: 170px;
+    margin: 0 auto 28px;
+}
+
+.patient-info-card p {
+    margin: 0;
+    color: #374253;
+    font-size: 13px;
+    line-height: 1.5;
+    font-weight: 700;
+}
+
+.form-helper-note {
+    margin: -8px 0 14px 200px;
+    color: #e5edf5;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.form-helper-note a {
+    color: #8dc2ff;
+    text-decoration: underline;
+}
+
+/* =========================================================
+   RESERVATION FORM
+========================================================= */
+
+.reservation-layout {
+    grid-template-columns: minmax(720px, 860px) minmax(300px, 360px);
+    gap: 88px;
+    align-items: stretch;
+}
+
+.reservation-panel,
+.reservation-form-card,
+.form-reservation-card {
+    min-height: 560px;
+    padding: 42px 46px;
+    border-radius: 8px;
+}
+
+.reservation-panel h1 {
+    margin-bottom: 28px;
+    font-size: 32px;
+}
+
+.reservation-panel label {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    color: #d8e1eb;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.reservation-panel input,
+.reservation-panel select,
+.reservation-panel textarea {
+    width: 100%;
+    min-height: 38px;
+    border: 0;
+    border-radius: 5px;
+    background: #dfe8f0;
+    color: #182233;
+    padding: 0 12px;
+    font: 500 13px/1.4 Poppins, "Segoe UI", Arial, sans-serif;
+    outline: none;
+}
+
+.reservation-panel textarea {
+    min-height: 90px;
+    resize: vertical;
+    padding-top: 10px;
+}
+
+.reservation-panel .wide-label {
+    margin-top: 28px;
+}
+
+.reservation-panel .form-button {
+    display: flex;
+    width: max-content;
+    margin: 26px auto 0;
+}
+
+.reservation-media {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.staff-image {
+    width: 320px;
+    height: 460px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* =========================================================
+   RESULT PAGE
+========================================================= */
+
+.result-layout {
+    grid-template-columns: minmax(680px, 840px) 230px;
+    gap: 92px;
+}
+
+.result-card {
+    min-height: 320px;
+    padding: 42px 46px;
+    box-shadow: 0 0 0 4px #0698ff;
+    border-radius: 8px;
+}
+
+.result-card h1 {
+    margin-bottom: 26px;
+    font-size: 30px;
+}
+
+.result-body {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    gap: 46px;
+    align-items: center;
+}
+
+.checkmark {
+    width: 170px;
+    height: 170px;
+    position: relative;
+    border-radius: 50%;
+    background: #020305;
+}
+
+.checkmark::before {
+    content: "";
+    position: absolute;
+    width: 78px;
+    height: 40px;
+    left: 42px;
+    top: 52px;
+    border-left: 8px solid #2f435d;
+    border-bottom: 8px solid #2f435d;
+    transform: rotate(-45deg);
+}
+
+.result-body dl {
+    margin: 0;
+    padding-left: 27px;
+    border-left: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.result-body dl div {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 16px;
+    margin-bottom: 9px;
+    color: #eef4fb;
+    font-size: 14px;
+    align-items: start;
+}
+
+.result-body dt {
+    font-weight: 500;
+}
+
+.result-body dt::after {
+    content: " :";
+    float: right;
+}
+
+.result-body dd {
+    margin: 0;
+}
+
+.result-actions {
+    display: grid;
+    align-content: center;
+    gap: 24px;
+}
+
+.result-actions .button {
+    width: 170px;
+}
+
+/* =========================================================
+   TABLE BASE
+========================================================= */
+
+.table-card {
+    width: 100%;
+    overflow-x: auto;
+    background: var(--panel);
+    border-radius: 8px;
+}
+
+.med-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #f4f8fc;
+    table-layout: fixed;
+}
+
+.med-table th,
+.med-table td {
+    padding: 12px 14px;
+    border: 2px solid #d7dde5;
+    font-size: 13px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.med-table th {
+    font-size: 13px;
+    font-weight: 800;
+    text-align: center;
+}
+
+/* =========================================================
+   HISTORY PAGE
+========================================================= */
+
+.history-page-fixed {
+    width: min(1180px, 100%);
+    margin: 0 auto;
+    display: grid;
+    gap: 24px;
+}
+
+.history-heading-fixed {
+    margin-bottom: 16px;
+}
+
+.history-heading-fixed h1 {
+    margin: 0 0 10px;
+    color: #172033;
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.history-heading-fixed p {
+    margin: 0;
+    color: #526174;
+    font-size: 15px;
+}
+
+.history-search-fixed {
+    width: min(690px, 100%);
+    min-height: 62px;
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr) 120px;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background: #2f4968;
+    border-radius: 8px;
+    box-shadow: 0 8px 18px rgba(17, 24, 39, 0.12);
+}
+
+.history-search-fixed label {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.history-search-fixed input {
+    width: 100%;
+    min-height: 34px;
+    border: 0;
+    border-radius: 4px;
+    padding: 0 12px;
+    font-size: 13px;
+    outline: none;
+    background: #f1f5f9;
+    color: #111827;
+}
+
+.history-search-fixed .button {
+    width: 100%;
+    height: 38px;
+}
+
+.history-table-fixed {
+    width: 100%;
+    overflow-x: auto;
+    background: #2f4968;
+    border-radius: 8px;
+    box-shadow: 0 8px 18px rgba(17, 24, 39, 0.12);
+}
+
+.history-table-fixed table {
+    width: 100%;
+    min-width: 780px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.history-table-fixed th,
+.history-table-fixed td {
+    padding: 16px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    color: #ffffff;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 14px;
+    line-height: 1.4;
+    white-space: normal;
+}
+
+.history-table-fixed th {
+    background: rgba(255, 255, 255, 0.08);
+    font-weight: 800;
+}
+
+.history-table-fixed tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.history-table-fixed tbody tr:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.history-status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 92px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(59, 130, 246, 0.22);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.history-summary-fixed {
+    width: 100%;
+    padding: 22px 24px;
+    background: #2f4968;
+    color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 8px 18px rgba(17, 24, 39, 0.12);
+}
+
+.history-summary-fixed h2 {
+    margin: 0 0 18px;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.history-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.history-summary-grid div {
+    min-height: 88px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 18px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.09);
+}
+
+.history-summary-grid strong {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 30px;
+    line-height: 1;
+}
+
+.history-summary-grid span {
+    color: #dbe7f4;
+    font-size: 14px;
+}
+
+/* =========================================================
+   STATUS PAGE
+========================================================= */
+
+.status-page-fixed,
+.status-info-fixed,
+.status-detail-fixed,
+.history-table-fixed,
+.history-summary-fixed,
+.patient-info-card {
+    animation: mlRevFadeUp 0.45s ease both;
+}
+
+.status-page-fixed {
+    width: min(1120px, 100%);
+    margin: 0 auto;
+    display: grid;
+    gap: 30px;
+}
+
+.status-top-grid {
+    display: grid;
+    grid-template-columns: minmax(560px, 670px) minmax(320px, 420px);
+    gap: 40px;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.status-form-fixed {
+    padding: 38px 42px;
+    border-radius: 8px;
+}
+
+.status-form-fixed h1 {
+    margin: 0 0 14px;
+    font-size: 36px;
+    line-height: 1.1;
+}
+
+.status-form-fixed p {
+    margin: 0 0 26px;
+    color: #e1e9f2;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.status-form-row {
+    display: grid;
+    grid-template-columns: 160px minmax(0, 1fr);
+    gap: 18px;
+    align-items: center;
+    margin-bottom: 17px;
+}
+
+.status-form-row label {
+    display: block;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.status-form-row input {
+    width: 100%;
+    min-height: 38px;
+    border: 0;
+    border-radius: 4px;
+    padding: 0 12px;
+    font-size: 13px;
+    outline: none;
+    background: #dfe8f0;
+    color: #172033;
+}
+
+.status-submit {
+    min-width: 150px;
+    margin-top: 8px;
+}
+
+.status-info-fixed {
+    min-height: 100%;
+    padding: 38px 42px;
+    border: 1px solid #8e9aab;
+    border-radius: 8px;
+    background: #ffffff;
+}
+
+.status-info-fixed h2 {
+    margin: 0 0 22px;
+    color: #243a56;
+    font-size: 28px;
+    line-height: 1.1;
+}
+
+.status-info-fixed p {
+    margin: 0 0 18px;
+    color: #172033;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.status-detail-fixed,
+.status-empty-fixed {
+    width: min(860px, 100%);
+    margin: 0 auto;
+    padding: 36px 44px;
+    border-radius: 8px;
+}
+
+.status-empty-fixed h2 {
+    margin: 0 0 14px;
+    font-size: 28px;
+}
+
+.status-empty-fixed p {
+    margin: 0;
+    color: #dfe8f0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.print-card {
+    width: min(860px, 100%);
+}
+
+.print-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 24px;
+    align-items: start;
+    margin-bottom: 28px;
+}
+
+.print-heading-block h2 {
+    margin: 0;
+    font-size: 28px;
+    line-height: 1.1;
+}
+
+.print-heading-block p {
+    margin: 10px 0 0;
+    color: #dfe8f0;
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 320px;
+}
+
+.status-action-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.status-action-row .button {
+    min-width: 130px;
+    text-align: center;
+}
+
+.print-body {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 28px;
+    align-items: start;
+}
+
+.print-checkmark {
+    display: grid;
+    place-items: center;
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    color: #f4f8fc;
+    font-size: 46px;
+    font-weight: 700;
+    margin-top: 8px;
+}
+
+.status-detail-fixed dl {
+    margin: 0;
+}
+
+.status-detail-fixed dl div {
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    gap: 12px;
+    padding: 6px 0;
+    color: #eef4fb;
+    font-size: 14px;
+    align-items: start;
+}
+
+.status-detail-fixed dt {
+    margin: 0;
+    font-weight: 500;
+}
+
+.status-detail-fixed dt::after {
+    content: " :";
+    float: right;
+}
+
+.status-detail-fixed dd {
+    margin: 0;
+    font-weight: 600;
+}
+
+.print-footer {
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.print-footer p {
+    margin: 0 0 6px;
+    color: #dfe8f0;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.no-print {
+    display: block;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1200px) and (min-width: 901px) {
+    .status-top-grid,
+    .two-column-layout,
+    .reservation-layout,
+    .result-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .status-detail-fixed,
+    .status-empty-fixed {
+        width: 100%;
+    }
+
+    .patient-info-card,
+    .staff-image {
+        width: 100%;
+        max-width: 520px;
+    }
+
+    .staff-image {
+        height: 360px;
+    }
+}
+
+@media (max-width: 900px) {
+    .two-column-layout,
+    .reservation-layout,
+    .result-layout,
+    .status-top-grid,
+    .history-summary-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .patient-panel label,
+    .reservation-panel label,
+    .status-form-row,
+    .history-search-fixed,
+    .status-detail-fixed dl div {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .patient-info-card,
+    .staff-image,
+    .status-detail-fixed,
+    .status-empty-fixed {
+        width: 100%;
+    }
+
+    .staff-image {
+        height: auto;
+    }
+
+    .result-body {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .result-body dl {
+        padding-left: 0;
+        border-left: 0;
+    }
+
+    .history-search-fixed {
+        align-items: stretch;
+    }
+
+    .print-header {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .print-heading-block p {
+        max-width: 100%;
+    }
+
+    .status-action-row {
+        justify-content: flex-start;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .status-action-row .button {
+        width: 100%;
+    }
+
+    .print-body {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .print-checkmark {
+        margin-top: 0;
+        margin-bottom: 8px;
+    }
+
+    .status-detail-fixed dt::after {
+        content: "";
+        float: none;
+    }
+
+    .med-table,
+    .history-table-fixed table {
+        min-width: 680px;
+    }
+}
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+@media print {
+    html,
+    body {
+        background: #ffffff !important;
+        color: #111827 !important;
+    }
+
+    .site-header,
+    .site-footer,
+    .alert,
+    .alert-success,
+    .alert-error,
+    .status-top-grid,
+    .history-search-fixed,
+    .result-actions,
+    .no-print {
+        display: none !important;
+    }
+
+    .app-shell,
+    .page-content,
+    .status-page-fixed,
+    .result-layout {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #ffffff !important;
+    }
+
+    .print-card,
+    .status-detail-fixed,
+    .result-card,
+    .dark-panel {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 16mm 14mm !important;
+        background: #ffffff !important;
+        color: #111827 !important;
+        border: 1px solid #d1d5db !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+
+    .print-header {
+        display: block !important;
+        margin-bottom: 18px !important;
+        padding-bottom: 12px !important;
+        border-bottom: 2px solid #d1d5db !important;
+    }
+
+    .print-heading-block h2 {
+        color: #111827 !important;
+        font-size: 28px !important;
+        margin: 0 !important;
+    }
+
+    .print-heading-block p,
+    .print-footer p {
+        color: #374151 !important;
+    }
+
+    .print-body {
+        grid-template-columns: 72px 1fr !important;
+        gap: 18px !important;
+    }
+
+    .print-checkmark {
+        width: 64px !important;
+        height: 64px !important;
+        background: #ffffff !important;
+        border: 2px solid #1f2937 !important;
+        color: #1f2937 !important;
+        font-size: 36px !important;
+    }
+
+    .status-detail-fixed dl,
+    .print-card dl,
+    .result-body dl {
+        margin: 0 !important;
+        padding-left: 0 !important;
+        border-left: 0 !important;
+    }
+
+    .status-detail-fixed dl div,
+    .print-card dl div,
+    .result-body dl div {
+        display: grid !important;
+        grid-template-columns: 170px 1fr !important;
+        gap: 12px !important;
+        padding: 7px 0 !important;
+        border-bottom: 1px solid #e5e7eb !important;
+        color: #111827 !important;
+        font-size: 14px !important;
+        margin-bottom: 0 !important;
+    }
+
+    .status-detail-fixed dt,
+    .status-detail-fixed dd,
+    .print-card dt,
+    .print-card dd,
+    .result-body dt,
+    .result-body dd {
+        color: #111827 !important;
+    }
+
+    .status-detail-fixed dt::after,
+    .print-card dt::after,
+    .result-body dt::after {
+        content: " :";
+        float: right;
+    }
+
+    .status-detail-fixed dd,
+    .print-card dd,
+    .result-body dd {
+        margin: 0 !important;
+        font-weight: 600 !important;
+    }
+
+    .print-footer {
+        margin-top: 18px !important;
+        padding-top: 14px !important;
+        border-top: 1px solid #d1d5db !important;
+    }
+
+    @page {
+        size: A4 portrait;
+        margin: 12mm;
+    }
+}

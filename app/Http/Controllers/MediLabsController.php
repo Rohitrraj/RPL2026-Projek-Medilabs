@@ -31,31 +31,50 @@ class MediLabsController extends Controller
     public function profile(): View
     {
         $user = Auth::user();
-        $patient = $user
-            ? Patient::where('user_id', $user->id)->latest()->first()
-            : null;
-
-        $reservations = Reservation::with(['patient', 'labTest'])
-            ->when($patient, fn ($query) => $query->where('patient_id', $patient->id))
-            ->latest()
-            ->limit(5)
-            ->get();
+        $patient = $this->currentPatient($user?->id);
+        $reservations = $this->recentReservationsForPatient($patient?->id);
 
         return view('profile', compact('user', 'patient', 'reservations'));
     }
 
     public function serviceIndex(): View
     {
-        $services = LabTest::where('status', 'active')->orderBy('name')->get();
+        $services = LabTest::where('status', 'active')
+            ->orderBy('name')
+            ->get();
 
         return view('services.index', compact('services'));
     }
 
     public function serviceDetail(?string $slug = null): View
     {
-        $service = LabTest::where('slug', $slug ?? 'hematologi-lengkap')->first();
+    $service = LabTest::where('status', 'active')
+        ->where('slug', $slug ?? 'hematologi-lengkap')
+        ->firstOrFail();
 
-        return view('services.show', compact('service'));
+    return view('services.show', compact('service'));
+    }
+
+    private function currentPatient(?int $userId): ?Patient
+    {
+        if (! $userId) {
+            return null;
+        }
+
+        return Patient::where('user_id', $userId)
+            ->latest()
+            ->first();
+    }
+
+    private function recentReservationsForPatient(?int $patientId)
+    {
+        return Reservation::with(['patient', 'labTest'])
+            ->when($patientId, function ($query) use ($patientId) {
+                $query->where('patient_id', $patientId);
+            })
+            ->latest()
+            ->limit(5)
+            ->get();
     }
 
     private function features(): array

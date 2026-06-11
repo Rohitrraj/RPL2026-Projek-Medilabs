@@ -12,16 +12,14 @@ class PatientController extends Controller
 {
     public function create(Request $request): View|RedirectResponse
     {
-        if (! Auth::check()) {
-            return redirect()
-                ->route('login')
-                ->with('success', 'Silakan login terlebih dahulu sebelum mengisi data pasien.');
+        if ($redirect = $this->ensureAuthenticated(
+            'Silakan login terlebih dahulu sebelum mengisi data pasien.'
+        )) {
+            return $redirect;
         }
 
-        $patient = Patient::where('user_id', Auth::id())->latest()->first();
+        $patient = $this->findCurrentPatient();
 
-        // Jika data pasien sudah ada, halaman /data-pasien tidak perlu menampilkan ulang form kosong.
-        // Form hanya ditampilkan untuk edit melalui /data-pasien?edit=1.
         if ($patient && ! $request->boolean('edit')) {
             return redirect()
                 ->route('profile.show')
@@ -33,21 +31,18 @@ class PatientController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        if (! Auth::check()) {
-            return redirect()
-                ->route('login')
-                ->with('success', 'Silakan login terlebih dahulu sebelum menyimpan data pasien.');
+        if ($redirect = $this->ensureAuthenticated(
+            'Silakan login terlebih dahulu sebelum menyimpan data pasien.'
+        )) {
+            return $redirect;
         }
 
-        $validated = $request->validate([
-            'full_name' => ['required', 'string', 'max:100'],
-            'nik' => ['required', 'string', 'max:30'],
-            'gender' => ['required', 'string', 'max:20'],
-            'birth_date' => ['nullable', 'date'],
-            'phone' => ['required', 'string', 'max:20'],
-            'address' => ['nullable', 'string'],
-            'blood_type' => ['nullable', 'string', 'max:5'],
-        ]);
+$validated = $request->validate(
+    $this->patientValidationRules(),
+    [
+        'nik.unique' => 'NIK sudah terdaftar dan tidak boleh digunakan oleh akun lain.',
+    ]
+);
 
         $patient = Patient::updateOrCreate(
             ['user_id' => Auth::id()],
@@ -60,4 +55,37 @@ class PatientController extends Controller
             ->route('reservations.create')
             ->with('success', 'Data pasien berhasil disimpan. Silakan lanjutkan reservasi.');
     }
+
+    private function ensureAuthenticated(string $message): ?RedirectResponse
+    {
+        if (Auth::check()) {
+            return null;
+        }
+
+        return redirect()
+            ->route('login')
+            ->with('success', $message);
+    }
+
+    private function findCurrentPatient(): ?Patient
+    {
+        return Patient::where('user_id', Auth::id())
+            ->latest()
+            ->first();
+    }
+
+private function patientValidationRules(): array
+{
+    $currentPatientId = Patient::where('user_id', Auth::id())->value('id');
+
+    return [
+        'full_name' => ['required', 'string', 'max:100'],
+        'nik' => ['required', 'string', 'max:30', 'unique:patients,nik,' . $currentPatientId],
+        'gender' => ['required', 'string', 'max:20'],
+        'birth_date' => ['nullable', 'date'],
+        'phone' => ['required', 'string', 'max:20'],
+        'address' => ['nullable', 'string'],
+        'blood_type' => ['nullable', 'string', 'max:5'],
+    ];
+  }   
 }

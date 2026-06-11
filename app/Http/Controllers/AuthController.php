@@ -12,12 +12,7 @@ class AuthController extends Controller
 {
     public function register(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'email', 'max:100', 'unique:users,email'],
-            'phone' => ['nullable', 'string', 'max:20'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        $validated = $request->validate($this->registerRules());
 
         User::create([
             'name' => $validated['name'],
@@ -34,10 +29,7 @@ class AuthController extends Controller
 
     public function login(Request $request): RedirectResponse
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required', 'string'],
-        ]);
+        $credentials = $request->validate($this->loginRules());
 
         if (! Auth::attempt($credentials)) {
             return back()
@@ -51,7 +43,9 @@ class AuthController extends Controller
             return redirect()->route('admin.dashboard');
         }
 
-        return redirect()->route('home')->with('success', 'Login berhasil.');
+        return redirect()
+            ->route('home')
+            ->with('success', 'Login berhasil.');
     }
 
     public function logout(Request $request): RedirectResponse
@@ -61,6 +55,26 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('home')->with('success', 'Logout berhasil.');
+        return redirect()
+            ->route('home')
+            ->with('success', 'Logout berhasil.');
+    }
+
+    private function registerRules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'email', 'max:100', 'unique:users,email'],
+            'phone' => ['nullable', 'string', 'max:20'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ];
+    }
+
+    private function loginRules(): array
+    {
+        return [
+            'email' => ['required', 'email'],
+            'password' => ['required', 'string'],
+        ];
     }
 }

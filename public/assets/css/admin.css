@@ -1,0 +1,503 @@
+/* =========================
+   ADMIN LAYOUT
+========================= */
+
+.admin-shell {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 64px 1fr 40px;
+    background: var(--page);
+    color: var(--ink);
+}
+
+.admin-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    background: var(--nav);
+    border-bottom: 1px solid #aeb5bd;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.admin-topbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 13px;
+    font-size: 22px;
+    color: #1d2430;
+}
+
+.admin-topbar-brand img {
+    width: 49px;
+    height: 35px;
+    border-radius: 5px;
+}
+
+.admin-layout {
+    display: grid;
+    grid-template-columns: 235px minmax(0, 1fr);
+    min-height: calc(100vh - 104px);
+}
+
+.admin-sidebar {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    padding: 28px 22px 30px;
+    background: #4d6985;
+    color: #fff;
+}
+
+.admin-logo-card {
+    width: 120px;
+    height: 86px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 28px;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.admin-logo-card img {
+    width: 88px;
+    object-fit: contain;
+}
+
+.admin-sidebar p {
+    margin: 0 0 18px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.admin-nav {
+    display: grid;
+    gap: 14px;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.admin-nav a {
+    display: block;
+    padding: 4px 0;
+    color: #fff;
+    text-decoration: none;
+    line-height: 1.4;
+}
+
+.admin-nav a.active,
+.admin-nav a:hover {
+    color: #dcecff;
+}
+
+.admin-nav a:last-child {
+    margin-bottom: 8px;
+}
+
+.admin-sidebar-logout {
+    margin-top: auto;
+    padding-top: 22px;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.admin-page {
+    width: 100%;
+    padding: 28px 32px 36px;
+}
+
+.admin-section {
+    width: 100%;
+    display: grid;
+    gap: 22px;
+}
+
+/* =========================
+   HEADINGS
+========================= */
+
+.admin-heading h1 {
+    margin: 0;
+    color: var(--panel);
+    font-size: 32px;
+    line-height: 1.05;
+}
+
+.admin-heading p {
+    margin: 6px 0 0;
+    color: #253348;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 15px;
+}
+
+.admin-subtitle,
+.admin-detail-card h2,
+.admin-patient-card h2 {
+    margin: 0 0 13px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.admin-subtitle {
+    color: var(--panel);
+}
+
+/* =========================
+   STATS
+========================= */
+
+.admin-stats-grid {
+    width: 100%;
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(160px, 1fr));
+    gap: 18px;
+}
+
+.admin-stat-card {
+    min-height: 100px;
+    display: grid;
+    place-items: center;
+    gap: 8px;
+    padding: 14px;
+    background: #4d6481;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+}
+
+.admin-stat-card span {
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.admin-stat-card strong {
+    font-size: 34px;
+    line-height: 1;
+}
+
+/* =========================
+   TABLES
+========================= */
+
+.table-card {
+    width: 100%;
+    overflow-x: auto;
+    background: var(--panel);
+    border-radius: 8px;
+}
+
+.admin-table-card,
+.manage-table-card {
+    width: 100%;
+    max-width: 100%;
+}
+
+.med-table {
+    width: 100%;
+    min-width: 980px;
+    border-collapse: collapse;
+    color: #f4f8fc;
+    table-layout: fixed;
+}
+
+.med-table th,
+.med-table td {
+    padding: 12px 14px;
+    border: 2px solid #d7dde5;
+    font-size: 13px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.med-table th {
+    font-size: 13px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.manage-table th:last-child,
+.manage-table td:last-child {
+    width: 250px;
+    min-width: 250px;
+}
+
+.manage-table td:last-child {
+    padding-right: 18px;
+}
+
+/* =========================
+   SEARCH / FILTER
+========================= */
+
+.admin-search-card,
+.manage-search-card {
+    width: min(420px, 100%);
+    padding: 22px 24px;
+}
+
+.admin-search-card label {
+    display: grid;
+    gap: 7px;
+    color: #eef4fb;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.admin-search-card input {
+    width: 100%;
+    min-height: 38px;
+    border: 0;
+    border-radius: 6px;
+    background: #dfe8f0;
+    color: #172033;
+    padding: 0 12px;
+    font: 600 13px/1 Poppins, "Segoe UI", Arial, sans-serif;
+}
+
+.admin-search-card .button {
+    margin-top: 14px;
+}
+.admin-search-card select,
+.admin-search-card textarea {
+    width: 100%;
+    border: 0;
+    border-radius: 6px;
+    background: #dfe8f0;
+    color: #172033;
+    padding: 10px 12px;
+    font: 600 13px/1.4 Poppins, "Segoe UI", Arial, sans-serif;
+}
+
+.admin-search-card textarea {
+    resize: vertical;
+}
+
+/* =========================
+   DETAIL CARDS
+========================= */
+
+.admin-status-grid {
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+}
+
+.admin-patient-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 20px 22px;
+}
+
+.admin-detail-card {
+    width: 100%;
+    min-height: 190px;
+    padding: 22px 25px;
+}
+
+.admin-detail-card dl,
+.admin-patient-card dl {
+    margin: 0;
+}
+
+.admin-detail-card dl div,
+.admin-patient-card dl div {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 12px;
+    margin-bottom: 8px;
+    color: #eef4fb;
+    font-size: 13px;
+}
+
+.admin-detail-card dt::after,
+.admin-patient-card dt::after {
+    content: " :";
+    float: right;
+}
+
+.admin-detail-card dd,
+.admin-patient-card dd {
+    margin: 0;
+}
+
+/* =========================
+   BUTTONS & ACTIONS
+========================= */
+
+.admin-action-row,
+.quick-actions > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+}
+
+.admin-button {
+    min-width: 120px;
+    background: #334a67;
+    color: #fff;
+}
+
+.quick-actions {
+    display: grid;
+    gap: 12px;
+}
+
+.quick-actions h2 {
+    color: var(--panel);
+    margin: 0;
+    font-size: 20px;
+}
+
+/* =========================
+   INLINE STATUS FORM
+========================= */
+
+.admin-logout-form,
+.admin-sidebar-logout-form,
+.inline-status-form {
+    margin: 0;
+}
+
+.admin-logout-form button,
+.admin-sidebar-logout-form button {
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    padding: 0;
+}
+
+.admin-sidebar-logout-form button {
+    display: inline-block;
+    padding-top: 4px;
+    line-height: 1.4;
+}
+
+.inline-status-form {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    flex-wrap: nowrap;
+    min-width: 220px;
+}
+
+.inline-status-form select {
+    flex: 1;
+    min-width: 130px;
+    min-height: 40px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0 10px;
+    background: #fff;
+    color: #172033;
+}
+
+.inline-status-form .button,
+.inline-status-form button {
+    flex-shrink: 0;
+    min-width: 90px;
+    min-height: 40px;
+    padding: 0 16px;
+    border-radius: 6px;
+    border: 0;
+    background: #334a67;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.admin-footer {
+    display: grid;
+    place-items: center;
+    background: var(--nav);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+    .admin-stats-grid {
+        grid-template-columns: repeat(2, minmax(160px, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    .admin-layout,
+    .admin-status-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-shell {
+        grid-template-rows: auto 1fr 40px;
+    }
+
+    .admin-topbar {
+        min-height: 64px;
+        padding: 12px 18px;
+    }
+
+    .admin-layout {
+        display: block;
+    }
+
+    .admin-sidebar {
+        min-height: auto;
+        padding: 18px;
+    }
+
+    .admin-logo-card,
+    .admin-sidebar p,
+    .admin-sidebar-logout {
+        display: none;
+    }
+
+    .admin-nav {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .admin-page {
+        padding: 22px 16px 28px;
+    }
+
+    .admin-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .med-table {
+        min-width: 760px;
+    }
+}
+
+@media print {
+    .admin-topbar,
+    .admin-sidebar,
+    .admin-action-row,
+    .quick-actions {
+        display: none;
+    }
+
+    .admin-layout {
+        display: block;
+    }
+
+    .admin-page {
+        padding: 0;
+    }
+}

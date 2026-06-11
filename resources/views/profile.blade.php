@@ -4,10 +4,11 @@
 
 @section('content')
     <section class="profile-page">
-        <div class="profile-header">
-            <h1>Profile Pengguna</h1>
-            <p>Halaman ini menampilkan data akun, data pasien, dan riwayat reservasi terbaru.</p>
-        </div>
+        <x-page-header
+            title="Profile Pengguna"
+            description="Halaman ini menampilkan data akun, data pasien, dan riwayat reservasi terbaru."
+            wrapper-class="profile-header"
+        />
 
         <div class="profile-grid">
             <article class="dark-panel profile-card">

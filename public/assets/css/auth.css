@@ -1,0 +1,212 @@
+/* Authentication page styles. */
+
+.auth-layout {
+    min-height: 484px;
+    display: grid;
+    align-items: center;
+}
+
+.auth-layout {
+    grid-template-columns: minmax(420px, 520px) 360px;
+    gap: 76px;
+    justify-content: center;
+}
+
+.auth-layout-login {
+    grid-template-columns: minmax(420px, 520px) 392px;
+}
+
+.auth-panel {
+    padding: 31px 38px;
+}
+
+.auth-panel label {
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+    color: #d8e1eb;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.auth-panel input {
+    width: 100%;
+    min-height: 31px;
+    border: 0;
+    border-radius: 5px;
+    background: #dfe8f0;
+    color: #182233;
+    padding: 0 11px;
+    font: 500 11px/1 Poppins, "Segoe UI", Arial, sans-serif;
+}
+
+.auth-panel button {
+    margin-left: 186px;
+    min-width: 152px;
+}
+
+.auth-layout-login .auth-panel button {
+    margin-left: 170px;
+    width: calc(100% - 170px);
+}
+
+.form-note {
+    margin: 14px 0 0 186px;
+    color: #e5edf5;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.auth-layout-login .form-note {
+    margin-left: 170px;
+}
+
+.form-note a {
+    color: #84bdfc;
+}
+
+.illustration-card {
+    min-height: 382px;
+    align-self: center;
+    padding: 36px 34px 29px;
+    background: #f9fbfd;
+    border-radius: 18px;
+    box-shadow: 0 10px 24px rgba(53, 67, 86, 0.12);
+    text-align: center;
+}
+
+.illustration-card img {
+    width: 210px;
+    margin: 0 auto 18px;
+}
+
+.illustration-card h2 {
+    margin: 0 0 7px;
+    color: var(--panel);
+    font-size: 13px;
+}
+
+.illustration-card p {
+    margin: 0 auto;
+    max-width: 230px;
+    color: #5a6674;
+    font-size: 10px;
+    line-height: 1.45;
+    font-weight: 600;
+}
+
+@media (max-width: 900px) {
+    .auth-layout,
+    .auth-layout-login {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .auth-panel label {
+        grid-template-columns: 1fr;
+        gap: 7px;
+    }
+
+    .auth-panel button,
+    .auth-layout-login .auth-panel button,
+    .form-note,
+    .auth-layout-login .form-note {
+        margin-left: 0;
+    }
+
+    .auth-layout-login .auth-panel button {
+        width: 100%;
+    }
+
+    .illustration-card {
+        width: 100%;
+    }
+}
+
+@media (min-width: 901px) {
+    .auth-layout {
+        grid-template-columns: minmax(390px, 520px) minmax(300px, 360px);
+        gap: clamp(40px, 6vw, 76px);
+    }
+
+    .auth-layout-login {
+        grid-template-columns: minmax(390px, 520px) minmax(320px, 392px);
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+    .auth-layout,
+    .auth-layout-login {
+        grid-template-columns: minmax(360px, 1.2fr) minmax(260px, .8fr);
+        gap: 34px;
+    }
+
+    .auth-panel {
+        padding: 30px 32px;
+    }
+
+    .auth-panel label {
+        grid-template-columns: 145px 1fr;
+        gap: 14px;
+        font-size: 14px;
+    }
+
+    .auth-panel button {
+        margin-left: 159px;
+    }
+
+    .auth-layout-login .auth-panel button {
+        margin-left: 145px;
+        width: calc(100% - 145px);
+    }
+
+    .form-note {
+        margin-left: 159px;
+    }
+
+    .auth-layout-login .form-note {
+        margin-left: 145px;
+    }
+}
+
+@media (min-width: 901px) and (max-width: 980px) {
+    .auth-layout,
+    .auth-layout-login {
+        grid-template-columns: minmax(350px, 1fr) minmax(240px, .72fr);
+        gap: 28px;
+    }
+
+    .illustration-card {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+}
+
+@media (min-width: 901px) {
+    .auth-layout {
+        grid-template-columns: minmax(560px, 680px) minmax(360px, 440px);
+        gap: 96px;
+    }
+
+    .auth-layout-login {
+        grid-template-columns: minmax(560px, 680px) minmax(380px, 460px);
+    }
+
+    .auth-panel {
+        padding: 44px 48px;
+    }
+
+    .illustration-card {
+        min-height: 440px;
+    }
+
+    .illustration-card img {
+        width: 260px;
+    }
+}
+
+.auth-panel input {
+    outline: none;
+}
