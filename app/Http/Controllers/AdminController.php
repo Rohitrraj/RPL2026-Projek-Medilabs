@@ -7,7 +7,9 @@ use App\Models\Patient;
 use App\Models\Reservation;
 use App\Support\ReservationStatus;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -48,17 +50,64 @@ class AdminController extends Controller
         return view('admin.status', compact('reservation'));
     }
 
-    public function manage(Request $request): View
-    {
-        $query = Reservation::with(['patient', 'labTest'])->latest();
-        $query = $this->applyReservationFilters($query, $request);
+public function manage(Request $request): View
+{
+    $filters = $request->validate([
+        'code' => [
+            'nullable',
+            'string',
+            'max:50',
+        ],
+        'patient' => [
+            'nullable',
+            'string',
+            'max:100',
+        ],
+        'status' => [
+            'nullable',
+            Rule::in(ReservationStatus::all()),
+        ],
+        'lab_test_id' => [
+            'nullable',
+            'integer',
+            Rule::exists('lab_tests', 'id'),
+        ],
+        'reservation_date' => [
+            'nullable',
+            'date',
+        ],
+        'sort' => [
+            'nullable',
+            Rule::in(['latest', 'oldest']),
+        ],
+    ]);
 
-        $reservations = $query->paginate(10)->withQueryString();
-        $labTests = LabTest::where('status', 'active')->orderBy('name')->get();
-        $statuses = $this->statuses();
+    $query = Reservation::query()
+        ->with(['patient', 'labTest']);
 
-        return view('admin.manage', compact('reservations', 'labTests', 'statuses'));
-    }
+    $this->applyReservationFilters($query, $filters);
+    $this->applyReservationSorting(
+        $query,
+        $filters['sort'] ?? 'latest'
+    );
+
+    $reservations = $query
+        ->paginate(10)
+        ->withQueryString();
+
+    $labTests = LabTest::query()
+        ->orderBy('name')
+        ->get(['id', 'name']);
+
+    $statuses = ReservationStatus::all();
+
+    return view('admin.manage', compact(
+        'reservations',
+        'labTests',
+        'statuses',
+        'filters'
+    ));
+}
 
     public function show(Reservation $reservation): View
     {
@@ -238,26 +287,80 @@ public function updateStatus(
         return $slug;
     }
 
-    private function applyReservationFilters($query, Request $request)
-    {
-        if ($request->filled('code')) {
-            $query->where('code', 'like', '%' . $request->code . '%');
+private function applyReservationFilters(
+    Builder $query,
+    array $filters
+): void {
+    $query->when(
+        $filters['code'] ?? null,
+        function (Builder $query, string $code) {
+            $query->where(
+                'code',
+                'like',
+                '%' . trim($code) . '%'
+            );
         }
+    );
 
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
+    $query->when(
+        $filters['patient'] ?? null,
+        function (Builder $query, string $patientName) {
+            $query->whereHas(
+                'patient',
+                function (Builder $patientQuery) use ($patientName) {
+                    $patientQuery->where(
+                        'full_name',
+                        'like',
+                        '%' . trim($patientName) . '%'
+                    );
+                }
+            );
         }
+    );
 
-        if ($request->filled('date')) {
-            $query->whereDate('reservation_date', $request->date);
+    $query->when(
+        $filters['status'] ?? null,
+        function (Builder $query, string $status) {
+            $query->where('status', $status);
         }
+    );
 
-        if ($request->filled('lab_test_id')) {
-            $query->where('lab_test_id', $request->lab_test_id);
+    $query->when(
+        $filters['lab_test_id'] ?? null,
+        function (Builder $query, int|string $labTestId) {
+            $query->where('lab_test_id', $labTestId);
         }
+    );
 
-        return $query;
+    $query->when(
+        $filters['reservation_date'] ?? null,
+        function (Builder $query, string $reservationDate) {
+            $query->whereDate(
+                'reservation_date',
+                $reservationDate
+            );
+        }
+    );
+}
+
+private function applyReservationSorting(
+    Builder $query,
+    string $sort
+): void {
+    if ($sort === 'oldest') {
+        $query
+            ->orderBy('reservation_date')
+            ->orderBy('reservation_time')
+            ->orderBy('id');
+
+        return;
     }
+
+    $query
+        ->orderByDesc('reservation_date')
+        ->orderByDesc('reservation_time')
+        ->orderByDesc('id');
+}
 
 private function statuses(): array
 {
