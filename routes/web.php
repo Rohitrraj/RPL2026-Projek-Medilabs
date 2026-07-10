@@ -17,36 +17,52 @@ Route::get('/', function () {
 })->name('home');
 
 Route::controller(MediLabsController::class)->group(function () {
-    Route::get('/daftar', 'register')->name('register');
-    Route::get('/login', 'login')->name('login');
-
     Route::get('/layanan', 'serviceIndex')->name('services.index');
     Route::get('/layanan/{slug}', 'serviceDetail')->name('services.show');
-
-    Route::get('/profile', 'profile')->name('profile.show');
 });
 
-Route::controller(AuthController::class)->group(function () {
-    Route::post('/daftar', 'register')->name('register.store');
-    Route::post('/login', 'login')->name('login.store');
-    Route::post('/logout', 'logout')->name('logout');
+Route::middleware('guest')->group(function () {
+    Route::controller(MediLabsController::class)->group(function () {
+        Route::get('/daftar', 'register')->name('register');
+        Route::get('/login', 'login')->name('login');
+    });
+
+    Route::controller(AuthController::class)->group(function () {
+        Route::post('/daftar', 'register')->name('register.store');
+        Route::post('/login', 'login')->name('login.store');
+    });
 });
 
-Route::controller(PatientController::class)->group(function () {
-    Route::get('/data-pasien', 'create')->name('patients.create');
-    Route::post('/data-pasien', 'store')->name('patients.store');
-});
 
-Route::controller(ReservationController::class)->group(function () {
-    Route::get('/reservasi', 'create')->name('reservations.create');
-    Route::post('/reservasi', 'store')->name('reservations.store');
+Route::get('/cek-status', [ReservationController::class, 'status'])
+    ->name('reservations.status');
 
-    Route::get('/hasil-reservasi/{reservation}', 'result')->name('reservations.result');
 
-    Route::get('/cek-status', 'status')->name('reservations.status');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [MediLabsController::class, 'profile'])
+        ->name('profile.show');
 
-    Route::get('/riwayat-reservasi', 'history')->name('reservations.history');
-    Route::delete('/riwayat-reservasi/{reservation}', 'destroy')->name('reservations.destroy');
+    Route::post('/logout', [AuthController::class, 'logout'])
+        ->name('logout');
+
+    Route::controller(PatientController::class)->group(function () {
+        Route::get('/data-pasien', 'create')->name('patients.create');
+        Route::post('/data-pasien', 'store')->name('patients.store');
+    });
+
+    Route::controller(ReservationController::class)->group(function () {
+        Route::get('/reservasi', 'create')->name('reservations.create');
+        Route::post('/reservasi', 'store')->name('reservations.store');
+
+        Route::get('/hasil-reservasi/{reservation}', 'result')
+            ->name('reservations.result');
+
+        Route::get('/riwayat-reservasi', 'history')
+            ->name('reservations.history');
+
+        Route::delete('/riwayat-reservasi/{reservation}', 'destroy')
+            ->name('reservations.destroy');
+    });
 });
 
 Route::prefix('admin')

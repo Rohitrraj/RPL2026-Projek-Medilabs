@@ -104,15 +104,17 @@ public function store(Request $request): RedirectResponse
 
 }
 
-    public function result(Reservation $reservation): View
-    {
-        $reservation->load(['patient', 'labTest']);
+public function result(Reservation $reservation): View
+{
+    $this->ensureReservationOwnedByCurrentUser($reservation);
 
-        return view('reservations.result', [
-            'reservation' => $reservation,
-            'reservationData' => $this->reservationDetailArray($reservation),
-        ]);
-    }
+    $reservation->loadMissing(['patient', 'labTest']);
+
+    return view('reservations.result', [
+        'reservation' => $reservation,
+        'reservationData' => $this->reservationDetailArray($reservation),
+    ]);
+}
 
     public function status(Request $request): View
     {
@@ -134,44 +136,47 @@ public function store(Request $request): RedirectResponse
         ]);
     }
 
-    public function history(Request $request): View
-    {
-        $query = Reservation::with(['patient', 'labTest'])->latest();
+public function history(Request $request): View
+{
+    $query = Reservation::with(['patient', 'labTest'])
+        ->whereHas('patient', function ($patientQuery) {
+            $patientQuery->where('user_id', Auth::id());
+        })
+        ->latest();
 
-        $query = $this->applyHistoryFilters($query, $request);
+    $query = $this->applyHistoryFilters($query, $request);
 
-        if (Auth::check() && Auth::user()->role !== 'admin') {
-            $query->whereHas('patient', function ($patientQuery) {
-                $patientQuery->where('user_id', Auth::id());
-            });
-        }
+    $reservations = $query->get();
 
-        $reservations = $query->get();
+    return view('reservations.history', compact('reservations'));
+}
 
-        return view('reservations.history', compact('reservations'));
-    }
+public function destroy(Reservation $reservation): RedirectResponse
+{
+    $this->ensureReservationOwnedByCurrentUser($reservation);
 
-    public function destroy(Reservation $reservation): RedirectResponse
-    {
-        if ($redirect = $this->ensureAuthenticated('Silakan login terlebih dahulu.')) {
-            return $redirect;
-        }
+    $reservation->delete();
 
-        if (Auth::user()->role !== 'admin') {
-            $owned = $reservation->patient
-                && (int) $reservation->patient->user_id === (int) Auth::id();
+    return redirect()
+        ->route('reservations.history')
+        ->with('success', 'Reservasi berhasil dihapus dari riwayat.');
+}
 
-            if (! $owned) {
-                abort(403, 'Reservasi ini bukan milik akun Anda.');
-            }
-        }
+private function ensureReservationOwnedByCurrentUser(
+    Reservation $reservation
+): void {
+    $reservation->loadMissing('patient');
 
-        $reservation->delete();
+    $owned = $reservation->patient
+        && (int) $reservation->patient->user_id === (int) Auth::id();
 
-        return redirect()
-            ->route('reservations.history')
-            ->with('success', 'Reservasi berhasil dihapus dari riwayat.');
-    }
+    abort_unless(
+        $owned,
+        403,
+        'Reservasi ini bukan milik akun Anda.'
+    );
+    
+}
 
     private function currentPatient(): Patient
 
