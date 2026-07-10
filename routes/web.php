@@ -91,6 +91,7 @@ Route::prefix('admin')
         Route::get('/cek-status', 'status')->name('reservations.status');
 
         Route::get('/kelola-reservasi', 'manage')->name('reservations.manage');
+        Route::get('/kelola-reservasi/export', 'exportReservations')->name('reservations.export');
         Route::get('/kelola-reservasi/{reservation}', 'show')->name('reservations.show');
         Route::patch('/kelola-reservasi/{reservation}/status', 'updateStatus')->name('reservations.update-status');
         Route::delete('/kelola-reservasi/{reservation}', 'destroy')->name('reservations.destroy');
