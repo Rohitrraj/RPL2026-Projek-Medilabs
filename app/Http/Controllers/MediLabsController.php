@@ -66,16 +66,18 @@ class MediLabsController extends Controller
             ->first();
     }
 
-    private function recentReservationsForPatient(?int $patientId)
-    {
-        return Reservation::with(['patient', 'labTest'])
-            ->when($patientId, function ($query) use ($patientId) {
-                $query->where('patient_id', $patientId);
-            })
-            ->latest()
-            ->limit(5)
-            ->get();
+private function recentReservationsForPatient(?int $patientId)
+{
+    if (! $patientId) {
+        return collect();
     }
+
+    return Reservation::with(['patient', 'labTest'])
+        ->where('patient_id', $patientId)
+        ->latest()
+        ->limit(5)
+        ->get();
+}
 
     private function features(): array
     {

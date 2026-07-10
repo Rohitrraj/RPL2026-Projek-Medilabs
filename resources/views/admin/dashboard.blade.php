@@ -18,6 +18,78 @@
                 </article>
             @endforeach
         </div>
+                <form
+            action="{{ route('admin.reservations.export') }}"
+            method="GET"
+            class="dark-panel admin-export-card"
+        >
+            <div>
+                <h2>Export Rekap Reservasi</h2>
+
+                <p>
+                    Unduh seluruh data reservasi berdasarkan periode
+                    yang dipilih.
+                </p>
+            </div>
+
+            <div class="form-grid">
+                <label>
+                    <span>Periode</span>
+
+                    <select name="period" required>
+                        @foreach ($periodOptions as $value => $label)
+                            <option
+                                value="{{ $value }}"
+                                @selected(
+                                    old('period', 'month') === $value
+                                )
+                            >
+                                {{ $label }}
+                            </option>
+                        @endforeach
+                    </select>
+                </label>
+
+                <label>
+                    <span>Tanggal Awal</span>
+
+                    <input
+                        type="date"
+                        name="start_date"
+                        value="{{ old('start_date') }}"
+                    >
+                </label>
+
+                <label>
+                    <span>Tanggal Akhir</span>
+
+                    <input
+                        type="date"
+                        name="end_date"
+                        value="{{ old('end_date') }}"
+                    >
+                </label>
+            </div>
+
+            @error('period')
+                <p class="form-error">{{ $message }}</p>
+            @enderror
+
+            @error('start_date')
+                <p class="form-error">{{ $message }}</p>
+            @enderror
+
+            @error('end_date')
+                <p class="form-error">{{ $message }}</p>
+            @enderror
+
+            <button
+                type="submit"
+                class="button admin-button"
+            >
+                Download CSV
+            </button>
+        </form>
 
         <div>
             <h2 class="admin-subtitle">Reservasi Terbaru</h2>

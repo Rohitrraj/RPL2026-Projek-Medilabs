@@ -9,7 +9,112 @@
             description="Admin dapat mengelola, memverifikasi, dan mengubah status reservasi"
             wrapper-class="admin-heading"
         />
+<form
+    action="{{ route('admin.reservations.manage') }}"
+    method="GET"
+    class="admin-filter-form"
+>
+    <div class="form-grid">
+        <label>
+            <span>Kode Reservasi</span>
+            <input
+                type="text"
+                name="code"
+                value="{{ request('code') }}"
+                placeholder="Contoh: A001"
+            >
+        </label>
 
+        <label>
+            <span>Nama Pasien</span>
+            <input
+                type="text"
+                name="patient"
+                value="{{ request('patient') }}"
+                placeholder="Cari nama pasien"
+            >
+        </label>
+
+        <label>
+            <span>Status</span>
+            <select name="status">
+                <option value="">Semua Status</option>
+
+                @foreach ($statuses as $status)
+                    <option
+                        value="{{ $status }}"
+                        @selected(request('status') === $status)
+                    >
+                        {{ $status }}
+                    </option>
+                @endforeach
+            </select>
+        </label>
+
+        <label>
+            <span>Layanan</span>
+            <select name="lab_test_id">
+                <option value="">Semua Layanan</option>
+
+                @foreach ($labTests as $labTest)
+                    <option
+                        value="{{ $labTest->id }}"
+                        @selected(
+                            (string) request('lab_test_id')
+                            === (string) $labTest->id
+                        )
+                    >
+                        {{ $labTest->name }}
+                    </option>
+                @endforeach
+            </select>
+        </label>
+
+        <label>
+            <span>Tanggal Reservasi</span>
+            <input
+                type="date"
+                name="reservation_date"
+                value="{{ request('reservation_date') }}"
+            >
+        </label>
+
+        <label>
+            <span>Urutan</span>
+            <select name="sort">
+                <option
+                    value="latest"
+                    @selected(request('sort', 'latest') === 'latest')
+                >
+                    Jadwal Terbaru
+                </option>
+
+                <option
+                    value="oldest"
+                    @selected(request('sort') === 'oldest')
+                >
+                    Jadwal Terlama
+                </option>
+            </select>
+        </label>
+    </div>
+
+    <div class="admin-filter-actions">
+        <button
+            type="submit"
+            class="button button-primary"
+        >
+            Terapkan Filter
+        </button>
+
+        <a
+            href="{{ route('admin.reservations.manage') }}"
+            class="button button-secondary"
+        >
+            Reset Filter
+        </a>
+    </div>
+</form>
         <form class="dark-panel admin-search-card manage-search-card" action="{{ route('admin.reservations.manage') }}" method="GET">
             <label>
                 <span>Cari Kode Reservasi</span>

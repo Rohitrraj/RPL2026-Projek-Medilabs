@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreReservationRequest;
 use App\Models\LabTest;
 use App\Models\Patient;
 use App\Models\Reservation;
+use App\Services\ReservationService;
+use App\Support\ReservationSchedule;
+use App\Support\ReservationStatus;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class ReservationController extends Controller
@@ -40,79 +45,37 @@ public function create(): View|RedirectResponse
 
     $labTests = $this->activeLabTests();
 
-    $hours = $this->availableHours();
+    $hours = ReservationSchedule::availableHours();
 
     return view('reservations.create', compact('patient', 'labTests', 'hours'));
 
 }
 
-public function store(Request $request): RedirectResponse
-
-{
-
-    if ($redirect = $this->ensureAuthenticated(
-
-        'Silakan login terlebih dahulu sebelum membuat reservasi.'
-
-    )) {
-
-        return $redirect;
-
-    }
-
-    $validated = $request->validate([
-
-        'lab_test_id' => ['required', 'exists:lab_tests,id'],
-
-        'reservation_date' => ['required', 'date'],
-
-        'reservation_time' => ['required'],
-
-        'notes' => ['nullable', 'string'],
-
-    ]);
-
-    $patient = $this->currentPatient();
-
-    $sequence = $this->nextSequenceNumber();
-
-    $reservation = Reservation::create([
-
-        'code' => $this->generateReservationCode($sequence),
-
-        'patient_id' => $patient->id,
-
-        'lab_test_id' => $validated['lab_test_id'],
-
-        'reservation_date' => $validated['reservation_date'],
-
-        'reservation_time' => $validated['reservation_time'],
-
-        'queue_number' => $this->generateQueueNumber($sequence),
-
-        'status' => 'Menunggu',
-
-        'notes' => $validated['notes'] ?? null,
-
-    ]);
+public function store(
+    StoreReservationRequest $request,
+    ReservationService $reservationService
+): RedirectResponse {
+    $reservation = $reservationService->createForPatient(
+        $this->currentPatient(),
+        $request->validated()
+    );
 
     return redirect()
-
         ->route('reservations.result', $reservation)
-
         ->with('success', 'Reservasi berhasil dibuat.');
-
 }
 
-    public function result(Reservation $reservation): View
-    {
-        $reservation->load(['patient', 'labTest']);
+public function result(Reservation $reservation): View
+{
+    $this->ensureReservationOwnedByCurrentUser($reservation);
 
-        return view('reservations.result', [
-            'reservation' => $reservation,
-            'reservationData' => $this->reservationDetailArray($reservation),
-        ]);
-    }
+    $reservation->loadMissing(['patient', 'labTest']);
+
+    return view('reservations.result', [
+        'reservation' => $reservation,
+        'reservationData' => $this->reservationDetailArray($reservation),
+    ]);
+}
 
     public function status(Request $request): View
     {
@@ -134,44 +97,60 @@ public function store(Request $request): RedirectResponse
         ]);
     }
 
-    public function history(Request $request): View
-    {
-        $query = Reservation::with(['patient', 'labTest'])->latest();
+public function history(Request $request): View
+{
+    $query = Reservation::with(['patient', 'labTest'])
+        ->whereHas('patient', function ($patientQuery) {
+            $patientQuery->where('user_id', Auth::id());
+        })
+        ->latest();
 
-        $query = $this->applyHistoryFilters($query, $request);
+    $query = $this->applyHistoryFilters($query, $request);
 
-        if (Auth::check() && Auth::user()->role !== 'admin') {
-            $query->whereHas('patient', function ($patientQuery) {
-                $patientQuery->where('user_id', Auth::id());
-            });
-        }
+    $reservations = $query->get();
 
-        $reservations = $query->get();
+    return view('reservations.history', compact('reservations'));
+}
 
-        return view('reservations.history', compact('reservations'));
+public function destroy(
+    Reservation $reservation
+): RedirectResponse {
+    $this->ensureReservationOwnedByCurrentUser($reservation);
+
+    if (! ReservationStatus::canBeDeletedByPatient(
+        $reservation->status
+    )) {
+        throw ValidationException::withMessages([
+            'reservation' => [
+                'Reservasi dengan status '
+                . $reservation->status
+                . ' tidak dapat dihapus.',
+            ],
+        ]);
     }
 
-    public function destroy(Reservation $reservation): RedirectResponse
-    {
-        if ($redirect = $this->ensureAuthenticated('Silakan login terlebih dahulu.')) {
-            return $redirect;
-        }
+    $reservation->delete();
 
-        if (Auth::user()->role !== 'admin') {
-            $owned = $reservation->patient
-                && (int) $reservation->patient->user_id === (int) Auth::id();
+    return redirect()
+        ->route('reservations.history')
+        ->with('success', 'Reservasi berhasil dihapus dari riwayat.');
+}
 
-            if (! $owned) {
-                abort(403, 'Reservasi ini bukan milik akun Anda.');
-            }
-        }
+private function ensureReservationOwnedByCurrentUser(
+    Reservation $reservation
+): void {
+    $reservation->loadMissing('patient');
 
-        $reservation->delete();
+    $owned = $reservation->patient
+        && (int) $reservation->patient->user_id === (int) Auth::id();
 
-        return redirect()
-            ->route('reservations.history')
-            ->with('success', 'Reservasi berhasil dihapus dari riwayat.');
-    }
+    abort_unless(
+        $owned,
+        403,
+        'Reservasi ini bukan milik akun Anda.'
+    );
+    
+}
 
     private function currentPatient(): Patient
 
@@ -205,39 +184,7 @@ public function store(Request $request): RedirectResponse
             ->get();
     }
 
-    private function nextSequenceNumber(): int
-    {
-        $latestReservationId = Reservation::query()->max('id') ?? 0;
 
-        return $latestReservationId + 1;
-    }
-
-    private function generateReservationCode(int $sequence): string
-    {
-        return 'A' . str_pad((string) $sequence, 3, '0', STR_PAD_LEFT);
-    }
-
-    private function generateQueueNumber(int $sequence): string
-    {
-        return 'A-' . str_pad((string) $sequence, 2, '0', STR_PAD_LEFT);
-    }
-
-    private function availableHours(): array
-    {
-        $hours = [];
-
-        for ($hour = 7; $hour <= 19; $hour++) {
-            foreach (['00', '30'] as $minute) {
-                if ($hour === 19 && $minute === '30') {
-                    continue;
-                }
-
-                $hours[] = sprintf('%02d:%s', $hour, $minute);
-            }
-        }
-
-        return $hours;
-    }
 
     private function applyHistoryFilters($query, Request $request)
     {
