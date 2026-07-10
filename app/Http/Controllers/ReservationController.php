@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LabTest;
 use App\Models\Patient;
 use App\Models\Reservation;
+use App\Services\ReservationService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,24 +49,14 @@ public function create(): View|RedirectResponse
 
 }
 
-public function store(StoreReservationRequest $request): RedirectResponse
-{
-    $validated = $request->validated();
-
-    $patient = $this->currentPatient();
-
-    $sequence = $this->nextSequenceNumber();
-
-    $reservation = Reservation::create([
-        'code' => $this->generateReservationCode($sequence),
-        'patient_id' => $patient->id,
-        'lab_test_id' => $validated['lab_test_id'],
-        'reservation_date' => $validated['reservation_date'],
-        'reservation_time' => $validated['reservation_time'],
-        'queue_number' => $this->generateQueueNumber($sequence),
-        'status' => 'Menunggu',
-        'notes' => $validated['notes'] ?? null,
-    ]);
+public function store(
+    StoreReservationRequest $request,
+    ReservationService $reservationService
+): RedirectResponse {
+    $reservation = $reservationService->createForPatient(
+        $this->currentPatient(),
+        $request->validated()
+    );
 
     return redirect()
         ->route('reservations.result', $reservation)
@@ -178,22 +169,6 @@ private function ensureReservationOwnedByCurrentUser(
             ->get();
     }
 
-    private function nextSequenceNumber(): int
-    {
-        $latestReservationId = Reservation::query()->max('id') ?? 0;
-
-        return $latestReservationId + 1;
-    }
-
-    private function generateReservationCode(int $sequence): string
-    {
-        return 'A' . str_pad((string) $sequence, 3, '0', STR_PAD_LEFT);
-    }
-
-    private function generateQueueNumber(int $sequence): string
-    {
-        return 'A-' . str_pad((string) $sequence, 2, '0', STR_PAD_LEFT);
-    }
 
 
     private function applyHistoryFilters($query, Request $request)
