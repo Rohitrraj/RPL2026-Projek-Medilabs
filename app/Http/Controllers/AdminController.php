@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\LabTest;
 use App\Models\Patient;
 use App\Models\Reservation;
+use App\Support\ReservationStatus;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -66,20 +68,40 @@ class AdminController extends Controller
         return view('admin.show', compact('reservation', 'statuses'));
     }
 
-    public function updateStatus(Request $request, Reservation $reservation): RedirectResponse
-    {
-        $validated = $request->validate([
-            'status' => ['required', 'in:' . implode(',', $this->statuses())],
-        ]);
+public function updateStatus(
+    Request $request,
+    Reservation $reservation
+): RedirectResponse {
+    $validated = $request->validate([
+        'status' => [
+            'required',
+            'in:' . implode(',', ReservationStatus::all()),
+        ],
+    ]);
 
-        $reservation->update([
-            'status' => $validated['status'],
+    if (! ReservationStatus::canTransition(
+        $reservation->status,
+        $validated['status']
+    )) {
+        throw ValidationException::withMessages([
+            'status' => [
+                sprintf(
+                    'Status reservasi tidak dapat diubah dari %s menjadi %s.',
+                    $reservation->status,
+                    $validated['status']
+                ),
+            ],
         ]);
-
-        return redirect()
-            ->back()
-            ->with('success', 'Status reservasi berhasil diperbarui.');
     }
+
+    $reservation->update([
+        'status' => $validated['status'],
+    ]);
+
+    return redirect()
+        ->back()
+        ->with('success', 'Status reservasi berhasil diperbarui.');
+}
 
     public function destroy(Reservation $reservation): RedirectResponse
     {
@@ -237,14 +259,8 @@ class AdminController extends Controller
         return $query;
     }
 
-    private function statuses(): array
-    {
-        return [
-            'Menunggu',
-            'Terjadwal',
-            'Diproses',
-            'Selesai',
-            'Dibatalkan',
-        ];
-    }
+private function statuses(): array
+{
+    return ReservationStatus::all();
+}
 }
