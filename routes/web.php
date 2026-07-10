@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MediLabsController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\PasswordResetController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,22 @@ Route::middleware('guest')->group(function () {
     Route::controller(AuthController::class)->group(function () {
         Route::post('/daftar', 'register')->name('register.store');
         Route::post('/login', 'login')->name('login.store');
+    });
+
+    Route::controller(PasswordResetController::class)->group(function () {
+        Route::get('/lupa-password', 'showForgotPasswordForm')
+            ->name('password.request');
+
+        Route::post('/lupa-password', 'sendResetLink')
+            ->middleware('throttle:5,1')
+            ->name('password.email');
+
+        Route::get('/reset-password/{token}', 'showResetPasswordForm')
+            ->name('password.reset');
+
+        Route::post('/reset-password', 'resetPassword')
+            ->middleware('throttle:5,1')
+            ->name('password.update');
     });
 });
 

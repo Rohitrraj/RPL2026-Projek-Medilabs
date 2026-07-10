@@ -13,10 +13,18 @@
                 <input type="email" name="email" value="{{ old('email') }}" placeholder="nama@gmail.com" required>
             </label>
 
-            <label>
-                <span>Password</span>
-                <input type="password" name="password" placeholder="Minimal 8 karakter" required>
-            </label>
+<label>
+    <span>Password</span>
+    <input type="password" name="password" placeholder="Minimal 8 karakter" required>
+</label>
+
+<p class="form-note">
+    <a href="{{ route('password.request') }}">Lupa password?</a>
+</p>
+
+<button class="button button-primary full-button" type="submit">
+    Login
+</button>
 
             <button class="button button-primary full-button" type="submit">Login</button>
 
