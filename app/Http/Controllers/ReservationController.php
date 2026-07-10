@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreReservationRequest;
 use App\Models\LabTest;
 use App\Models\Patient;
 use App\Models\Reservation;
 use App\Services\ReservationService;
+use App\Support\ReservationSchedule;
+use App\Support\ReservationStatus;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
-use App\Http\Requests\StoreReservationRequest;
-use App\Support\ReservationSchedule;
 
 class ReservationController extends Controller
 {
@@ -110,9 +112,22 @@ public function history(Request $request): View
     return view('reservations.history', compact('reservations'));
 }
 
-public function destroy(Reservation $reservation): RedirectResponse
-{
+public function destroy(
+    Reservation $reservation
+): RedirectResponse {
     $this->ensureReservationOwnedByCurrentUser($reservation);
+
+    if (! ReservationStatus::canBeDeletedByPatient(
+        $reservation->status
+    )) {
+        throw ValidationException::withMessages([
+            'reservation' => [
+                'Reservasi dengan status '
+                . $reservation->status
+                . ' tidak dapat dihapus.',
+            ],
+        ]);
+    }
 
     $reservation->delete();
 
