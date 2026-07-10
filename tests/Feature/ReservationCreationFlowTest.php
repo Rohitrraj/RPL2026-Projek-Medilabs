@@ -209,16 +209,18 @@ class ReservationCreationFlowTest extends TestCase
         return [$user, $patient];
     }
 
-    private function createLabTest(): LabTest
-    {
-        return LabTest::create([
-            'name' => 'Hematologi Lengkap',
-            'slug' => 'hematologi-lengkap',
-            'description' => 'Layanan pengujian workflow.',
-            'price' => 150000,
-            'status' => 'active',
-        ]);
-    }
+private function createLabTest(
+    string $name = 'Hematologi Lengkap',
+    string $slug = 'hematologi-lengkap'
+): LabTest {
+    return LabTest::create([
+        'name' => $name,
+        'slug' => $slug,
+        'description' => 'Layanan pengujian workflow.',
+        'price' => 150000,
+        'status' => 'active',
+    ]);
+}
 
     private function createReservation(
         Patient $patient,
@@ -237,4 +239,40 @@ class ReservationCreationFlowTest extends TestCase
             'notes' => null,
         ]);
     }
+
+public function test_different_service_at_same_time_is_rejected(): void
+{
+    [$user, $patient] = $this->createPatientUser();
+
+    $firstLabTest = $this->createLabTest(
+        'Hematologi Lengkap',
+        'hematologi-lengkap'
+    );
+
+    $secondLabTest = $this->createLabTest(
+        'Kimia Darah',
+        'kimia-darah'
+    );
+
+    $this->createReservation(
+        $patient,
+        $firstLabTest,
+        'A001',
+        'Menunggu'
+    );
+
+    $response = $this->actingAs($user)
+        ->from(route('reservations.create'))
+        ->post(route('reservations.store'), [
+            'lab_test_id' => $secondLabTest->id,
+            'reservation_date' => now()->toDateString(),
+            'reservation_time' => '08:00',
+        ]);
+
+    $response
+        ->assertRedirect(route('reservations.create'))
+        ->assertSessionHasErrors('reservation_time');
+
+    $this->assertDatabaseCount('reservations', 1);
+}
 }

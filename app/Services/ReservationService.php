@@ -80,7 +80,6 @@ class ReservationService
     ): void {
         $duplicateExists = Reservation::query()
             ->where('patient_id', $patient->id)
-            ->where('lab_test_id', $validated['lab_test_id'])
             ->whereDate(
                 'reservation_date',
                 $validated['reservation_date']
