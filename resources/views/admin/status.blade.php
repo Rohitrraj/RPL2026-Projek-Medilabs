@@ -45,17 +45,28 @@
                     <div><dt>Tanggal</dt><dd>{{ optional($reservation->reservation_date)->format('d M Y') }}</dd></div>
                     <div><dt>Jam</dt><dd>{{ substr((string) $reservation->reservation_time, 0, 5) }}</dd></div>
                     <div><dt>Nomor Antrian</dt><dd>{{ $reservation->queue_number }}</dd></div>
-                    <div><dt>Status</dt><dd>{{ $reservation->status }}</dd></div>
+                    <div>
+                     <dt>Status</dt><dd> <x-status-badge :status="$reservation->status" /> </dd> </div>
                 </dl>
             @else
                 <p>Data reservasi belum tersedia.</p>
             @endif
         </article>
 
-        <div class="admin-action-row">
-            <button class="button admin-button" type="button" data-print>Cetak Bukti</button>
-            <a class="button admin-button" href="{{ route('admin.reservations.manage') }}">Ubah Status</a>
-            <a class="button admin-button" href="{{ route('admin.dashboard') }}">Kembali</a>
-        </div>
+<div class="admin-action-row">
+    <a
+        class="button admin-button"
+        href="{{ route('admin.reservations.manage') }}"
+    >
+        Ubah Status
+    </a>
+
+    <a
+        class="button admin-button"
+        href="{{ route('admin.dashboard') }}"
+    >
+        Kembali
+    </a>
+</div>
     </section>
 @endsection

@@ -1,0 +1,164 @@
+/*
+|--------------------------------------------------------------------------
+| MediLabs Admin Design Tokens
+|--------------------------------------------------------------------------
+|
+| Seluruh nilai utama design system admin didefinisikan di sini.
+| Gunakan token ini dan hindari hard-coded value pada file halaman.
+|
+*/
+
+.ml-admin {
+    color-scheme: light;
+
+    /* Brand and surfaces */
+    --ml-color-canvas: #f8fafc;
+    --ml-color-sidebar: #0f172a;
+    --ml-color-primary: #0284c7;
+    --ml-color-primary-hover: #0369a1;
+    --ml-color-primary-active: #075985;
+    --ml-color-primary-soft: #e0f2fe;
+
+        /* Sidebar */
+    --ml-color-sidebar: #0f172a;
+    --ml-color-sidebar-text: #cbd5e1;
+    --ml-color-sidebar-text-muted: #94a3b8;
+    --ml-color-sidebar-text-hover: #ffffff;
+
+    --ml-color-sidebar-active-bg: rgb(2 132 199 / 0.18);
+    --ml-color-sidebar-active-border: #0284c7;
+    --ml-color-sidebar-active-text: #ffffff;
+    
+    --ml-color-surface: #ffffff;
+    --ml-color-surface-muted: #f8fafc;
+    --ml-color-surface-subtle: #f1f5f9;
+
+    /* Text */
+    --ml-color-text: #0f172a;
+    --ml-color-text-secondary: #64748b;
+    --ml-color-text-muted: #94a3b8;
+    --ml-color-text-inverse: #ffffff;
+
+    /* Borders */
+    --ml-color-border: #e2e8f0;
+    --ml-color-border-strong: #cbd5e1;
+
+    /* Semantic colors */
+    --ml-color-success: #059669;
+    --ml-color-success-soft: #d1fae5;
+
+    --ml-color-warning: #d97706;
+    --ml-color-warning-soft: #fef3c7;
+
+    --ml-color-danger: #dc2626;
+    --ml-color-danger-hover: #b91c1c;
+    --ml-color-danger-soft: #fee2e2;
+
+    --ml-color-info: #2563eb;
+    --ml-color-info-soft: #dbeafe;
+
+    --ml-color-process: #4f46e5;
+    --ml-color-process-soft: #e0e7ff;
+
+    /* 8-point spacing system */
+    --ml-space-1: 0.5rem;   /* 8px */
+    --ml-space-2: 1rem;     /* 16px */
+    --ml-space-3: 1.5rem;   /* 24px */
+    --ml-space-4: 2rem;     /* 32px */
+    --ml-space-5: 2.5rem;   /* 40px */
+    --ml-space-6: 3rem;     /* 48px */
+    --ml-space-7: 3.5rem;   /* 56px */
+    --ml-space-8: 4rem;     /* 64px */
+    --ml-space-10: 5rem;    /* 80px */
+    --ml-space-12: 6rem;    /* 96px */
+
+    /* Dimensions */
+    --ml-sidebar-width: 16rem;       /* 256px */
+    --ml-sidebar-mini-width: 5rem;   /* 80px */
+    --ml-topbar-height: 4rem;        /* 64px */
+    --ml-control-height: 3rem;       /* 48px */
+    --ml-control-height-sm: 2.5rem;  /* 40px */
+    --ml-table-row-height: 4rem;     /* 64px */
+
+    /* Radius */
+    --ml-radius-sm: 0.5rem;  /* 8px */
+    --ml-radius-md: 1rem;    /* 16px */
+    --ml-radius-pill: 999px;
+
+    /* Shadows */
+    --ml-shadow-sm:
+        0 1px 2px rgb(15 23 42 / 0.06);
+
+    --ml-shadow-md:
+        0 8px 24px rgb(15 23 42 / 0.08);
+
+    /* Focus */
+    --ml-focus-ring:
+        0 0 0 0.25rem rgb(2 132 199 / 0.16);
+
+    /* Transitions */
+    --ml-transition-fast: 160ms ease;
+    --ml-transition-normal: 240ms ease;
+
+    /*
+    |--------------------------------------------------------------------------
+    | Bootstrap variable mapping
+    |--------------------------------------------------------------------------
+    */
+
+    --bs-body-font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    --bs-body-bg: var(--ml-color-canvas);
+    --bs-body-color: var(--ml-color-text);
+
+    --bs-primary: var(--ml-color-primary);
+    --bs-primary-rgb: 2, 132, 199;
+
+    --bs-success: var(--ml-color-success);
+    --bs-success-rgb: 5, 150, 105;
+
+    --bs-danger: var(--ml-color-danger);
+    --bs-danger-rgb: 220, 38, 38;
+
+    --bs-warning: var(--ml-color-warning);
+    --bs-warning-rgb: 217, 119, 6;
+
+    --bs-border-color: var(--ml-color-border);
+    --bs-secondary-color: var(--ml-color-text-secondary);
+    --bs-tertiary-color: var(--ml-color-text-muted);
+
+    --bs-link-color: var(--ml-color-primary);
+    --bs-link-color-rgb: 2, 132, 199;
+    --bs-link-hover-color: var(--ml-color-primary-hover);
+    --bs-link-hover-color-rgb: 3, 105, 161;
+
+    --bs-border-radius: var(--ml-radius-sm);
+    --bs-border-radius-lg: var(--ml-radius-md);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Temporary legacy aliases
+    |--------------------------------------------------------------------------
+    |
+    | Dipertahankan selama CSS lama masih dimuat.
+    |
+    */
+
+    --page: var(--ml-color-canvas);
+    --panel: var(--ml-color-surface);
+    --panel-strong: var(--ml-color-sidebar);
+    --ink: var(--ml-color-text);
+    --muted: var(--ml-color-text-secondary);
+    --line: var(--ml-color-border);
+    --white: var(--ml-color-surface);
+    --blue: var(--ml-color-primary);
+    --blue-dark: var(--ml-color-primary-hover);
+    --radius: var(--ml-radius-sm);
+}

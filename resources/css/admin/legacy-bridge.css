@@ -1,0 +1,369 @@
+/*
+|--------------------------------------------------------------------------
+| Temporary Legacy Compatibility
+|--------------------------------------------------------------------------
+|
+| File ini hanya digunakan selama halaman admin dimigrasikan.
+| Hapus setelah seluruh halaman admin menggunakan markup baru.
+|
+*/
+
+.ml-admin .admin-page {
+    width: 100%;
+    min-width: 0;
+    padding: var(--ml-space-4);
+    background: var(--ml-color-canvas);
+}
+
+.ml-admin .admin-section {
+    width: 100%;
+    display: grid;
+    gap: var(--ml-space-3);
+}
+
+.ml-admin .admin-heading h1 {
+    margin: 0;
+    color: var(--ml-color-text);
+    font-family: inherit;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 2.5rem;
+}
+
+.ml-admin .admin-heading p {
+    margin: var(--ml-space-1) 0 0;
+    color: var(--ml-color-text-secondary);
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.ml-admin .admin-subtitle {
+    margin: 0 0 var(--ml-space-2);
+    color: var(--ml-color-text);
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 2rem;
+}
+
+.ml-admin .dark-panel,
+.ml-admin .admin-search-card,
+.ml-admin .admin-export-card,
+.ml-admin .admin-patient-card,
+.ml-admin .admin-detail-card,
+.ml-admin .quick-actions {
+    background: var(--ml-color-surface);
+    border: 1px solid var(--ml-color-border);
+    border-radius: var(--ml-radius-md);
+    color: var(--ml-color-text);
+    box-shadow: none;
+}
+
+.ml-admin .admin-search-card,
+.ml-admin .manage-search-card,
+.ml-admin .admin-export-card,
+.ml-admin .admin-patient-card,
+.ml-admin .admin-detail-card,
+.ml-admin .quick-actions {
+    width: 100%;
+    max-width: none;
+    padding: var(--ml-space-3);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Legacy Cek Status Data Cards
+|--------------------------------------------------------------------------
+|
+| Kompatibilitas sementara untuk markup halaman Cek Status lama.
+| Hapus setelah halaman Cek Status dimigrasikan ke komponen ml-data-list.
+|
+*/
+
+.ml-admin .admin-patient-card,
+.ml-admin .admin-detail-card {
+    color: var(--ml-color-text);
+}
+
+/* Judul panel */
+.ml-admin :is(
+    .admin-patient-card,
+    .admin-detail-card
+) h2 {
+    color: var(--ml-color-text);
+}
+
+/*
+ * Menggantikan warna #eef4fb dari public/assets/css/admin.css.
+ * Selector dibuat setara atau lebih spesifik dan dimuat setelah CSS lama.
+ */
+.ml-admin :is(
+    .admin-patient-card,
+    .admin-detail-card
+) dl div {
+    color: var(--ml-color-text);
+}
+
+/* Label data: NIK, Nama, Tanggal, Status, dan lainnya */
+.ml-admin :is(
+    .admin-patient-card,
+    .admin-detail-card
+) dt {
+    color: var(--ml-color-text-secondary);
+    font-weight: 600;
+}
+
+/* Nilai data pasien dan reservasi */
+.ml-admin :is(
+    .admin-patient-card,
+    .admin-detail-card
+) dd {
+    margin: 0;
+    color: var(--ml-color-text);
+}
+
+/* Pesan ketika data belum tersedia */
+.ml-admin :is(
+    .admin-patient-card,
+    .admin-detail-card
+) > p {
+    color: var(--ml-color-text-secondary);
+}
+
+.ml-admin .form-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: var(--ml-space-2);
+}
+
+.ml-admin .form-grid label,
+.ml-admin .admin-search-card label {
+    display: grid;
+    gap: var(--ml-space-1);
+}
+
+.ml-admin .admin-filter-form {
+    display: grid;
+    gap: var(--ml-space-3);
+    padding: var(--ml-space-3);
+    background: var(--ml-color-surface);
+    border: 1px solid var(--ml-color-border);
+    border-radius: var(--ml-radius-md);
+}
+
+.ml-admin .admin-filter-actions,
+.ml-admin .admin-action-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--ml-space-1);
+}
+
+.ml-admin .admin-stats-grid {
+    width: 100%;
+    max-width: none;
+    display: grid;
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+    gap: var(--ml-space-2);
+}
+
+.ml-admin .admin-stat-card {
+    min-height: 7rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    gap: var(--ml-space-1);
+    padding: var(--ml-space-3);
+    background: var(--ml-color-surface);
+    border: 1px solid var(--ml-color-border);
+    border-radius: var(--ml-radius-md);
+    color: var(--ml-color-text);
+    text-align: left;
+}
+
+.ml-admin .admin-stat-card span {
+    color: var(--ml-color-text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.ml-admin .admin-stat-card strong {
+    color: var(--ml-color-text);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 2.5rem;
+}
+
+.ml-admin .med-table {
+    min-width: 56rem;
+}
+
+.ml-admin .inline-status-form {
+    display: flex;
+    align-items: center;
+    gap: var(--ml-space-1);
+}
+
+.ml-admin .inline-status-form select {
+    min-height: var(--ml-control-height-sm);
+    padding: 0 var(--ml-space-2);
+    background: var(--ml-color-surface);
+    border: 1px solid var(--ml-color-border-strong);
+    border-radius: var(--ml-radius-sm);
+}
+
+.ml-admin .inline-status-form button {
+    min-height: var(--ml-control-height-sm);
+    padding: 0 var(--ml-space-2);
+    background: var(--ml-color-primary);
+    border: 1px solid var(--ml-color-primary);
+    border-radius: var(--ml-radius-sm);
+    color: var(--ml-color-text-inverse);
+    font-weight: 600;
+}
+
+@media (max-width: 1199.98px) {
+    .ml-admin .admin-page {
+        padding: var(--ml-space-3);
+    }
+
+    .ml-admin .admin-stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 767.98px) {
+    .ml-admin .admin-page {
+        padding: var(--ml-space-2);
+    }
+
+    .ml-admin .admin-heading h1 {
+        font-size: 1.75rem;
+        line-height: 2rem;
+    }
+
+    .ml-admin .admin-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ml-admin .admin-filter-actions,
+    .ml-admin .admin-action-row {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .ml-admin .admin-filter-actions > *,
+    .ml-admin .admin-action-row > * {
+        width: 100%;
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
+| Temporary Sidebar Contrast Bridge
+|--------------------------------------------------------------------------
+|
+| Menjaga sidebar lama tetap terbaca sebelum shell admin dibangun ulang
+| pada Tahap 2D.
+|
+*/
+
+.ml-admin .admin-sidebar {
+    background: var(--ml-color-sidebar) !important;
+    color: var(--ml-color-sidebar-text);
+}
+
+/* Judul atau label kelompok menu */
+.ml-admin .admin-sidebar :is(
+    .sidebar-title,
+    .sidebar-heading,
+    .sidebar-label,
+    h2,
+    h3
+) {
+    color: var(--ml-color-sidebar-text-muted) !important;
+}
+
+/* Menu dalam keadaan normal */
+.ml-admin .admin-sidebar :is(
+    .sidebar-link,
+    .nav-link,
+    nav a
+) {
+    color: var(--ml-color-sidebar-text) !important;
+}
+
+/* Ikon mengikuti warna teks menu */
+.ml-admin .admin-sidebar :is(
+    .sidebar-link,
+    .nav-link,
+    nav a
+) :is(
+    i,
+    svg
+) {
+    color: currentColor;
+}
+
+/* Hover dan keyboard focus */
+.ml-admin .admin-sidebar :is(
+    .sidebar-link,
+    .nav-link,
+    nav a
+):hover,
+.ml-admin .admin-sidebar :is(
+    .sidebar-link,
+    .nav-link,
+    nav a
+):focus-visible {
+    background: rgb(255 255 255 / 0.08) !important;
+    color: var(--ml-color-sidebar-text-hover) !important;
+}
+
+/* Menu halaman aktif */
+.ml-admin .admin-sidebar :is(
+    .sidebar-link,
+    .nav-link,
+    nav a
+).active,
+.ml-admin .admin-sidebar :is(
+    .sidebar-link,
+    .nav-link,
+    nav a
+).is-active,
+.ml-admin .admin-sidebar :is(
+    .sidebar-link,
+    .nav-link,
+    nav a
+)[aria-current="page"] {
+    background: var(--ml-color-sidebar-active-bg) !important;
+    color: var(--ml-color-sidebar-active-text) !important;
+    box-shadow:
+        inset 3px 0 0 var(--ml-color-sidebar-active-border);
+}
+
+/* Logout */
+.ml-admin .admin-sidebar :is(
+    .sidebar-logout,
+    .logout-link,
+    form button
+) {
+    color: var(--ml-color-sidebar-text) !important;
+}
+
+.ml-admin .admin-sidebar :is(
+    .sidebar-logout,
+    .logout-link,
+    form button
+):hover,
+.ml-admin .admin-sidebar :is(
+    .sidebar-logout,
+    .logout-link,
+    form button
+):focus-visible {
+    background: rgb(255 255 255 / 0.08) !important;
+    color: var(--ml-color-sidebar-text-hover) !important;
+}

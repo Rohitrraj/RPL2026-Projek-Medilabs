@@ -85,10 +85,7 @@
 
             <button
                 type="submit"
-                class="button admin-button"
-            >
-                Download CSV
-            </button>
+                class="button admin-button mt-3 " > Download CSV </button>
         </form>
 
         <div>

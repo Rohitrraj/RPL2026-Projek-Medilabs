@@ -1,0 +1,568 @@
+/*
+|--------------------------------------------------------------------------
+| Panels and cards
+|--------------------------------------------------------------------------
+*/
+
+.ml-admin .ml-panel,
+.ml-admin .card {
+    background: var(--ml-color-surface);
+    border: 1px solid var(--ml-color-border);
+    border-radius: var(--ml-radius-md);
+    box-shadow: none;
+}
+
+.ml-admin .ml-panel {
+    padding: var(--ml-space-3);
+}
+
+.ml-admin .ml-panel--compact {
+    padding: var(--ml-space-2);
+}
+
+.ml-admin .ml-panel__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--ml-space-2);
+    margin-bottom: var(--ml-space-3);
+}
+
+.ml-admin .ml-panel__title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 2rem;
+}
+
+.ml-admin .ml-panel__description {
+    margin: var(--ml-space-1) 0 0;
+    color: var(--ml-color-text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Page header
+|--------------------------------------------------------------------------
+*/
+
+.ml-admin .ml-page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--ml-space-3);
+}
+
+.ml-admin .ml-page-header__content {
+    min-width: 0;
+}
+
+.ml-admin .ml-page-header__title {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 2.5rem;
+}
+
+.ml-admin .ml-page-header__description {
+    margin: var(--ml-space-1) 0 0;
+    color: var(--ml-color-text-secondary);
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Buttons
+|--------------------------------------------------------------------------
+*/
+
+.ml-admin .btn,
+.ml-admin .button {
+    min-height: var(--ml-control-height-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--ml-space-1);
+    padding: 0 var(--ml-space-2);
+    border: 1px solid transparent;
+    border-radius: var(--ml-radius-sm);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        background-color var(--ml-transition-fast),
+        border-color var(--ml-transition-fast),
+        color var(--ml-transition-fast),
+        box-shadow var(--ml-transition-fast);
+}
+
+.ml-admin .btn-primary,
+.ml-admin .button-primary,
+.ml-admin .admin-button {
+    min-height: var(--ml-control-height);
+    background: var(--ml-color-primary);
+    border-color: var(--ml-color-primary);
+    color: var(--ml-color-text-inverse);
+
+    --bs-btn-bg: var(--ml-color-primary);
+    --bs-btn-border-color: var(--ml-color-primary);
+    --bs-btn-hover-bg: var(--ml-color-primary-hover);
+    --bs-btn-hover-border-color: var(--ml-color-primary-hover);
+    --bs-btn-active-bg: var(--ml-color-primary-active);
+    --bs-btn-active-border-color: var(--ml-color-primary-active);
+    --bs-btn-disabled-bg: var(--ml-color-primary);
+    --bs-btn-disabled-border-color: var(--ml-color-primary);
+}
+
+.ml-admin .btn-primary:hover,
+.ml-admin .button-primary:hover,
+.ml-admin .admin-button:hover {
+    background: var(--ml-color-primary-hover);
+    border-color: var(--ml-color-primary-hover);
+    color: var(--ml-color-text-inverse);
+}
+
+.ml-admin .btn-outline-secondary,
+.ml-admin .button-secondary,
+.ml-admin .button-outline {
+    background: var(--ml-color-surface);
+    border-color: var(--ml-color-border-strong);
+    color: var(--ml-color-text);
+
+    --bs-btn-color: var(--ml-color-text);
+    --bs-btn-border-color: var(--ml-color-border-strong);
+    --bs-btn-hover-bg: var(--ml-color-surface-subtle);
+    --bs-btn-hover-border-color: var(--ml-color-border-strong);
+    --bs-btn-hover-color: var(--ml-color-text);
+}
+
+.ml-admin .btn-outline-secondary:hover,
+.ml-admin .button-secondary:hover,
+.ml-admin .button-outline:hover {
+    background: var(--ml-color-surface-subtle);
+    border-color: var(--ml-color-border-strong);
+    color: var(--ml-color-text);
+}
+
+.ml-admin .btn-danger {
+    --bs-btn-bg: var(--ml-color-danger);
+    --bs-btn-border-color: var(--ml-color-danger);
+    --bs-btn-hover-bg: var(--ml-color-danger-hover);
+    --bs-btn-hover-border-color: var(--ml-color-danger-hover);
+}
+
+.ml-admin .btn-sm,
+.ml-admin .ml-btn-sm {
+    min-height: var(--ml-control-height-sm);
+    padding-inline: var(--ml-space-2);
+    font-size: 0.875rem;
+}
+
+.ml-admin .btn:disabled,
+.ml-admin .button:disabled,
+.ml-admin .btn.disabled,
+.ml-admin .button.disabled {
+    cursor: not-allowed;
+    opacity: 0.56;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Form controls
+|--------------------------------------------------------------------------
+*/
+
+.ml-admin .form-label,
+.ml-admin label > span {
+    margin-bottom: var(--ml-space-1);
+    color: var(--ml-color-text);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+}
+
+.ml-admin .form-control,
+.ml-admin .form-select,
+.ml-admin .admin-filter-form input,
+.ml-admin .admin-filter-form select,
+.ml-admin .admin-search-card input,
+.ml-admin .admin-search-card select,
+.ml-admin .form-grid input,
+.ml-admin .form-grid select,
+.ml-admin .form-grid textarea {
+    width: 100%;
+    min-height: var(--ml-control-height);
+    padding: 0.6875rem 1rem;
+    background-color: var(--ml-color-surface);
+    border: 1px solid var(--ml-color-border-strong);
+    border-radius: var(--ml-radius-sm);
+    color: var(--ml-color-text);
+    font-size: 1rem;
+    line-height: 1.5rem;
+    transition:
+        border-color var(--ml-transition-fast),
+        box-shadow var(--ml-transition-fast);
+}
+
+.ml-admin textarea.form-control,
+.ml-admin .form-grid textarea {
+    min-height: 6rem;
+    resize: vertical;
+}
+
+.ml-admin .form-control::placeholder,
+.ml-admin .admin-filter-form input::placeholder,
+.ml-admin .admin-search-card input::placeholder {
+    color: var(--ml-color-text-muted);
+    opacity: 1;
+}
+
+.ml-admin .form-control:focus,
+.ml-admin .form-select:focus,
+.ml-admin .admin-filter-form input:focus,
+.ml-admin .admin-filter-form select:focus,
+.ml-admin .admin-search-card input:focus,
+.ml-admin .admin-search-card select:focus,
+.ml-admin .form-grid input:focus,
+.ml-admin .form-grid select:focus,
+.ml-admin .form-grid textarea:focus {
+    background-color: var(--ml-color-surface);
+    border-color: var(--ml-color-primary);
+    box-shadow: var(--ml-focus-ring);
+    color: var(--ml-color-text);
+    outline: 0;
+}
+
+.ml-admin .form-control.is-invalid,
+.ml-admin .form-select.is-invalid {
+    border-color: var(--ml-color-danger);
+}
+
+.ml-admin .invalid-feedback,
+.ml-admin .form-error {
+    margin-top: var(--ml-space-1);
+    color: var(--ml-color-danger);
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Status badges
+|--------------------------------------------------------------------------
+*/
+
+.ml-admin .ml-status-badge,
+.ml-admin .history-status-badge {
+    min-height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 var(--ml-space-2);
+    border: 0;
+    border-radius: var(--ml-radius-pill);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+    white-space: nowrap;
+}
+
+.ml-admin .ml-status-badge--waiting,
+.ml-admin .history-status-badge.is-waiting {
+    background: var(--ml-color-warning-soft);
+    color: var(--ml-color-warning);
+}
+
+.ml-admin .ml-status-badge--scheduled,
+.ml-admin .history-status-badge.is-confirmed {
+    background: var(--ml-color-info-soft);
+    color: var(--ml-color-info);
+}
+
+.ml-admin .ml-status-badge--processing,
+.ml-admin .history-status-badge.is-process {
+    background: var(--ml-color-process-soft);
+    color: var(--ml-color-process);
+}
+
+.ml-admin .ml-status-badge--completed,
+.ml-admin .history-status-badge.is-success {
+    background: var(--ml-color-success-soft);
+    color: var(--ml-color-success);
+}
+
+.ml-admin .ml-status-badge--cancelled,
+.ml-admin .history-status-badge.is-danger {
+    background: var(--ml-color-danger-soft);
+    color: var(--ml-color-danger);
+}
+
+.ml-admin .ml-status-badge--active {
+    background: var(--ml-color-success-soft);
+    color: var(--ml-color-success);
+}
+
+.ml-admin .ml-status-badge--inactive {
+    background: var(--ml-color-surface-subtle);
+    color: var(--ml-color-text-secondary);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Tables
+|--------------------------------------------------------------------------
+*/
+
+.ml-admin .ml-table-panel,
+.ml-admin .table-card {
+    width: 100%;
+    overflow: hidden;
+    background: var(--ml-color-surface);
+    border: 1px solid var(--ml-color-border);
+    border-radius: var(--ml-radius-md);
+}
+
+.ml-admin .ml-table-responsive,
+.ml-admin .table-responsive,
+.ml-admin .table-card {
+    overflow-x: auto;
+}
+
+.ml-admin .table,
+.ml-admin .med-table {
+    width: 100%;
+    margin: 0;
+    color: var(--ml-color-text);
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: auto;
+}
+
+.ml-admin .table > :not(caption) > * > *,
+.ml-admin .med-table th,
+.ml-admin .med-table td {
+    padding: var(--ml-space-2);
+    background: var(--ml-color-surface);
+    border: 0;
+    border-bottom: 1px solid var(--ml-color-border);
+    color: var(--ml-color-text);
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.ml-admin .table thead th,
+.ml-admin .med-table thead th {
+    height: 3rem;
+    background: var(--ml-color-surface-muted);
+    color: var(--ml-color-text-secondary);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.ml-admin .table tbody tr,
+.ml-admin .med-table tbody tr {
+    min-height: var(--ml-table-row-height);
+}
+
+.ml-admin .table tbody tr:hover > *,
+.ml-admin .med-table tbody tr:hover > * {
+    background: #f8fbfd;
+}
+
+.ml-admin .table tbody tr:last-child > *,
+.ml-admin .med-table tbody tr:last-child > * {
+    border-bottom: 0;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Metric cards
+|--------------------------------------------------------------------------
+*/
+
+.ml-admin .ml-metric-card {
+    min-height: 7rem;
+    padding: var(--ml-space-3);
+    background: var(--ml-color-surface);
+    border: 1px solid var(--ml-color-border);
+    border-radius: var(--ml-radius-md);
+}
+
+.ml-admin .ml-metric-card__label {
+    color: var(--ml-color-text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+}
+
+.ml-admin .ml-metric-card__value {
+    display: block;
+    margin-top: var(--ml-space-1);
+    color: var(--ml-color-text);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 2.5rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Filter chips
+|--------------------------------------------------------------------------
+*/
+
+.ml-admin .ml-filter-chip {
+    min-height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ml-space-1);
+    padding: 0 var(--ml-space-2);
+    background: var(--ml-color-primary-soft);
+    border: 1px solid rgb(2 132 199 / 0.18);
+    border-radius: var(--ml-radius-pill);
+    color: var(--ml-color-primary-hover);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Pagination
+|--------------------------------------------------------------------------
+*/
+
+.ml-admin .pagination {
+    --bs-pagination-padding-x: 0.875rem;
+    --bs-pagination-padding-y: 0.5rem;
+    --bs-pagination-font-size: 0.875rem;
+    --bs-pagination-color: var(--ml-color-text-secondary);
+    --bs-pagination-bg: var(--ml-color-surface);
+    --bs-pagination-border-color: var(--ml-color-border);
+    --bs-pagination-hover-color: var(--ml-color-primary-hover);
+    --bs-pagination-hover-bg: var(--ml-color-primary-soft);
+    --bs-pagination-hover-border-color: var(--ml-color-border);
+    --bs-pagination-focus-box-shadow: var(--ml-focus-ring);
+    --bs-pagination-active-color: var(--ml-color-text-inverse);
+    --bs-pagination-active-bg: var(--ml-color-primary);
+    --bs-pagination-active-border-color: var(--ml-color-primary);
+    --bs-pagination-disabled-color: var(--ml-color-text-muted);
+    --bs-pagination-disabled-bg: var(--ml-color-surface-muted);
+    --bs-pagination-disabled-border-color: var(--ml-color-border);
+    gap: var(--ml-space-1);
+}
+
+.ml-admin .page-link {
+    min-width: var(--ml-control-height-sm);
+    min-height: var(--ml-control-height-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--ml-radius-sm);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Modals
+|--------------------------------------------------------------------------
+*/
+
+.ml-admin .modal-content {
+    border: 1px solid var(--ml-color-border);
+    border-radius: var(--ml-radius-md);
+    box-shadow: var(--ml-shadow-md);
+}
+
+.ml-admin .modal-header,
+.ml-admin .modal-body,
+.ml-admin .modal-footer {
+    padding: var(--ml-space-3);
+}
+
+.ml-admin .modal-header {
+    border-bottom-color: var(--ml-color-border);
+}
+
+.ml-admin .modal-footer {
+    gap: var(--ml-space-1);
+    border-top-color: var(--ml-color-border);
+}
+
+.ml-admin .modal-title {
+    color: var(--ml-color-text);
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 2rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Alerts and empty states
+|--------------------------------------------------------------------------
+*/
+
+.ml-admin .alert {
+    border-radius: var(--ml-radius-sm);
+}
+
+.ml-admin .ml-empty-state {
+    display: grid;
+    justify-items: center;
+    gap: var(--ml-space-2);
+    padding: var(--ml-space-6) var(--ml-space-3);
+    text-align: center;
+}
+
+.ml-admin .ml-empty-state__icon {
+    width: var(--ml-space-6);
+    height: var(--ml-space-6);
+    display: grid;
+    place-items: center;
+    background: var(--ml-color-primary-soft);
+    border-radius: var(--ml-radius-pill);
+    color: var(--ml-color-primary);
+    font-size: 1.5rem;
+}
+
+.ml-admin .ml-empty-state__title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+}
+
+.ml-admin .ml-empty-state__description {
+    max-width: 32rem;
+    margin: 0;
+    color: var(--ml-color-text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Icon buttons
+|--------------------------------------------------------------------------
+*/
+
+.ml-admin .ml-icon-button {
+    width: var(--ml-control-height-sm);
+    height: var(--ml-control-height-sm);
+    display: inline-grid;
+    place-items: center;
+    padding: 0;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--ml-radius-sm);
+    color: var(--ml-color-text-secondary);
+}
+
+.ml-admin .ml-icon-button:hover {
+    background: var(--ml-color-surface-subtle);
+    color: var(--ml-color-text);
+}

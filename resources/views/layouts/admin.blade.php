@@ -6,24 +6,33 @@
 
     <title>@yield('title', 'MediLabs Admin')</title>
 
-    {{-- Fondasi frontend admin baru --}}
+    {{--
+        Legacy stylesheet sementara.
+        Akan dihapus setelah seluruh halaman admin selesai dimigrasikan.
+    --}}
+    <link
+        rel="stylesheet"
+        href="{{ asset('assets/css/medilabs.css') }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ asset('assets/css/admin.css') }}"
+    >
+
+    {{--
+        Bootstrap, Bootstrap Icons, dan MediLabs design system.
+        Sengaja dimuat setelah stylesheet legacy.
+    --}}
     @vite([
         'resources/css/admin.css',
         'resources/js/admin.js',
     ])
 
-    {{--
-        CSS lama dipertahankan sementara selama masa transisi.
-        Urutan ini membuat CSS lama tetap dapat menimpa style Bootstrap
-        sehingga tampilan baseline tidak langsung rusak pada Tahap 2B.
-    --}}
-    <link rel="stylesheet" href="{{ asset('assets/css/medilabs.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}">
-
     @stack('styles')
 </head>
 
-<body>
+<body class="ml-admin">
     <div class="admin-shell">
         <x-admin-topbar />
 
