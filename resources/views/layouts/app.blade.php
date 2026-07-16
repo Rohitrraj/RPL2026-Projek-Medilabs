@@ -6,22 +6,28 @@
 
     <title>@yield('title', 'MediLabs')</title>
 
-    {{-- Legacy public styles --}}
+    {{-- Legacy public styles: dipertahankan selama migrasi halaman pasien. --}}
     <link rel="stylesheet" href="{{ asset('assets/css/medilabs.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/auth.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/services.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/reservation.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/profile.css') }}">
 
-    {{-- Page-specific Vite styles --}}
+    {{-- Public/patient shell design system. Selector dibatasi oleh .ml-public. --}}
+    @vite([
+        'resources/css/public.css',
+        'resources/js/public.js',
+    ])
+
+    {{-- Page-specific Vite styles, termasuk Auth. --}}
     @stack('styles')
 </head>
 
-<body class="@yield('body-class')">
+<body class="@yield('body-class', 'ml-public')">
     <div class="app-shell">
         <x-app-navbar />
 
-        <main class="page-content">
+        <main id="main-content" class="page-content">
             @if (trim($__env->yieldContent('suppress-global-flash')) !== 'true')
                 <x-flash-message />
             @endif

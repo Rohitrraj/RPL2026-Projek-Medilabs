@@ -13,6 +13,8 @@ export default defineConfig({
                 'resources/js/admin.js',
                 'resources/css/auth.css',
                 'resources/js/auth.js',
+                'resources/css/public.css',
+                'resources/js/public.js',
             ],
             refresh: true,
             fonts: [
