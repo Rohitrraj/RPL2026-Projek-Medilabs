@@ -8,6 +8,14 @@
 |
 */
 
+.ml-admin .admin-shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: var(--ml-topbar-height);
+    overflow: visible;
+}
+
 .ml-admin .admin-page {
     width: 100%;
     min-width: 0;
@@ -44,6 +52,44 @@
     font-size: 1.5rem;
     font-weight: 600;
     line-height: 2rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Admin Topbar
+|--------------------------------------------------------------------------
+|
+| Topbar tetap terlihat saat konten halaman admin digulir.
+|
+*/
+
+.ml-admin .admin-topbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+
+    width: 100%;
+    height: var(--ml-topbar-height);
+    min-height: var(--ml-topbar-height);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 var(--ml-space-4);
+
+    background: var(--ml-color-surface);
+    border-bottom: 1px solid var(--ml-color-border);
+    box-shadow: 0 1px 2px rgb(15 23 42 / 0.06);
+
+    isolation: isolate;
+}
+
+.ml-admin .admin-layout {
+    width: 100%;
+    flex: 1 0 auto;
 }
 
 .ml-admin .dark-panel,
@@ -267,7 +313,7 @@
 |--------------------------------------------------------------------------
 |
 | Menjaga sidebar lama tetap terbaca sebelum shell admin dibangun ulang
-| pada Tahap 2D.
+| pada tahap berikutnya.
 |
 */
 
