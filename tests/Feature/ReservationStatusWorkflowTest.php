@@ -174,53 +174,37 @@ class ReservationStatusWorkflowTest extends TestCase
         ]);
     }
 
-    public function test_patient_can_delete_waiting_reservation(): void
+    public function test_patient_can_cancel_waiting_reservation(): void
     {
         [, $reservation, $patientUser] = $this->createScenario('Menunggu');
 
         $this->actingAs($patientUser)
-            ->delete(route('reservations.destroy', $reservation))
+            ->patch(route('reservations.cancel', $reservation))
             ->assertRedirect(route('reservations.history'));
 
-        $this->assertDatabaseMissing('reservations', [
+        $this->assertDatabaseHas('reservations', [
             'id' => $reservation->id,
+            'status' => 'Dibatalkan',
         ]);
     }
 
-    public function test_patient_can_delete_cancelled_reservation(): void
-    {
-        [, $reservation, $patientUser] = $this->createScenario(
-            'Dibatalkan'
-        );
-
-        $this->actingAs($patientUser)
-            ->delete(route('reservations.destroy', $reservation))
-            ->assertRedirect(route('reservations.history'));
-
-        $this->assertDatabaseMissing('reservations', [
-            'id' => $reservation->id,
-        ]);
-    }
-
-    public function test_patient_cannot_delete_scheduled_reservation(): void
+    public function test_patient_can_cancel_scheduled_reservation(): void
     {
         [, $reservation, $patientUser] = $this->createScenario(
             'Terjadwal'
         );
 
         $this->actingAs($patientUser)
-            ->from(route('reservations.history'))
-            ->delete(route('reservations.destroy', $reservation))
-            ->assertRedirect(route('reservations.history'))
-            ->assertSessionHasErrors('reservation');
+            ->patch(route('reservations.cancel', $reservation))
+            ->assertRedirect(route('reservations.history'));
 
         $this->assertDatabaseHas('reservations', [
             'id' => $reservation->id,
-            'status' => 'Terjadwal',
+            'status' => 'Dibatalkan',
         ]);
     }
 
-    public function test_patient_cannot_delete_in_progress_reservation(): void
+    public function test_patient_cannot_cancel_in_progress_reservation(): void
     {
         [, $reservation, $patientUser] = $this->createScenario(
             'Diproses'
@@ -228,7 +212,7 @@ class ReservationStatusWorkflowTest extends TestCase
 
         $this->actingAs($patientUser)
             ->from(route('reservations.history'))
-            ->delete(route('reservations.destroy', $reservation))
+            ->patch(route('reservations.cancel', $reservation))
             ->assertRedirect(route('reservations.history'))
             ->assertSessionHasErrors('reservation');
 
@@ -238,7 +222,7 @@ class ReservationStatusWorkflowTest extends TestCase
         ]);
     }
 
-    public function test_patient_cannot_delete_completed_reservation(): void
+    public function test_patient_cannot_cancel_completed_reservation(): void
     {
         [, $reservation, $patientUser] = $this->createScenario(
             'Selesai'
@@ -246,13 +230,31 @@ class ReservationStatusWorkflowTest extends TestCase
 
         $this->actingAs($patientUser)
             ->from(route('reservations.history'))
-            ->delete(route('reservations.destroy', $reservation))
+            ->patch(route('reservations.cancel', $reservation))
             ->assertRedirect(route('reservations.history'))
             ->assertSessionHasErrors('reservation');
 
         $this->assertDatabaseHas('reservations', [
             'id' => $reservation->id,
             'status' => 'Selesai',
+        ]);
+    }
+
+    public function test_patient_cannot_cancel_already_cancelled_reservation(): void
+    {
+        [, $reservation, $patientUser] = $this->createScenario(
+            'Dibatalkan'
+        );
+
+        $this->actingAs($patientUser)
+            ->from(route('reservations.history'))
+            ->patch(route('reservations.cancel', $reservation))
+            ->assertRedirect(route('reservations.history'))
+            ->assertSessionHasErrors('reservation');
+
+        $this->assertDatabaseHas('reservations', [
+            'id' => $reservation->id,
+            'status' => 'Dibatalkan',
         ]);
     }
 

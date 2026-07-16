@@ -25,6 +25,14 @@
 
     $passwordFieldInvalid =
         $errors->has('password');
+
+    $intendedPath = parse_url(
+        (string) session('url.intended', ''),
+        PHP_URL_PATH,
+    );
+    $statusPath = parse_url(route('reservations.status'), PHP_URL_PATH);
+    $statusLoginRequired = request('reason') === 'status'
+        || $intendedPath === $statusPath;
 @endphp
 
 @section('content')
@@ -158,6 +166,25 @@
 
                                 <span>
                                     {{ session('success') }}
+                                </span>
+                            </div>
+                        @endif
+
+                        @if ($statusLoginRequired)
+                            <div
+                                class="ml-auth-alert ml-auth-alert--info mb-4"
+                                role="status"
+                            >
+                                <span
+                                    class="ml-auth-alert__icon"
+                                    aria-hidden="true"
+                                >
+                                    <i class="bi bi-info-circle"></i>
+                                </span>
+
+                                <span>
+                                    Anda belum login. Silakan masuk untuk melihat
+                                    status pemeriksaan pada akun Anda.
                                 </span>
                             </div>
                         @endif

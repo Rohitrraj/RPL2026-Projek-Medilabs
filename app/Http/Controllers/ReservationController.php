@@ -79,21 +79,27 @@ public function result(Reservation $reservation): View
 
     public function status(Request $request): View
     {
-        $reservation = null;
+        $validated = $request->validate([
+            'code' => ['nullable', 'string', 'max:20'],
+        ]);
 
-        if ($request->filled('code')) {
-            $reservation = Reservation::with(['patient', 'labTest'])
-                ->where('code', $request->code)
-                ->first();
-        }
+        $requestedCode = strtoupper(trim((string) ($validated['code'] ?? '')));
 
-        if (! $reservation && Auth::check()) {
-            $reservation = $this->latestReservationForCurrentUser();
-        }
+        $query = Reservation::with(['patient', 'labTest'])
+            ->whereHas('patient', function ($patientQuery) {
+                $patientQuery->where('user_id', Auth::id());
+            });
+
+        $reservation = $requestedCode !== ''
+            ? $query->where('code', $requestedCode)->first()
+            : $query->latest()->first();
 
         return view('reservations.status', [
             'reservation' => $reservation,
-            'reservationData' => $reservation ? $this->reservationDetailArray($reservation) : [],
+            'reservationData' => $reservation
+                ? $this->reservationDetailArray($reservation)
+                : [],
+            'requestedCode' => $requestedCode,
         ]);
     }
 
@@ -112,28 +118,30 @@ public function history(Request $request): View
     return view('reservations.history', compact('reservations'));
 }
 
-public function destroy(
+public function cancel(
     Reservation $reservation
 ): RedirectResponse {
     $this->ensureReservationOwnedByCurrentUser($reservation);
 
-    if (! ReservationStatus::canBeDeletedByPatient(
+    if (! ReservationStatus::canBeCancelledByPatient(
         $reservation->status
     )) {
         throw ValidationException::withMessages([
             'reservation' => [
                 'Reservasi dengan status '
                 . $reservation->status
-                . ' tidak dapat dihapus.',
+                . ' tidak dapat dibatalkan.',
             ],
         ]);
     }
 
-    $reservation->delete();
+    $reservation->update([
+        'status' => ReservationStatus::CANCELLED,
+    ]);
 
     return redirect()
         ->route('reservations.history')
-        ->with('success', 'Reservasi berhasil dihapus dari riwayat.');
+        ->with('success', 'Reservasi berhasil dibatalkan.');
 }
 
 private function ensureReservationOwnedByCurrentUser(
@@ -193,16 +201,6 @@ private function ensureReservationOwnedByCurrentUser(
         }
 
         return $query;
-    }
-
-    private function latestReservationForCurrentUser(): ?Reservation
-    {
-        return Reservation::with(['patient', 'labTest'])
-            ->whereHas('patient', function ($query) {
-                $query->where('user_id', Auth::id());
-            })
-            ->latest()
-            ->first();
     }
 
     private function reservationDetailArray(Reservation $reservation): array

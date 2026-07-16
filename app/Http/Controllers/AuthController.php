@@ -44,7 +44,7 @@ class AuthController extends Controller
         }
 
         return redirect()
-            ->route('home')
+            ->intended(route('home'))
             ->with('success', 'Login berhasil.');
     }
 

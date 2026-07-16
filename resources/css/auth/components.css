@@ -301,6 +301,15 @@
     color: var(--ml-auth-success);
 }
 
+.ml-auth .ml-auth-alert--info {
+    background: rgb(2 132 199 / 0.08);
+    border-color: rgb(2 132 199 / 0.18);
+}
+
+.ml-auth .ml-auth-alert--info .ml-auth-alert__icon {
+    color: #0284c7;
+}
+
 /*
 |--------------------------------------------------------------------------
 | Clinical Supporting Visual
