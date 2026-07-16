@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'MediLabs Admin - Dashboard')
+@section('title', 'Dashboard | MediLabs Admin')
 
 @section('content')
     <section class="admin-section">

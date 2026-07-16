@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Reset Password - MediLabs')
+@section('title', 'Reset Password | MediLabs')
 @section('body-class', 'ml-auth')
 @section('suppress-global-flash', 'true')
 

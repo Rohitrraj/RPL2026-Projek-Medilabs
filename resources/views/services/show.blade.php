@@ -1,20 +1,8 @@
 @extends('layouts.app')
 
-@section('title', $service->name . ' - MediLabs')
+@section('title', $service->name . ' | MediLabs')
 
 @section('content')
-    @php
-        $serviceImages = [
-            'hematologi-lengkap' => 'assets/images/laypophematologipage.jpg',
-            'gula-darah-puasa' => 'assets/images/laypopguladarah.jpg',
-            'profil-lipid-lengkap' => 'assets/images/laypopkolesterol.jpg',
-            'asam-urat' => 'assets/images/laypopasamurat.png',
-        ];
-
-        $serviceImage = $serviceImages[$service->slug]
-            ?? 'assets/images/laypophematologipage.jpg';
-    @endphp
-
     <section class="ml-service-detail">
         <nav aria-label="Breadcrumb">
             <ol class="ml-public-breadcrumb">
@@ -69,10 +57,10 @@
             </div>
 
             <div class="ml-service-detail-hero__media">
-                <img
-                    src="{{ asset($serviceImage) }}"
-                    alt="Ilustrasi pemeriksaan {{ $service->name }}"
-                >
+                <x-service-visual
+                    :service="$service"
+                    variant="detail"
+                />
             </div>
         </article>
 

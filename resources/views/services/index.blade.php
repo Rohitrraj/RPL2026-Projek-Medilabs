@@ -1,17 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Layanan Laboratorium - MediLabs')
+@section('title', 'Layanan Laboratorium | MediLabs')
 
 @section('content')
-    @php
-        $serviceImages = [
-            'hematologi-lengkap' => 'assets/images/laypophematologi.jpeg',
-            'gula-darah-puasa' => 'assets/images/laypopguladarah.jpg',
-            'profil-lipid-lengkap' => 'assets/images/laypopkolesterol.jpg',
-            'asam-urat' => 'assets/images/laypopasamurat.png',
-        ];
-    @endphp
-
     <section class="ml-public-page">
         <header class="ml-public-page-header">
             <div class="ml-public-page-header__copy">
@@ -61,17 +52,12 @@
         @else
             <div class="ml-services-grid">
                 @foreach ($services as $service)
-                    @php
-                        $serviceImage = $serviceImages[$service->slug]
-                            ?? 'assets/images/laypophematologi.jpeg';
-                    @endphp
-
                     <article class="ml-service-card">
                         <div class="ml-service-card__media">
-                            <img
-                                src="{{ asset($serviceImage) }}"
-                                alt="Ilustrasi layanan {{ $service->name }}"
-                            >
+                            <x-service-visual
+                                :service="$service"
+                                variant="card"
+                            />
 
                             <span class="ml-service-card__availability">
                                 <i class="bi bi-check-circle" aria-hidden="true"></i>

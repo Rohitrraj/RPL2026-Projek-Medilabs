@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ($patient ? 'Edit' : 'Lengkapi') . ' Data Pasien - MediLabs')
+@section('title', ($patient ? 'Edit' : 'Lengkapi') . ' Data Pasien | MediLabs')
 
 @section('content')
     <section class="ml-public-page">

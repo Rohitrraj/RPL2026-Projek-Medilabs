@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Hasil Reservasi - MediLabs')
+@section('title', 'Hasil Reservasi | MediLabs')
 
 @section('content')
     <section class="ml-public-page">

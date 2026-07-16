@@ -35,7 +35,12 @@
             <a class="{{ $isServices ? 'active' : '' }}" href="{{ route('services.index') }}">Layanan</a>
             <a href="{{ route('reservations.create') }}">Reservasi</a>
             <a class="{{ $isStatus ? 'active' : '' }}" href="{{ route('reservations.status') }}">Cek Status</a>
-            <a class="{{ request()->routeIs('login') ? 'active' : '' }}" href="{{ route('login') }}">Masuk</a>
+            <a
+                class="auth-login-link {{ request()->routeIs('login') ? 'active' : '' }}"
+                href="{{ route('login') }}"
+            >
+                Masuk
+            </a>
         </nav>
     </header>
 @else

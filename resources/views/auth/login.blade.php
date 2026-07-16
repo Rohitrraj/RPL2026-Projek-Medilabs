@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Masuk - MediLabs')
+@section('title', 'Masuk | MediLabs')
 @section('body-class', 'ml-auth ml-auth--fixed-footer')
 @section('suppress-global-flash', 'true')
 

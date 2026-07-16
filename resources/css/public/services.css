@@ -281,3 +281,41 @@
         width: 100%;
     }
 }
+
+/* Generic visual for services without a mapped illustration. */
+.ml-public .ml-service-visual-fallback {
+    width: 100%;
+    height: 100%;
+    min-height: 12rem;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 0.75rem;
+    padding: var(--ml-public-space-3);
+
+    background: var(--ml-public-primary-soft);
+    color: var(--ml-public-primary);
+    text-align: center;
+}
+
+.ml-public .ml-service-visual-fallback i {
+    font-size: 3rem;
+}
+
+.ml-public .ml-service-visual-fallback span {
+    color: var(--ml-public-primary-hover);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.ml-public .ml-service-detail-hero__media .ml-service-visual-fallback {
+    min-height: 27rem;
+}
+
+@media (max-width: 1080px) {
+    .ml-public .ml-service-detail-hero__media .ml-service-visual-fallback {
+        min-height: 20rem;
+    }
+}

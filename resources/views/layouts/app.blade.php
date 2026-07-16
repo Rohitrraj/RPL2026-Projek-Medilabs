@@ -4,22 +4,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@yield('title', 'MediLabs')</title>
+    <title>@yield('title', 'MediLabs | Reservasi Laboratorium Klinik')</title>
 
-    {{-- Legacy public styles: dipertahankan selama migrasi halaman pasien. --}}
-    <link rel="stylesheet" href="{{ asset('assets/css/medilabs.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/auth.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/services.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/reservation.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/profile.css') }}">
+    <link
+        rel="icon"
+        type="image/png"
+        href="{{ asset('assets/images/logo.png') }}"
+    >
+    <link
+        rel="apple-touch-icon"
+        href="{{ asset('assets/images/logo.png') }}"
+    >
+    <meta name="theme-color" content="#0284c7">
 
-    {{-- Public/patient shell design system. Selector dibatasi oleh .ml-public. --}}
+    {{-- Public/patient design system. Selector dibatasi oleh .ml-public. --}}
     @vite([
         'resources/css/public.css',
         'resources/js/public.js',
     ])
 
-    {{-- Page-specific Vite styles, termasuk Auth. --}}
+    {{-- Page-specific Vite assets, termasuk halaman Auth. --}}
     @stack('styles')
 </head>
 
@@ -37,8 +41,6 @@
 
         <x-app-footer />
     </div>
-
-    <script src="{{ asset('assets/js/medilabs.js') }}"></script>
 
     @stack('scripts')
 </body>

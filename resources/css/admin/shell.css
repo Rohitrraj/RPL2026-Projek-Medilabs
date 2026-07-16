@@ -1,9 +1,0 @@
-@import 'bootstrap/dist/css/bootstrap.min.css';
-@import 'bootstrap-icons/font/bootstrap-icons.css';
-
-@import './admin/tokens.css';
-@import './admin/base.css';
-@import './admin/shell.css';
-@import './admin/components.css';
-@import './admin/legacy-bridge.css';
-@import './admin/utilities.css';

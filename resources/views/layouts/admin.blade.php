@@ -4,7 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@yield('title', 'MediLabs Admin')</title>
+    <title>@yield('title', 'MediLabs Admin | Operasional Laboratorium')</title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="{{ asset('assets/images/logo.png') }}"
+    >
+    <link
+        rel="apple-touch-icon"
+        href="{{ asset('assets/images/logo.png') }}"
+    >
+    <meta name="theme-color" content="#0284c7">
 
     {{--
         Legacy stylesheet sementara.

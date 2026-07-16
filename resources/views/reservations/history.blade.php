@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Riwayat Reservasi - MediLabs')
+@section('title', 'Riwayat Reservasi | MediLabs')
 
 @section('content')
     @php

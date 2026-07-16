@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Daftar Akun - MediLabs')
+@section('title', 'Daftar Akun | MediLabs')
 @section('body-class', 'ml-auth')
 @section('suppress-global-flash', 'true')
 

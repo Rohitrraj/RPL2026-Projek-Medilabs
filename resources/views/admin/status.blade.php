@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'MediLabs Admin - Cek Status Reservasi')
+@section('title', 'Cek Status Reservasi | MediLabs Admin')
 
 @section('content')
     <section class="admin-section">
