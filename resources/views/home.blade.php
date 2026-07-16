@@ -125,8 +125,11 @@
                 <div class="ml-home-services-grid">
                     @foreach ($services as $service)
                         <a href="{{ $service['route'] }}" class="ml-home-service-card">
-                            <span class="ml-home-service-card__visual" aria-hidden="true">
-                                <i class="bi bi-activity"></i>
+                            <span class="ml-home-service-card__visual">
+                                <img
+                                    src="{{ asset($service['image']) }}"
+                                    alt="Ilustrasi layanan {{ $service['title'] }}"
+                                >
                             </span>
 
                             <div class="ml-home-service-card__content">
@@ -158,9 +161,13 @@
 
             <a
                 class="ml-public-button ml-public-button--primary"
-                href="{{ route('reservations.status') }}"
+                href="{{ auth()->check()
+                    ? route('reservations.status')
+                    : route('login', ['reason' => 'status']) }}"
             >
-                Cek Status Reservasi
+                {{ auth()->check()
+                    ? 'Cek Status Reservasi'
+                    : 'Masuk untuk Cek Status' }}
                 <i class="bi bi-arrow-right" aria-hidden="true"></i>
             </a>
         </aside>

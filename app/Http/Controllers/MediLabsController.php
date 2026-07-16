@@ -103,7 +103,9 @@ private function recentReservationsForPatient(?int $patientId)
             [
                 'title' => 'Cek Status',
                 'text' => 'Pantau status reservasi dan lihat detail jadwal pemeriksaan.',
-                'route' => route('reservations.status'),
+                'route' => Auth::check()
+                    ? route('reservations.status')
+                    : route('login', ['reason' => 'status']),
                 'image' => 'assets/images/icon-cek-status.svg',
             ],
         ];
@@ -111,29 +113,20 @@ private function recentReservationsForPatient(?int $patientId)
 
     private function popularServices(): array
     {
-        $imageMap = $this->serviceImageMap();
-
         return LabTest::where('status', 'active')
             ->limit(4)
             ->get()
-            ->map(function (LabTest $service) use ($imageMap) {
+            ->map(function (LabTest $service) {
                 return [
                     'title' => $service->name,
                     'text' => $service->description ?? 'Layanan pemeriksaan laboratorium MediLabs.',
-                    'image' => $imageMap[$service->slug] ?? 'assets/images/laypophematologi.jpeg',
+                    'image' => config(
+                        "service_images.{$service->slug}.card",
+                        'assets/images/laypophematologi.jpeg'
+                    ),
                     'route' => route('services.show', $service->slug),
                 ];
             })
             ->toArray();
-    }
-
-    private function serviceImageMap(): array
-    {
-        return [
-            'hematologi-lengkap' => 'assets/images/laypophematologi.jpeg',
-            'gula-darah-puasa' => 'assets/images/laypopguladarah.jpg',
-            'profil-lipid-lengkap' => 'assets/images/laypopkolesterol.jpg',
-            'asam-urat' => 'assets/images/laypopasamurat.png',
-        ];
     }
 }

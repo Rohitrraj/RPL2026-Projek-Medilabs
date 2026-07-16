@@ -50,7 +50,7 @@ class PatientAccessControlTest extends TestCase
         $this->get(route('reservations.history'))
             ->assertRedirect(route('login'));
 
-        $this->delete(route('reservations.destroy', $reservation))
+        $this->patch(route('reservations.cancel', $reservation))
             ->assertRedirect(route('login'));
     }
 
@@ -133,7 +133,7 @@ class PatientAccessControlTest extends TestCase
             ->assertDontSee('A002');
     }
 
-    public function test_patient_cannot_delete_another_patient_reservation(): void
+    public function test_patient_cannot_cancel_another_patient_reservation(): void
     {
         [, $ownerPatient] = $this->createPatientUser(
             'owner@example.com',
@@ -154,7 +154,7 @@ class PatientAccessControlTest extends TestCase
         );
 
         $this->actingAs($otherUser)
-            ->delete(route('reservations.destroy', $reservation))
+            ->patch(route('reservations.cancel', $reservation))
             ->assertForbidden();
 
         $this->assertDatabaseHas('reservations', [
@@ -162,7 +162,7 @@ class PatientAccessControlTest extends TestCase
         ]);
     }
 
-    public function test_patient_can_delete_own_reservation(): void
+    public function test_patient_can_cancel_own_reservation(): void
     {
         [$owner, $ownerPatient] = $this->createPatientUser(
             'owner@example.com',
@@ -178,11 +178,12 @@ class PatientAccessControlTest extends TestCase
         );
 
         $this->actingAs($owner)
-            ->delete(route('reservations.destroy', $reservation))
+            ->patch(route('reservations.cancel', $reservation))
             ->assertRedirect(route('reservations.history'));
 
-        $this->assertDatabaseMissing('reservations', [
+        $this->assertDatabaseHas('reservations', [
             'id' => $reservation->id,
+            'status' => 'Dibatalkan',
         ]);
     }
 

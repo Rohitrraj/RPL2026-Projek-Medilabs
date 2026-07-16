@@ -26,9 +26,9 @@ class ReservationStatus
         self::CANCELLED => [],
     ];
 
-    private const PATIENT_DELETABLE_STATUSES = [
+    private const PATIENT_CANCELLABLE_STATUSES = [
         self::WAITING,
-        self::CANCELLED,
+        self::SCHEDULED,
     ];
 
     public static function all(): array
@@ -57,11 +57,11 @@ class ReservationStatus
         );
     }
 
-    public static function canBeDeletedByPatient(string $status): bool
+    public static function canBeCancelledByPatient(string $status): bool
     {
         return in_array(
             $status,
-            self::PATIENT_DELETABLE_STATUSES,
+            self::PATIENT_CANCELLABLE_STATUSES,
             true
         );
     }

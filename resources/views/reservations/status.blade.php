@@ -4,14 +4,9 @@
 
 @section('content')
     @php
-        $searched = request()->filled('code');
-        $requestedCode = strtoupper(trim((string) request('code', '')));
-        $displayedCode = strtoupper(trim((string) ($reservation->code ?? '')));
-        $showingLatestFallback = $searched
-            && $reservation
-            && $requestedCode !== $displayedCode;
+        $searched = $requestedCode !== '';
         $searchNotFound = $searched && ! $reservation;
-        $isLatestWithoutSearch = ! $searched && $reservation && auth()->check();
+        $isLatestWithoutSearch = ! $searched && $reservation;
     @endphp
 
     <section class="ml-public-page">
@@ -120,24 +115,13 @@
             </aside>
         </div>
 
-        @if ($showingLatestFallback)
-            <div class="ml-public-notice ml-public-notice--warning" role="status">
-                <i class="bi bi-exclamation-triangle ml-public-notice__icon" aria-hidden="true"></i>
-                <span>
-                    Kode <strong>{{ $requestedCode }}</strong> tidak ditemukan.
-                    Karena Anda sedang masuk, sistem menampilkan reservasi terbaru
-                    pada akun Anda sebagai referensi.
-                </span>
-            </div>
-        @endif
-
         @if ($reservation)
             <article class="ml-public-card ml-status-result print-card">
                 <header class="ml-public-card__header">
                     <div class="ml-public-card__title-wrap">
                         <span class="ml-public-eyebrow">
                             <i class="bi bi-clipboard2-check" aria-hidden="true"></i>
-                            {{ $showingLatestFallback || $isLatestWithoutSearch
+                            {{ $isLatestWithoutSearch
                                 ? 'Reservasi terbaru akun Anda'
                                 : 'Hasil pencarian' }}
                         </span>
@@ -180,12 +164,10 @@
                     </div>
 
                     <dl class="ml-public-definition-list">
-                        @auth
-                            <div>
-                                <dt>Nama Pasien</dt>
-                                <dd>{{ $reservation->patient->full_name ?? '-' }}</dd>
-                            </div>
-                        @endauth
+                        <div>
+                            <dt>Nama Pasien</dt>
+                            <dd>{{ $reservation->patient->full_name ?? '-' }}</dd>
+                        </div>
                         <div>
                             <dt>Jenis Tes</dt>
                             <dd>{{ $reservation->labTest->name ?? '-' }}</dd>
@@ -210,44 +192,19 @@
                 </div>
 
                 <footer class="ml-public-card__footer no-print">
-                    @auth
-                        @if (auth()->user()->role !== 'admin')
-                            <a
-                                class="ml-public-button ml-public-button--outline"
-                                href="{{ route('reservations.result', $reservation) }}"
-                            >
-                                Lihat Detail
-                            </a>
+                    <a
+                        class="ml-public-button ml-public-button--outline"
+                        href="{{ route('reservations.result', $reservation) }}"
+                    >
+                        Lihat Detail
+                    </a>
 
-                            <a
-                                class="ml-public-button ml-public-button--primary"
-                                href="{{ route('reservations.history') }}"
-                            >
-                                Lihat Riwayat
-                            </a>
-                        @else
-                            <a
-                                class="ml-public-button ml-public-button--primary"
-                                href="{{ route('admin.dashboard') }}"
-                            >
-                                Dashboard Admin
-                            </a>
-                        @endif
-                    @else
-                        <a
-                            class="ml-public-button ml-public-button--outline"
-                            href="{{ route('services.index') }}"
-                        >
-                            Lihat Layanan
-                        </a>
-
-                        <a
-                            class="ml-public-button ml-public-button--primary"
-                            href="{{ route('login') }}"
-                        >
-                            Masuk ke Akun
-                        </a>
-                    @endauth
+                    <a
+                        class="ml-public-button ml-public-button--primary"
+                        href="{{ route('reservations.history') }}"
+                    >
+                        Lihat Riwayat
+                    </a>
                 </footer>
             </article>
         @elseif ($searchNotFound)
@@ -256,10 +213,10 @@
                     <i class="bi bi-search"></i>
                 </span>
 
-                <h2>Kode reservasi tidak ditemukan</h2>
+                <h2>Reservasi tidak ditemukan</h2>
                 <p>
-                    Tidak ada reservasi dengan kode {{ $requestedCode }}.
-                    Periksa kembali penulisan kode dan lakukan pencarian ulang.
+                    Tidak ada reservasi dengan kode {{ $requestedCode }} pada akun Anda.
+                    Periksa kembali kode yang dimasukkan.
                 </p>
 
                 <a
