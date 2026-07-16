@@ -1,0 +1,364 @@
+/*
+|--------------------------------------------------------------------------
+| Authentication Card
+|--------------------------------------------------------------------------
+*/
+
+.ml-auth .ml-auth-card {
+    width: 100%;
+    padding: var(--ml-auth-space-4);
+
+    background: var(--ml-auth-surface);
+    border: 1px solid var(--ml-auth-border);
+    border-radius: var(--ml-auth-radius-md);
+    box-shadow: var(--ml-auth-shadow-card);
+}
+
+.ml-auth .ml-auth-card__header {
+    margin-bottom: var(--ml-auth-space-3);
+}
+
+.ml-auth .ml-auth-card__title {
+    margin: 0;
+
+    color: var(--ml-auth-text);
+
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 2.5rem;
+    letter-spacing: -0.015em;
+}
+
+.ml-auth .ml-auth-card__description {
+    margin:
+        var(--ml-auth-space-1)
+        0
+        0;
+
+    color: var(--ml-auth-text-secondary);
+
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Benefits
+|--------------------------------------------------------------------------
+*/
+
+.ml-auth .ml-auth-benefits {
+    display: grid;
+    gap: var(--ml-auth-space-2);
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.ml-auth .ml-auth-benefit {
+    display: flex;
+    align-items: center;
+    gap: var(--ml-auth-space-2);
+
+    color: var(--ml-auth-text);
+
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.ml-auth .ml-auth-benefit__icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: 0 0 auto;
+
+    display: grid;
+    place-items: center;
+
+    background: var(--ml-auth-primary-soft);
+    border-radius: var(--ml-auth-radius-sm);
+
+    color: var(--ml-auth-primary);
+
+    font-size: 1rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Form Structure
+|--------------------------------------------------------------------------
+*/
+
+.ml-auth .ml-auth-form {
+    display: grid;
+    gap: var(--ml-auth-space-3);
+}
+
+.ml-auth .ml-auth-field {
+    min-width: 0;
+    display: grid;
+    gap: var(--ml-auth-space-1);
+}
+
+.ml-auth .ml-auth-field__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ml-auth-space-2);
+}
+
+.ml-auth .ml-auth-label {
+    margin: 0;
+
+    color: var(--ml-auth-text);
+
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+}
+
+.ml-auth .ml-auth-forgot-link {
+    flex: 0 0 auto;
+
+    color: var(--ml-auth-primary);
+
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Inputs
+|--------------------------------------------------------------------------
+*/
+
+.ml-auth .ml-auth-input {
+    width: 100%;
+    height: var(--ml-auth-control-height);
+    min-height: var(--ml-auth-control-height);
+
+    padding:
+        0
+        var(--ml-auth-space-2);
+
+    background: var(--ml-auth-surface);
+    border: 1px solid var(--ml-auth-border-strong);
+    border-radius: var(--ml-auth-radius-sm);
+
+    color: var(--ml-auth-text);
+
+    font-size: 1rem;
+    line-height: 1.5rem;
+
+    transition:
+        border-color var(--ml-auth-transition-fast),
+        box-shadow var(--ml-auth-transition-fast),
+        background-color var(--ml-auth-transition-fast);
+}
+
+.ml-auth .ml-auth-input::placeholder {
+    color: var(--ml-auth-text-muted);
+    opacity: 1;
+}
+
+.ml-auth .ml-auth-input:hover {
+    border-color: var(--ml-auth-text-muted);
+}
+
+.ml-auth .ml-auth-input:focus {
+    background: var(--ml-auth-surface);
+    border-color: var(--ml-auth-primary);
+    box-shadow: var(--ml-auth-focus-ring);
+
+    color: var(--ml-auth-text);
+    outline: 0;
+}
+
+.ml-auth .ml-auth-input[aria-invalid="true"],
+.ml-auth .ml-auth-input.is-invalid {
+    border-color: var(--ml-auth-danger);
+}
+
+.ml-auth .ml-auth-input[aria-invalid="true"]:focus,
+.ml-auth .ml-auth-input.is-invalid:focus {
+    border-color: var(--ml-auth-danger);
+
+    box-shadow:
+        0 0 0 0.25rem
+        rgb(220 38 38 / 0.12);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Password Input
+|--------------------------------------------------------------------------
+*/
+
+.ml-auth .ml-auth-password {
+    position: relative;
+}
+
+.ml-auth .ml-auth-password .ml-auth-input {
+    padding-right:
+        calc(
+            var(--ml-auth-icon-button-size)
+            + var(--ml-auth-space-1)
+        );
+}
+
+.ml-auth .ml-auth-password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 0;
+
+    width: var(--ml-auth-icon-button-size);
+    height: var(--ml-auth-icon-button-size);
+
+    display: grid;
+    place-items: center;
+
+    padding: 0;
+
+    transform: translateY(-50%);
+
+    background: transparent;
+    border: 0;
+    border-radius: var(--ml-auth-radius-sm);
+
+    color: var(--ml-auth-text-secondary);
+
+    cursor: pointer;
+
+    transition:
+        color var(--ml-auth-transition-fast),
+        background-color var(--ml-auth-transition-fast);
+}
+
+.ml-auth .ml-auth-password-toggle:hover {
+    background: var(--ml-auth-surface-soft);
+    color: var(--ml-auth-text);
+}
+
+.ml-auth .ml-auth-password-toggle i {
+    font-size: 1.125rem;
+    line-height: 1;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Validation and Alerts
+|--------------------------------------------------------------------------
+*/
+
+.ml-auth .ml-auth-error {
+    margin: 0;
+
+    color: var(--ml-auth-danger);
+
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+}
+
+.ml-auth .ml-auth-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--ml-auth-space-2);
+
+    padding: var(--ml-auth-space-2);
+
+    background: var(--ml-auth-danger-soft);
+    border: 1px solid rgb(220 38 38 / 0.18);
+    border-radius: var(--ml-auth-radius-sm);
+
+    color: var(--ml-auth-text);
+
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+}
+
+.ml-auth .ml-auth-alert__icon {
+    flex: 0 0 auto;
+    margin-top: 0.125rem;
+
+    color: var(--ml-auth-danger);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Submit Button
+|--------------------------------------------------------------------------
+*/
+
+.ml-auth .ml-auth-submit {
+    width: 100%;
+    min-height: var(--ml-auth-control-height);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--ml-auth-space-1);
+
+    padding:
+        0
+        var(--ml-auth-space-3);
+
+    background: var(--ml-auth-primary);
+    border: 1px solid var(--ml-auth-primary);
+    border-radius: var(--ml-auth-radius-sm);
+
+    color: var(--ml-auth-text-inverse);
+
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+
+    cursor: pointer;
+
+    transition:
+        background-color var(--ml-auth-transition-fast),
+        border-color var(--ml-auth-transition-fast),
+        box-shadow var(--ml-auth-transition-fast);
+}
+
+.ml-auth .ml-auth-submit:hover {
+    background: var(--ml-auth-primary-hover);
+    border-color: var(--ml-auth-primary-hover);
+    color: var(--ml-auth-text-inverse);
+}
+
+.ml-auth .ml-auth-submit:active {
+    background: var(--ml-auth-primary-active);
+    border-color: var(--ml-auth-primary-active);
+}
+
+.ml-auth .ml-auth-submit:disabled,
+.ml-auth .ml-auth-submit.is-loading {
+    cursor: not-allowed;
+    opacity: 0.64;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Registration Note
+|--------------------------------------------------------------------------
+*/
+
+.ml-auth .ml-auth-register-note {
+    margin:
+        var(--ml-auth-space-3)
+        0
+        0;
+
+    color: var(--ml-auth-text-secondary);
+
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    text-align: center;
+}
+
+.ml-auth .ml-auth-register-link {
+    font-weight: 600;
+}

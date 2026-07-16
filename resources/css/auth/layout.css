@@ -1,0 +1,169 @@
+/*
+|--------------------------------------------------------------------------
+| MediLabs Authentication Layout
+|--------------------------------------------------------------------------
+|
+| Layout desktop dua kolom berdasarkan generated image Login.
+|
+*/
+
+.ml-auth .ml-auth-page {
+    min-height:
+        calc(
+            100vh
+            - var(--ml-auth-navbar-height)
+        );
+
+    display: grid;
+    align-items: center;
+
+    padding:
+        var(--ml-auth-space-8)
+        var(--ml-auth-space-4);
+}
+
+.ml-auth .ml-auth-container {
+    width: min(
+        100%,
+        var(--ml-auth-container-width)
+    );
+
+    margin-inline: auto;
+}
+
+.ml-auth .ml-auth-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.2fr)
+        minmax(25rem, var(--ml-auth-card-width));
+
+    gap: var(--ml-auth-space-8);
+    align-items: center;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Intro Area
+|--------------------------------------------------------------------------
+*/
+
+.ml-auth .ml-auth-intro {
+    min-width: 0;
+    display: grid;
+    gap: var(--ml-auth-space-4);
+}
+
+.ml-auth .ml-auth-intro__content {
+    max-width: 39rem;
+}
+
+.ml-auth .ml-auth-intro__title {
+    max-width: 38rem;
+    margin: 0;
+
+    color: var(--ml-auth-text);
+
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 3rem;
+    letter-spacing: -0.02em;
+}
+
+.ml-auth .ml-auth-intro__description {
+    max-width: 37rem;
+    margin:
+        var(--ml-auth-space-2)
+        0
+        0;
+
+    color: var(--ml-auth-text-secondary);
+
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.ml-auth .ml-auth-intro__body {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(12rem, 17rem);
+
+    gap: var(--ml-auth-space-4);
+    align-items: end;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Optional Supporting Visual
+|--------------------------------------------------------------------------
+*/
+
+.ml-auth .ml-auth-visual {
+    min-height: 14rem;
+    display: grid;
+    place-items: center;
+
+    padding: var(--ml-auth-space-3);
+
+    background: var(--ml-auth-visual-surface);
+    border: 1px solid rgb(2 132 199 / 0.12);
+    border-radius: var(--ml-auth-radius-md);
+}
+
+.ml-auth .ml-auth-visual img {
+    width: 100%;
+    max-width: 15rem;
+    max-height: 13rem;
+
+    object-fit: contain;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Form Column
+|--------------------------------------------------------------------------
+*/
+
+.ml-auth .ml-auth-form-column {
+    width: 100%;
+    max-width: var(--ml-auth-card-width);
+    justify-self: end;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Desktop Width Protection
+|--------------------------------------------------------------------------
+|
+| Ini bukan desain mobile. Hanya mencegah desktop sempit rusak.
+|
+*/
+
+@media (max-width: 1200px) {
+    .ml-auth .ml-auth-page {
+        padding-inline: var(--ml-auth-space-3);
+    }
+
+    .ml-auth .ml-auth-grid {
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(24rem, 27rem);
+
+        gap: var(--ml-auth-space-5);
+    }
+
+    .ml-auth .ml-auth-intro__title {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+    }
+
+    .ml-auth .ml-auth-intro__body {
+        grid-template-columns: 1fr;
+    }
+
+    .ml-auth .ml-auth-visual {
+        display: none;
+    }
+}
