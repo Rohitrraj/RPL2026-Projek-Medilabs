@@ -1,0 +1,122 @@
+/*
+|--------------------------------------------------------------------------
+| MediLabs Admin Base
+|--------------------------------------------------------------------------
+*/
+
+html {
+    min-width: 320px;
+}
+
+body.ml-admin {
+    min-height: 100vh;
+    margin: 0;
+    background: var(--ml-color-canvas);
+    color: var(--ml-color-text);
+    font-family: var(--bs-body-font-family);
+    font-size: 1rem;
+    line-height: 1.5;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+.ml-admin *,
+.ml-admin *::before,
+.ml-admin *::after {
+    box-sizing: border-box;
+}
+
+.ml-admin img,
+.ml-admin svg {
+    max-width: 100%;
+}
+
+.ml-admin h1,
+.ml-admin h2,
+.ml-admin h3,
+.ml-admin h4,
+.ml-admin h5,
+.ml-admin h6 {
+    margin-top: 0;
+    color: var(--ml-color-text);
+    font-family: inherit;
+}
+
+.ml-admin h1 {
+    margin-bottom: var(--ml-space-1);
+    font-size: clamp(1.75rem, 2vw, 2rem);
+    font-weight: 700;
+    line-height: 2.5rem;
+}
+
+.ml-admin h2 {
+    margin-bottom: var(--ml-space-2);
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 2rem;
+}
+
+.ml-admin h3 {
+    margin-bottom: var(--ml-space-2);
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+}
+
+.ml-admin p {
+    margin-top: 0;
+}
+
+.ml-admin a {
+    color: var(--ml-color-primary);
+    text-decoration: none;
+    transition:
+        color var(--ml-transition-fast),
+        background-color var(--ml-transition-fast),
+        border-color var(--ml-transition-fast);
+}
+
+.ml-admin a:hover {
+    color: var(--ml-color-primary-hover);
+}
+
+.ml-admin button,
+.ml-admin input,
+.ml-admin select,
+.ml-admin textarea {
+    font: inherit;
+}
+
+.ml-admin ::selection {
+    background: var(--ml-color-primary-soft);
+    color: var(--ml-color-text);
+}
+
+.ml-admin :where(
+    a,
+    button,
+    input,
+    select,
+    textarea,
+    [tabindex]
+):focus-visible {
+    outline: 3px solid rgb(2 132 199 / 0.42);
+    outline-offset: 2px;
+}
+
+.ml-admin hr {
+    margin: var(--ml-space-3) 0;
+    border-color: var(--ml-color-border);
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ml-admin *,
+    .ml-admin *::before,
+    .ml-admin *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}

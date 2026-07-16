@@ -1,71 +1,238 @@
 @extends('layouts.app')
 
-@section('title', 'MediLabs - Riwayat Reservasi')
+@section('title', 'Riwayat Reservasi | MediLabs')
 
 @section('content')
-    <section class="history-page-fixed">
-        <div class="history-heading-fixed">
-            <h1>Riwayat Reservasi</h1>
-            <p>Daftar reservasi pemeriksaan laboratorium yang pernah dibuat pasien.</p>
+    @php
+        $activeCount = $reservations
+            ->whereIn('status', ['Menunggu', 'Terjadwal', 'Diproses'])
+            ->count();
+        $completedCount = $reservations->where('status', 'Selesai')->count();
+        $waitingCount = $reservations->where('status', 'Menunggu')->count();
+        $cancelledCount = $reservations->where('status', 'Dibatalkan')->count();
+    @endphp
+
+    <section class="ml-public-page">
+        <header class="ml-public-page-header">
+            <div class="ml-public-page-header__copy">
+                <span class="ml-public-eyebrow">
+                    <i class="bi bi-clock-history" aria-hidden="true"></i>
+                    Aktivitas pasien
+                </span>
+
+                <h1 class="ml-public-page-title">Riwayat Reservasi</h1>
+
+                <p class="ml-public-page-description">
+                    Lihat reservasi yang pernah dibuat, periksa detail, dan kelola
+                    data yang masih dapat dihapus.
+                </p>
+            </div>
+
+            <div class="ml-public-page-actions">
+                <a
+                    class="ml-public-button ml-public-button--primary"
+                    href="{{ route('reservations.create') }}"
+                >
+                    <i class="bi bi-calendar2-plus" aria-hidden="true"></i>
+                    Buat Reservasi
+                </a>
+            </div>
+        </header>
+
+        <div class="ml-history-metrics" aria-label="Ringkasan reservasi">
+            <article class="ml-history-metric">
+                <span class="ml-history-metric__icon" aria-hidden="true">
+                    <i class="bi bi-activity"></i>
+                </span>
+                <span class="ml-history-metric__copy">
+                    <strong>{{ $activeCount }}</strong>
+                    <span>Reservasi aktif</span>
+                </span>
+            </article>
+
+            <article class="ml-history-metric">
+                <span class="ml-history-metric__icon" aria-hidden="true">
+                    <i class="bi bi-hourglass-split"></i>
+                </span>
+                <span class="ml-history-metric__copy">
+                    <strong>{{ $waitingCount }}</strong>
+                    <span>Menunggu</span>
+                </span>
+            </article>
+
+            <article class="ml-history-metric">
+                <span class="ml-history-metric__icon" aria-hidden="true">
+                    <i class="bi bi-check2-circle"></i>
+                </span>
+                <span class="ml-history-metric__copy">
+                    <strong>{{ $completedCount }}</strong>
+                    <span>Selesai</span>
+                </span>
+            </article>
+
+            <article class="ml-history-metric">
+                <span class="ml-history-metric__icon" aria-hidden="true">
+                    <i class="bi bi-x-circle"></i>
+                </span>
+                <span class="ml-history-metric__copy">
+                    <strong>{{ $cancelledCount }}</strong>
+                    <span>Dibatalkan</span>
+                </span>
+            </article>
         </div>
 
-        <form class="history-search-fixed" action="{{ route('reservations.history') }}" method="get">
-            <label for="history-code">Cari Kode</label>
-            <input id="history-code" type="text" name="code" value="{{ request('code') }}" placeholder="Masukkan kode reservasi">
-            <button class="button button-primary" type="submit">Cari</button>
+        <form
+            class="ml-history-filter"
+            action="{{ route('reservations.history') }}"
+            method="GET"
+        >
+            <div class="ml-public-field">
+                <label class="ml-public-label" for="history-code">
+                    Cari Kode Reservasi
+                </label>
+                <input
+                    id="history-code"
+                    class="ml-public-input"
+                    type="search"
+                    name="code"
+                    value="{{ request('code') }}"
+                    placeholder="Contoh: A001"
+                    autocomplete="off"
+                >
+            </div>
+
+            <div class="ml-history-filter__actions">
+                @if (request()->filled('code'))
+                    <a
+                        class="ml-public-button ml-public-button--outline"
+                        href="{{ route('reservations.history') }}"
+                    >
+                        Reset
+                    </a>
+                @endif
+
+                <button
+                    class="ml-public-button ml-public-button--primary"
+                    type="submit"
+                >
+                    <i class="bi bi-search" aria-hidden="true"></i>
+                    Cari
+                </button>
+            </div>
         </form>
 
-        <div class="history-table-fixed">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Kode</th>
-                        <th>Jenis Tes</th>
-                        <th>Tanggal</th>
-                        <th>Jam</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
+        @if ($reservations->isEmpty())
+            <div class="ml-public-empty-state">
+                <span class="ml-public-empty-state__icon" aria-hidden="true">
+                    <i class="bi bi-calendar2-x"></i>
+                </span>
 
-                <tbody>
-                    @forelse ($reservations as $item)
-                        <tr>
-                            <td>{{ $item->code }}</td>
-                            <td>{{ $item->labTest->name ?? '-' }}</td>
-                            <td>{{ optional($item->reservation_date)->format('d M Y') }}</td>
-                            <td>{{ substr((string) $item->reservation_time, 0, 5) }}</td>
-                            <td>
-                                <x-status-badge :status="$item->status" />
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="5">Belum ada data reservasi.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
+                <h2>
+                    {{ request()->filled('code')
+                        ? 'Reservasi tidak ditemukan'
+                        : 'Belum ada riwayat reservasi' }}
+                </h2>
 
-        <div class="history-summary-fixed">
-            <h2>Ringkasan Reservasi</h2>
+                <p>
+                    {{ request()->filled('code')
+                        ? 'Tidak ada reservasi pada akun Anda yang sesuai dengan kode tersebut.'
+                        : 'Reservasi yang dibuat akan tampil pada halaman ini.' }}
+                </p>
 
-            <div class="history-summary-grid">
-                <div>
-                    <strong>{{ $reservations->whereIn('status', ['Menunggu', 'Terjadwal', 'Diproses'])->count() }}</strong>
-                    <span>Aktif</span>
-                </div>
+                <div class="ml-public-inline-actions">
+                    @if (request()->filled('code'))
+                        <a
+                            class="ml-public-button ml-public-button--outline"
+                            href="{{ route('reservations.history') }}"
+                        >
+                            Lihat Semua Riwayat
+                        </a>
+                    @endif
 
-                <div>
-                    <strong>{{ $reservations->where('status', 'Selesai')->count() }}</strong>
-                    <span>Selesai</span>
-                </div>
-
-                <div>
-                    <strong>{{ $reservations->where('status', 'Menunggu')->count() }}</strong>
-                    <span>Menunggu</span>
+                    <a
+                        class="ml-public-button ml-public-button--primary"
+                        href="{{ route('reservations.create') }}"
+                    >
+                        Buat Reservasi
+                    </a>
                 </div>
             </div>
+        @else
+            <div class="ml-public-table-wrap">
+                <table class="ml-public-table">
+                    <thead>
+                        <tr>
+                            <th>Kode</th>
+                            <th>Layanan</th>
+                            <th>Jadwal</th>
+                            <th>Antrean</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($reservations as $item)
+                            <tr>
+                                <td>
+                                    <span class="ml-public-table__primary">
+                                        {{ $item->code }}
+                                    </span>
+                                </td>
+                                <td>{{ $item->labTest->name ?? '-' }}</td>
+                                <td>
+                                    <span class="ml-public-table__primary">
+                                        {{ optional($item->reservation_date)->format('d M Y') }}
+                                    </span>
+                                    <span class="ml-public-table__secondary">
+                                        {{ substr((string) $item->reservation_time, 0, 5) }} WIB
+                                    </span>
+                                </td>
+                                <td>{{ $item->queue_number ?: '-' }}</td>
+                                <td>
+                                    <x-status-badge :status="$item->status" />
+                                </td>
+                                <td>
+                                    <div class="ml-history-actions">
+                                        <a
+                                            class="ml-public-button ml-public-button--outline ml-public-button--sm"
+                                            href="{{ route('reservations.result', $item) }}"
+                                        >
+                                            Detail
+                                        </a>
+
+                                        @if (in_array($item->status, ['Menunggu', 'Dibatalkan'], true))
+                                            <form
+                                                action="{{ route('reservations.destroy', $item) }}"
+                                                method="POST"
+                                                data-confirm-form
+                                                data-confirm-message="Hapus reservasi {{ $item->code }} dari riwayat? Tindakan ini tidak dapat dibatalkan."
+                                            >
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button
+                                                    class="ml-public-button ml-public-button--danger ml-public-button--sm"
+                                                    type="submit"
+                                                >
+                                                    Hapus
+                                                </button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endif
+
+        <div class="ml-public-notice">
+            <i class="bi bi-info-circle ml-public-notice__icon" aria-hidden="true"></i>
+            <span>
+                Reservasi hanya dapat dihapus dari riwayat ketika berstatus
+                Menunggu atau Dibatalkan. Reservasi yang sudah diproses atau selesai tidak dapat dihapus.
+            </span>
         </div>
     </section>
 @endsection

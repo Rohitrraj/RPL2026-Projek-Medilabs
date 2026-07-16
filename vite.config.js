@@ -6,16 +6,31 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js'],
+            input: [
+                'resources/css/app.css',
+                'resources/js/app.js',
+                'resources/css/admin.css',
+                'resources/js/admin.js',
+                'resources/css/auth.css',
+                'resources/js/auth.js',
+                'resources/css/public.css',
+                'resources/js/public.js',
+            ],
             refresh: true,
             fonts: [
-                bunny('Instrument Sans', {
-                    weights: [400, 500, 600],
+                bunny('Inter', {
+                    weights: [400, 500, 600, 700],
                 }),
             ],
         }),
+
+        /*
+         * Dipertahankan sementara karena resources/css/app.css
+         * masih memiliki import Tailwind.
+         */
         tailwindcss(),
     ],
+
     server: {
         watch: {
             ignored: ['**/storage/framework/views/**'],
