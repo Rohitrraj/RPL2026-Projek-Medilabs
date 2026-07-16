@@ -1,127 +1,386 @@
 # MediLabs
 
-MediLabs adalah aplikasi web **Sistem Reservasi dan Pendaftaran Laboratorium Klinik**.  
-Project ini dibuat untuk membantu proses pendaftaran pasien, pemesanan layanan laboratorium, pengecekan status reservasi, dan pengelolaan data reservasi oleh admin.
+MediLabs adalah aplikasi web untuk **reservasi dan pendaftaran layanan laboratorium klinik**. Sistem ini membantu pasien membuat akun, melengkapi data pasien, memilih layanan, membuat reservasi, memantau status pemeriksaan, serta melihat riwayat reservasi. Administrator dapat mengelola layanan, reservasi, status pemeriksaan, statistik, dan ekspor data.
 
-## Tentang Project
+## Status Project
 
-MediLabs dirancang untuk memisahkan alur pengguna biasa dan admin.  
-Pengguna dapat membuat akun, mengisi data pasien, memilih layanan laboratorium, lalu membuat reservasi pemeriksaan. Setelah reservasi berhasil dibuat, sistem menampilkan kode reservasi dan nomor antrian yang dapat digunakan untuk pengecekan status.
+- **Versi stabil:** `v1.0.0`
+- **Branch rilis:** `main`
+- **Branch pengembangan:** `develop`
+- **Status:** frontend dan backend telah terintegrasi
+- **Lingkungan pengembangan:** server lokal
+- **Deployment produksi:** belum disertakan dalam repository
 
-Di sisi admin, sistem menyediakan dashboard untuk memantau reservasi, memperbarui status pemeriksaan, dan mengelola layanan laboratorium yang tersedia di frontend.
+## Fitur
 
-## Fitur Utama
+### Pasien
 
-Pada sisi pengguna, fitur utama yang tersedia meliputi:
-- registrasi akun
-- login dan logout
-- input data pasien
-- melihat daftar layanan laboratorium
-- melihat detail layanan
-- membuat reservasi
-- melihat hasil reservasi
-- mengecek status reservasi
-- melihat riwayat reservasi
-- mencetak bukti reservasi
+- Registrasi akun
+- Login dan logout
+- Lupa dan reset password
+- Pengisian data pasien
+- Melihat daftar serta detail layanan laboratorium
+- Membuat reservasi pemeriksaan
+- Mendapatkan kode reservasi dan nomor antrean
+- Melihat hasil reservasi
+- Mengecek status reservasi
+- Melihat riwayat reservasi
+- Membatalkan reservasi yang masih memenuhi aturan status
+- Mencetak bukti reservasi
 
-Pada sisi admin, fitur utama yang tersedia meliputi:
-- dashboard admin
-- kelola reservasi
-- ubah status reservasi
-- cek detail reservasi
-- kelola layanan laboratorium
-- tambah layanan
-- edit layanan
-- aktifkan dan nonaktifkan layanan
+### Administrator
+
+- Dashboard statistik reservasi
+- Melihat dan mencari data reservasi
+- Filter, sorting, dan pagination
+- Melihat detail reservasi
+- Memperbarui status sesuai alur pemeriksaan
+- Menghapus reservasi melalui panel administrator
+- Ekspor data reservasi ke CSV
+- Mengelola layanan laboratorium
+- Menambah dan mengubah layanan
+- Mengaktifkan atau menonaktifkan layanan
 
 ## Konsep Sistem
 
-Project ini menggunakan konsep **satu akun untuk satu pasien**.  
-Artinya, setiap user hanya memiliki satu data pasien utama, dan data pasien tersebut digunakan untuk semua reservasi yang dibuat oleh akun tersebut.
+MediLabs menggunakan konsep **satu akun untuk satu data pasien utama**.
+
+Setiap akun dengan role `patient` hanya dapat memiliki satu data pasien. Data tersebut digunakan untuk seluruh reservasi yang dibuat oleh akun terkait.
 
 Setiap reservasi memiliki:
-- **kode reservasi**, misalnya `A001`
-- **nomor antrian**, misalnya `A-01`
 
-Layanan laboratorium disimpan di tabel layanan, lalu hanya layanan dengan status aktif yang ditampilkan kepada user di halaman frontend dan form reservasi.
+- kode reservasi, misalnya `A001`;
+- nomor antrean, misalnya `A-01`;
+- pasien;
+- layanan laboratorium;
+- tanggal dan waktu reservasi;
+- status;
+- catatan opsional.
+
+Status reservasi yang digunakan:
+
+1. `Menunggu`
+2. `Terjadwal`
+3. `Diproses`
+4. `Selesai`
+5. `Dibatalkan`
+
+Perubahan status mengikuti workflow yang telah ditentukan. Pasien tidak dapat melihat atau membatalkan reservasi milik akun lain.
 
 ## Role Pengguna
 
-Sistem memiliki dua role utama:
-- **patient**
-- **admin**
+| Role | Hak akses |
+|---|---|
+| `patient` | Mengelola data pasien dan reservasi milik sendiri |
+| `admin` | Mengelola layanan, reservasi, status, statistik, dan ekspor data |
 
-Role patient digunakan untuk pengguna biasa yang melakukan reservasi.  
-Role admin digunakan untuk pengelolaan reservasi dan layanan.
+## Teknologi
 
-## Teknologi yang Digunakan
-
-Project ini dibangun menggunakan:
-- Laravel
+- PHP 8.3
+- Laravel 13
 - Blade
-- PHP
 - MySQL
 - HTML
 - CSS
 - JavaScript Vanilla
+- Bootstrap dan Bootstrap Icons
 - Vite
+- Composer
+- Node.js dan npm
+- Git dan GitHub
 
-## Alur Penggunaan
+## Struktur Database Utama
 
-Alur dasar pengguna dalam aplikasi ini adalah:
-1. membuat akun
-2. login
-3. mengisi data pasien
-4. memilih layanan
-5. membuat reservasi
-6. mendapatkan kode reservasi dan nomor antrian
-7. mengecek status reservasi
-8. melihat riwayat reservasi
+| Tabel | Fungsi |
+|---|---|
+| `users` | Menyimpan akun pasien dan administrator |
+| `patients` | Menyimpan data utama pasien |
+| `lab_tests` | Menyimpan layanan laboratorium |
+| `reservations` | Menyimpan transaksi reservasi |
 
-Sementara itu, admin dapat login ke sistem lalu memantau seluruh reservasi, memperbarui status, dan mengelola data layanan laboratorium.
+Laravel juga menggunakan tabel pendukung untuk migration, session, cache, reset password, dan queue.
+
+Relasi utama:
+
+```text
+users
+  └── patients
+        └── reservations
+              └── lab_tests
+```
+
+Secara relasional:
+
+- `users` memiliki satu `patient`;
+- `patients` memiliki banyak `reservations`;
+- `lab_tests` memiliki banyak `reservations`;
+- setiap `reservation` dimiliki satu pasien dan satu layanan.
 
 ## API
 
-MediLabs juga menyediakan API dasar untuk:
-- health check
-- mengambil data layanan
-- mengambil data reservasi
-- mencari reservasi berdasarkan kode
-- memperbarui status reservasi
+API publik yang tersedia:
 
-API ini digunakan sebagai bagian dari pengembangan backend dan integrasi data.
+| Method | Endpoint | Fungsi |
+|---|---|---|
+| `GET` | `/api/health` | Memeriksa status API |
+| `GET` | `/api/lab-tests` | Mengambil seluruh layanan aktif |
+| `GET` | `/api/lab-tests/{slug}` | Mengambil detail layanan aktif berdasarkan slug |
 
-## Status Project
+Endpoint reservasi tidak dibuka sebagai API publik untuk mencegah akses data dan perubahan status tanpa autentikasi.
 
-Saat ini project sudah mencakup:
-- frontend user
-- panel admin
-- alur reservasi
-- cek status
-- riwayat reservasi
-- kelola layanan
-- endpoint API dasar
-- refactor struktur CSS dan Blade agar lebih rapi
+## Persyaratan Sistem
 
-## Tujuan Pengembangan
+Pastikan perangkat memiliki:
 
-Project ini dikembangkan sebagai bagian dari pembelajaran dan implementasi **Rekayasa Perangkat Lunak**, dengan fokus pada:
-- analisis kebutuhan sistem
-- implementasi fitur berbasis role
-- pengelolaan data pasien dan reservasi
-- pemisahan frontend user dan admin
-- struktur project yang lebih rapi dan mudah dikembangkan
+- PHP 8.3 atau versi kompatibel;
+- Composer;
+- MySQL;
+- Node.js dan npm;
+- Git.
 
-## Catatan
+## Instalasi Lokal
 
-Project ini masih dapat dikembangkan lebih lanjut, misalnya:
-- login admin terpisah
-- export PDF yang lebih formal
-- filter data yang lebih lengkap
-- validasi dan keamanan yang lebih kuat
-- pengujian otomatis
-- deployment production
+### 1. Clone repository
+
+```bash
+git clone https://github.com/Rohitrraj/RPL2026-Projek-Medilabs.git
+cd RPL2026-Projek-Medilabs
+```
+
+### 2. Install dependency
+
+```bash
+composer install
+npm install
+```
+
+### 3. Siapkan environment
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+Sesuaikan konfigurasi database pada `.env`:
+
+```env
+APP_NAME=MediLabs
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://127.0.0.1:8000
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=medilabs
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Jangan memasukkan file `.env` ke repository.
+
+### 4. Siapkan database
+
+Buat database MySQL bernama `medilabs`, kemudian jalankan:
+
+```bash
+php artisan migrate --seed
+```
+
+Seeder digunakan untuk menyiapkan data awal seperti administrator dan layanan laboratorium sesuai konfigurasi project.
+
+### 5. Build asset
+
+Untuk development:
+
+```bash
+npm run dev
+```
+
+Untuk production build:
+
+```bash
+npm run build
+```
+
+### 6. Jalankan aplikasi
+
+```bash
+php artisan serve
+```
+
+Aplikasi dapat diakses melalui:
+
+```text
+http://127.0.0.1:8000
+```
+
+Jika port `8000` sedang digunakan, Laravel dapat memilih port lain, misalnya `8001`.
+
+## Alur Penggunaan
+
+### Pasien
+
+1. Membuat akun.
+2. Login.
+3. Mengisi data pasien.
+4. Memilih layanan laboratorium.
+5. Membuat reservasi.
+6. Mendapatkan kode reservasi dan nomor antrean.
+7. Memantau status reservasi.
+8. Melihat riwayat atau membatalkan reservasi sesuai aturan.
+
+### Administrator
+
+1. Login menggunakan akun administrator.
+2. Membuka dashboard.
+3. Memantau statistik dan daftar reservasi.
+4. Melihat detail reservasi.
+5. Memperbarui status pemeriksaan.
+6. Mengelola layanan aktif dan tidak aktif.
+7. Mengekspor data reservasi sesuai periode.
+
+## Pengujian
+
+Jalankan automated testing:
+
+```bash
+php artisan optimize:clear
+php artisan test
+```
+
+Validasi production build:
+
+```bash
+npm run build
+```
+
+Periksa route:
+
+```bash
+php artisan route:list
+```
+
+Periksa status migration:
+
+```bash
+php artisan migrate:status
+```
+
+Sebelum perubahan digabungkan ke branch rilis, pastikan:
+
+- seluruh automated test lulus;
+- tidak ada merge conflict;
+- production build berhasil;
+- working tree bersih;
+- route dan middleware telah diperiksa;
+- data pasien hanya dapat diakses oleh pemilik atau administrator.
+
+## Deployment Production
+
+Gunakan server dengan PHP, MySQL, Composer, Node.js, dan web server seperti Nginx atau Apache.
+
+Konfigurasi utama:
+
+```env
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://domain-aplikasi.example
+```
+
+Langkah umum deployment:
+
+```bash
+composer install --no-dev --optimize-autoloader
+npm ci
+npm run build
+php artisan migrate --force
+php artisan storage:link
+php artisan optimize
+```
+
+Pastikan:
+
+- document root web server mengarah ke folder `public/`;
+- file `.env` tidak dapat diakses publik;
+- `APP_KEY` telah dibuat;
+- kredensial database menggunakan akun khusus aplikasi;
+- HTTPS diaktifkan;
+- folder `storage/` dan `bootstrap/cache/` dapat ditulis oleh web server;
+- backup database dilakukan secara berkala;
+- akun administrator menggunakan password yang kuat.
+
+## Struktur Branch
+
+```text
+main
+└── develop
+    ├── feat/nama-fitur
+    ├── fix/nama-perbaikan
+    ├── refactor/nama-bagian
+    └── docs/nama-dokumentasi
+```
+
+Aturan workflow:
+
+1. Perubahan dibuat dari branch baru yang berasal dari `develop`.
+2. Branch tugas di-push ke GitHub.
+3. Perubahan digabungkan melalui Pull Request ke `develop`.
+4. Setelah audit dan pengujian lulus, `develop` digabungkan ke `main`.
+5. Pengembangan tidak dilakukan langsung pada `main`.
+
+## Keamanan
+
+Implementasi keamanan yang diterapkan mencakup:
+
+- autentikasi berbasis session;
+- middleware `guest`, `auth`, dan `admin`;
+- pembatasan akses berdasarkan role;
+- pemeriksaan ownership data pasien dan reservasi;
+- validasi input;
+- password hashing;
+- reset password dengan token;
+- pembatasan request reset password;
+- workflow status reservasi;
+- pembatalan tanpa menghapus histori reservasi pasien;
+- API reservasi tidak tersedia secara publik.
+
+Jangan menyimpan data berikut di repository:
+
+- `.env`;
+- password atau credential;
+- dump database yang berisi data sensitif;
+- folder `vendor/`;
+- folder `node_modules/`;
+- file log produksi.
+
+## Pengembangan Lanjutan
+
+Beberapa pengembangan yang masih dapat dilakukan:
+
+- deployment ke server produksi;
+- autentikasi API menggunakan Laravel Sanctum;
+- pemisahan halaman login administrator;
+- notifikasi email atau WhatsApp;
+- ekspor bukti reservasi ke PDF;
+- audit log aktivitas administrator;
+- pengujian browser dan end-to-end;
+- observability, monitoring, dan backup otomatis.
+
+## Konteks Akademik
+
+MediLabs dikembangkan sebagai project mata kuliah Rekayasa Perangkat Lunak dengan fokus pada:
+
+- analisis kebutuhan;
+- perancangan database;
+- implementasi fitur berbasis role;
+- pengelolaan data pasien dan reservasi;
+- keamanan akses;
+- integrasi frontend dan backend;
+- version control;
+- automated testing;
+- dokumentasi project.
 
 ## Penutup
 
-MediLabs merupakan project sistem informasi klinik sederhana yang menitikberatkan pada alur reservasi laboratorium, pengelolaan data pasien, dan manajemen reservasi oleh admin dalam satu aplikasi web yang terintegrasi.
+MediLabs merupakan sistem reservasi laboratorium klinik berbasis web yang mengintegrasikan proses pendaftaran pasien, pemilihan layanan, reservasi, pemantauan status, dan pengelolaan administrator dalam satu aplikasi.
