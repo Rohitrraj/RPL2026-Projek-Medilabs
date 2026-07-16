@@ -1,0 +1,56 @@
+/* MediLabs public/patient design tokens. */
+
+.ml-public {
+    color-scheme: light;
+
+    --ml-public-primary: #0284c7;
+    --ml-public-primary-hover: #0369a1;
+    --ml-public-primary-active: #075985;
+    --ml-public-primary-soft: #e0f2fe;
+
+    --ml-public-canvas: #f8fafc;
+    --ml-public-surface: #ffffff;
+    --ml-public-surface-soft: #f1f5f9;
+    --ml-public-border: #e2e8f0;
+    --ml-public-border-strong: #cbd5e1;
+
+    --ml-public-text: #0f172a;
+    --ml-public-text-secondary: #64748b;
+    --ml-public-text-muted: #94a3b8;
+    --ml-public-text-inverse: #ffffff;
+
+    --ml-public-success: #059669;
+    --ml-public-success-soft: #d1fae5;
+    --ml-public-warning: #d97706;
+    --ml-public-warning-soft: #fef3c7;
+    --ml-public-danger: #dc2626;
+    --ml-public-danger-soft: #fee2e2;
+    --ml-public-info: #2563eb;
+    --ml-public-info-soft: #dbeafe;
+    --ml-public-processing: #4f46e5;
+    --ml-public-processing-soft: #e0e7ff;
+
+    --ml-public-space-1: 0.5rem;
+    --ml-public-space-2: 1rem;
+    --ml-public-space-3: 1.5rem;
+    --ml-public-space-4: 2rem;
+    --ml-public-space-5: 2.5rem;
+    --ml-public-space-6: 3rem;
+    --ml-public-space-8: 4rem;
+
+    --ml-public-header-height: 4.5rem;
+    --ml-public-shell-width: 92rem;
+    --ml-public-container-width: 80rem;
+    --ml-public-content-width: 75rem;
+
+    --ml-public-radius-sm: 0.5rem;
+    --ml-public-radius-md: 1rem;
+    --ml-public-radius-pill: 999px;
+
+    --ml-public-shadow-sm: 0 4px 14px rgb(15 23 42 / 0.06);
+    --ml-public-shadow-menu: 0 16px 40px rgb(15 23 42 / 0.14);
+    --ml-public-focus-ring: 0 0 0 0.25rem rgb(2 132 199 / 0.16);
+
+    --ml-public-transition-fast: 160ms ease;
+    --ml-public-transition-normal: 240ms ease;
+}

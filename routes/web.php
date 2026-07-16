@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MediLabsController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\PasswordResetController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -17,36 +18,67 @@ Route::get('/', function () {
 })->name('home');
 
 Route::controller(MediLabsController::class)->group(function () {
-    Route::get('/daftar', 'register')->name('register');
-    Route::get('/login', 'login')->name('login');
-
     Route::get('/layanan', 'serviceIndex')->name('services.index');
     Route::get('/layanan/{slug}', 'serviceDetail')->name('services.show');
-
-    Route::get('/profile', 'profile')->name('profile.show');
 });
 
-Route::controller(AuthController::class)->group(function () {
-    Route::post('/daftar', 'register')->name('register.store');
-    Route::post('/login', 'login')->name('login.store');
-    Route::post('/logout', 'logout')->name('logout');
+Route::middleware('guest')->group(function () {
+    Route::controller(MediLabsController::class)->group(function () {
+        Route::get('/daftar', 'register')->name('register');
+        Route::get('/login', 'login')->name('login');
+    });
+
+    Route::controller(AuthController::class)->group(function () {
+        Route::post('/daftar', 'register')->name('register.store');
+        Route::post('/login', 'login')->name('login.store');
+    });
+
+    Route::controller(PasswordResetController::class)->group(function () {
+        Route::get('/lupa-password', 'showForgotPasswordForm')
+            ->name('password.request');
+
+        Route::post('/lupa-password', 'sendResetLink')
+            ->middleware('throttle:5,1')
+            ->name('password.email');
+
+        Route::get('/reset-password/{token}', 'showResetPasswordForm')
+            ->name('password.reset');
+
+        Route::post('/reset-password', 'resetPassword')
+            ->middleware('throttle:5,1')
+            ->name('password.update');
+    });
 });
 
-Route::controller(PatientController::class)->group(function () {
-    Route::get('/data-pasien', 'create')->name('patients.create');
-    Route::post('/data-pasien', 'store')->name('patients.store');
-});
 
-Route::controller(ReservationController::class)->group(function () {
-    Route::get('/reservasi', 'create')->name('reservations.create');
-    Route::post('/reservasi', 'store')->name('reservations.store');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [MediLabsController::class, 'profile'])
+        ->name('profile.show');
 
-    Route::get('/hasil-reservasi/{reservation}', 'result')->name('reservations.result');
+    Route::get('/cek-status', [ReservationController::class, 'status'])
+        ->name('reservations.status');
 
-    Route::get('/cek-status', 'status')->name('reservations.status');
+    Route::post('/logout', [AuthController::class, 'logout'])
+        ->name('logout');
 
-    Route::get('/riwayat-reservasi', 'history')->name('reservations.history');
-    Route::delete('/riwayat-reservasi/{reservation}', 'destroy')->name('reservations.destroy');
+    Route::controller(PatientController::class)->group(function () {
+        Route::get('/data-pasien', 'create')->name('patients.create');
+        Route::post('/data-pasien', 'store')->name('patients.store');
+    });
+
+    Route::controller(ReservationController::class)->group(function () {
+        Route::get('/reservasi', 'create')->name('reservations.create');
+        Route::post('/reservasi', 'store')->name('reservations.store');
+
+        Route::get('/hasil-reservasi/{reservation}', 'result')
+            ->name('reservations.result');
+
+        Route::get('/riwayat-reservasi', 'history')
+            ->name('reservations.history');
+
+        Route::patch('/riwayat-reservasi/{reservation}/batalkan', 'cancel')
+            ->name('reservations.cancel');
+    });
 });
 
 Route::prefix('admin')
@@ -58,6 +90,7 @@ Route::prefix('admin')
         Route::get('/cek-status', 'status')->name('reservations.status');
 
         Route::get('/kelola-reservasi', 'manage')->name('reservations.manage');
+        Route::get('/kelola-reservasi/export', 'exportReservations')->name('reservations.export');
         Route::get('/kelola-reservasi/{reservation}', 'show')->name('reservations.show');
         Route::patch('/kelola-reservasi/{reservation}/status', 'updateStatus')->name('reservations.update-status');
         Route::delete('/kelola-reservasi/{reservation}', 'destroy')->name('reservations.destroy');

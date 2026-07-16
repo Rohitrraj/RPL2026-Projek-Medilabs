@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'MediLabs Admin - Kelola Layanan')
+@section('title', 'Kelola Layanan | MediLabs Admin')
 
 @section('content')
     <section class="admin-section">
@@ -36,6 +36,7 @@
             <table class="med-table manage-table">
                 <thead>
                     <tr>
+                        <th>Visual</th>
                         <th>Nama</th>
                         <th>Slug</th>
                         <th>Harga</th>
@@ -46,10 +47,18 @@
                 <tbody>
                     @forelse ($services as $service)
                         <tr>
+                            <td>
+                                <div class="admin-service-thumb">
+                                    <x-service-visual
+                                        :service="$service"
+                                        variant="admin"
+                                    />
+                                </div>
+                            </td>
                             <td>{{ $service->name }}</td>
                             <td>{{ $service->slug }}</td>
                             <td>Rp {{ number_format((float) $service->price, 0, ',', '.') }}</td>
-                            <td>{{ $service->status }}</td>
+                            <td><x-status-badge :status="$service->status" /></td>
                             <td>
                                 <div class="admin-action-row">
                                     <a class="button admin-button" href="{{ route('admin.services.edit', $service) }}">
@@ -68,7 +77,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5">Belum ada data layanan.</td>
+                            <td colspan="6">Belum ada data layanan.</td>
                         </tr>
                     @endforelse
                 </tbody>

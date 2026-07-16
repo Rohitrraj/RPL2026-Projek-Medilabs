@@ -1,0 +1,22 @@
+/*
+|--------------------------------------------------------------------------
+| MediLabs Public and Patient Entry Point
+|--------------------------------------------------------------------------
+|
+| Design system untuk shell dan seluruh halaman publik/pasien. Semua
+| selector kustom dibatasi oleh body.ml-public agar tidak memengaruhi Auth
+| maupun Admin.
+|
+*/
+
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+@import './public/tokens.css';
+@import './public/base.css';
+@import './public/shell.css';
+@import './public/components.css';
+@import './public/home.css';
+@import './public/forms.css';
+@import './public/profile.css';
+@import './public/services.css';
+@import './public/reservations.css';

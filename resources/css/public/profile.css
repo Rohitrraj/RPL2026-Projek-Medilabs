@@ -1,0 +1,119 @@
+/*
+|--------------------------------------------------------------------------
+| Profile and Patient Data Pages
+|--------------------------------------------------------------------------
+*/
+
+.ml-public .ml-profile-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: var(--ml-public-space-3);
+}
+
+.ml-public .ml-profile-card-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.ml-public .ml-profile-completeness {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+
+    padding: 0.25rem 0.625rem;
+
+    background: var(--ml-public-success-soft);
+    border-radius: var(--ml-public-radius-pill);
+
+    color: var(--ml-public-success);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1rem;
+}
+
+.ml-public .ml-profile-completeness--incomplete {
+    background: var(--ml-public-warning-soft);
+    color: var(--ml-public-warning);
+}
+
+.ml-public .ml-profile-reservations {
+    display: grid;
+    gap: var(--ml-public-space-2);
+}
+
+.ml-public .ml-patient-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(18rem, 0.55fr);
+    gap: var(--ml-public-space-3);
+    align-items: start;
+}
+
+.ml-public .ml-patient-sidebar {
+    display: grid;
+    gap: var(--ml-public-space-3);
+    position: sticky;
+    top: calc(var(--ml-public-header-height) + var(--ml-public-space-3));
+}
+
+.ml-public .ml-patient-illustration {
+    display: grid;
+    place-items: center;
+
+    min-height: 15rem;
+    padding: var(--ml-public-space-3);
+
+    background:
+        radial-gradient(circle at 25% 20%, rgb(2 132 199 / 0.12), transparent 34%),
+        var(--ml-public-primary-soft);
+    border: 1px solid rgb(2 132 199 / 0.14);
+    border-radius: var(--ml-public-radius-md);
+}
+
+.ml-public .ml-patient-illustration img {
+    width: min(100%, 15rem);
+    max-height: 14rem;
+    object-fit: contain;
+}
+
+.ml-public .ml-patient-guidance {
+    display: grid;
+    gap: 0.875rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ml-public .ml-patient-guidance li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+
+    color: var(--ml-public-text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+}
+
+.ml-public .ml-patient-guidance i {
+    flex: 0 0 auto;
+    margin-top: 0.125rem;
+    color: var(--ml-public-primary);
+}
+
+@media (max-width: 960px) {
+    .ml-public .ml-profile-grid,
+    .ml-public .ml-patient-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .ml-public .ml-patient-sidebar {
+        position: static;
+        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    }
+}
+
+@media (max-width: 620px) {
+    .ml-public .ml-patient-sidebar {
+        grid-template-columns: 1fr;
+    }
+}
