@@ -1,0 +1,105 @@
+/*
+|--------------------------------------------------------------------------
+| MediLabs Authentication Base
+|--------------------------------------------------------------------------
+*/
+
+body.ml-auth {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+
+    background: var(--ml-auth-canvas);
+    color: var(--ml-auth-text);
+
+    font-family: var(--bs-body-font-family);
+    font-size: 1rem;
+    line-height: 1.5;
+
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+.ml-auth *,
+.ml-auth *::before,
+.ml-auth *::after {
+    box-sizing: border-box;
+}
+
+.ml-auth h1,
+.ml-auth h2,
+.ml-auth h3,
+.ml-auth p {
+    margin-top: 0;
+}
+
+.ml-auth h1,
+.ml-auth h2,
+.ml-auth h3 {
+    color: var(--ml-auth-text);
+    font-family: inherit;
+}
+
+.ml-auth a {
+    color: var(--ml-auth-primary);
+    text-decoration: none;
+
+    transition:
+        color var(--ml-auth-transition-fast),
+        background-color var(--ml-auth-transition-fast),
+        border-color var(--ml-auth-transition-fast);
+}
+
+.ml-auth a:hover {
+    color: var(--ml-auth-primary-hover);
+}
+
+.ml-auth button,
+.ml-auth input {
+    font: inherit;
+}
+
+.ml-auth img,
+.ml-auth svg {
+    max-width: 100%;
+}
+
+.ml-auth ::selection {
+    background: var(--ml-auth-primary-soft);
+    color: var(--ml-auth-text);
+}
+
+.ml-auth :where(
+    a,
+    button,
+    input,
+    [tabindex]
+):focus-visible {
+    outline: 3px solid rgb(2 132 199 / 0.42);
+    outline-offset: 2px;
+}
+
+.ml-auth .ml-auth-visually-hidden {
+    position: absolute !important;
+
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ml-auth *,
+    .ml-auth *::before,
+    .ml-auth *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}

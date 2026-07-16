@@ -1,0 +1,65 @@
+/*
+|--------------------------------------------------------------------------
+| MediLabs Admin Utilities
+|--------------------------------------------------------------------------
+*/
+
+.ml-admin .ml-stack-1 {
+    display: grid;
+    gap: var(--ml-space-1);
+}
+
+.ml-admin .ml-stack-2 {
+    display: grid;
+    gap: var(--ml-space-2);
+}
+
+.ml-admin .ml-stack-3 {
+    display: grid;
+    gap: var(--ml-space-3);
+}
+
+.ml-admin .ml-stack-4 {
+    display: grid;
+    gap: var(--ml-space-4);
+}
+
+.ml-admin .ml-cluster {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--ml-space-1);
+}
+
+.ml-admin .ml-text-secondary {
+    color: var(--ml-color-text-secondary);
+}
+
+.ml-admin .ml-text-muted {
+    color: var(--ml-color-text-muted);
+}
+
+.ml-admin .ml-font-mono {
+    font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        "Liberation Mono",
+        monospace;
+}
+
+.ml-admin .ml-min-width-0 {
+    min-width: 0;
+}
+
+.ml-admin .ml-nowrap {
+    white-space: nowrap;
+}
+
+.ml-admin .ml-visually-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

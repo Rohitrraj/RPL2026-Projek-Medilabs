@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'MediLabs Admin - Dashboard')
+@section('title', 'Dashboard | MediLabs Admin')
 
 @section('content')
     <section class="admin-section">
@@ -85,10 +85,7 @@
 
             <button
                 type="submit"
-                class="button admin-button"
-            >
-                Download CSV
-            </button>
+                class="button admin-button mt-3 " > Download CSV </button>
         </form>
 
         <div>
@@ -115,7 +112,7 @@
                                     {{ optional($reservation->reservation_date)->format('d M Y') }}
                                     {{ substr((string) $reservation->reservation_time, 0, 5) }}
                                 </td>
-                                <td>{{ $reservation->status }}</td>
+                                <td> <x-status-badge :status="$reservation->status" /> </td>
                             </tr>
                         @empty
                             <tr>

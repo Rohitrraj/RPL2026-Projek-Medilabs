@@ -1,0 +1,321 @@
+/*
+|--------------------------------------------------------------------------
+| Laboratory Services Pages
+|--------------------------------------------------------------------------
+*/
+
+.ml-public .ml-services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--ml-public-space-3);
+}
+
+.ml-public .ml-service-card {
+    min-width: 0;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    background: var(--ml-public-surface);
+    border: 1px solid var(--ml-public-border);
+    border-radius: var(--ml-public-radius-md);
+    box-shadow: var(--ml-public-shadow-sm);
+
+    transition:
+        transform var(--ml-public-transition-normal),
+        box-shadow var(--ml-public-transition-normal),
+        border-color var(--ml-public-transition-normal);
+}
+
+.ml-public .ml-service-card:hover {
+    transform: translateY(-3px);
+    border-color: rgb(2 132 199 / 0.3);
+    box-shadow: 0 14px 32px rgb(15 23 42 / 0.1);
+}
+
+.ml-public .ml-service-card__media {
+    position: relative;
+    min-height: 12rem;
+    overflow: hidden;
+
+    background: var(--ml-public-primary-soft);
+}
+
+.ml-public .ml-service-card__media img {
+    width: 100%;
+    height: 12rem;
+    display: block;
+    object-fit: cover;
+
+    transition: transform var(--ml-public-transition-normal);
+}
+
+.ml-public .ml-service-card:hover .ml-service-card__media img {
+    transform: scale(1.025);
+}
+
+.ml-public .ml-service-card__availability {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+
+    padding: 0.375rem 0.625rem;
+
+    background: rgb(255 255 255 / 0.94);
+    border: 1px solid rgb(226 232 240 / 0.9);
+    border-radius: var(--ml-public-radius-pill);
+
+    color: var(--ml-public-success);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.ml-public .ml-service-card__body {
+    flex: 1 0 auto;
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+
+    padding: var(--ml-public-space-3);
+}
+
+.ml-public .ml-service-card__title {
+    margin: 0;
+
+    color: var(--ml-public-text);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+}
+
+.ml-public .ml-service-card__description {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: 0;
+
+    color: var(--ml-public-text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+
+.ml-public .ml-service-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ml-public-space-2);
+
+    padding: 0 var(--ml-public-space-3) var(--ml-public-space-3);
+}
+
+.ml-public .ml-service-price {
+    color: var(--ml-public-primary);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    white-space: nowrap;
+}
+
+.ml-public .ml-service-detail {
+    display: grid;
+    gap: var(--ml-public-space-3);
+}
+
+.ml-public .ml-service-detail-hero {
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(22rem, 0.85fr);
+
+    background: var(--ml-public-surface);
+    border: 1px solid var(--ml-public-border);
+    border-radius: var(--ml-public-radius-md);
+    box-shadow: var(--ml-public-shadow-sm);
+}
+
+.ml-public .ml-service-detail-hero__content {
+    display: grid;
+    align-content: center;
+    gap: var(--ml-public-space-3);
+
+    padding: clamp(2rem, 5vw, 4rem);
+}
+
+.ml-public .ml-service-detail-hero__title {
+    margin: 0;
+
+    color: var(--ml-public-text);
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+}
+
+.ml-public .ml-service-detail-hero__description {
+    max-width: 42rem;
+    margin: 0;
+
+    color: var(--ml-public-text-secondary);
+    font-size: 1rem;
+    line-height: 1.75rem;
+}
+
+.ml-public .ml-service-detail-hero__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--ml-public-space-2);
+}
+
+.ml-public .ml-service-detail-hero__media {
+    min-height: 27rem;
+    background: var(--ml-public-primary-soft);
+}
+
+.ml-public .ml-service-detail-hero__media img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.ml-public .ml-service-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--ml-public-space-3);
+}
+
+.ml-public .ml-service-info-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--ml-public-space-2);
+
+    padding: var(--ml-public-space-3);
+
+    background: var(--ml-public-surface);
+    border: 1px solid var(--ml-public-border);
+    border-radius: var(--ml-public-radius-md);
+}
+
+.ml-public .ml-service-info-card h2 {
+    margin: 0;
+
+    color: var(--ml-public-text);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+}
+
+.ml-public .ml-service-info-card p {
+    margin: 0.5rem 0 0;
+
+    color: var(--ml-public-text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    white-space: pre-line;
+}
+
+.ml-public .ml-service-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ml-public-space-3);
+
+    padding: var(--ml-public-space-3);
+
+    background: var(--ml-public-primary-soft);
+    border: 1px solid rgb(2 132 199 / 0.18);
+    border-radius: var(--ml-public-radius-md);
+}
+
+.ml-public .ml-service-cta h2 {
+    margin: 0;
+
+    color: var(--ml-public-text);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.ml-public .ml-service-cta p {
+    margin: 0.375rem 0 0;
+
+    color: var(--ml-public-text-secondary);
+    font-size: 0.875rem;
+}
+
+@media (max-width: 1080px) {
+    .ml-public .ml-services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ml-public .ml-service-detail-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .ml-public .ml-service-detail-hero__media {
+        min-height: 20rem;
+        order: -1;
+    }
+}
+
+@media (max-width: 680px) {
+    .ml-public .ml-services-grid,
+    .ml-public .ml-service-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ml-public .ml-service-card__footer,
+    .ml-public .ml-service-cta {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .ml-public .ml-service-card__footer .ml-public-button,
+    .ml-public .ml-service-cta .ml-public-button {
+        width: 100%;
+    }
+}
+
+/* Generic visual for services without a mapped illustration. */
+.ml-public .ml-service-visual-fallback {
+    width: 100%;
+    height: 100%;
+    min-height: 12rem;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 0.75rem;
+    padding: var(--ml-public-space-3);
+
+    background: var(--ml-public-primary-soft);
+    color: var(--ml-public-primary);
+    text-align: center;
+}
+
+.ml-public .ml-service-visual-fallback i {
+    font-size: 3rem;
+}
+
+.ml-public .ml-service-visual-fallback span {
+    color: var(--ml-public-primary-hover);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.ml-public .ml-service-detail-hero__media .ml-service-visual-fallback {
+    min-height: 27rem;
+}
+
+@media (max-width: 1080px) {
+    .ml-public .ml-service-detail-hero__media .ml-service-visual-fallback {
+        min-height: 20rem;
+    }
+}

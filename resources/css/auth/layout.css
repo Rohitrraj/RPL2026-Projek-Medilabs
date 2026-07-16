@@ -1,0 +1,433 @@
+.ml-auth .app-shell {
+    min-height: 100vh;
+    padding-top: var(--ml-auth-navbar-height);
+
+    background: var(--ml-auth-canvas);
+}
+
+.ml-auth .page-content {
+    width: 100%;
+    max-width: none;
+    flex: 1;
+
+    margin: 0;
+    padding: 0;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Authentication Navigation
+|--------------------------------------------------------------------------
+|
+| Diselaraskan dengan shell publik agar posisi logo, menu, tinggi topbar,
+| dan tombol Masuk konsisten pada seluruh halaman guest.
+|
+*/
+
+.ml-auth .site-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1040;
+
+    width: 100%;
+    height: var(--ml-auth-navbar-height);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ml-auth-space-4);
+
+    padding-inline:
+        max(
+            var(--ml-auth-space-3),
+            calc((100vw - var(--ml-auth-shell-width)) / 2)
+        );
+
+    background: rgb(255 255 255 / 0.96);
+    border-bottom: 1px solid var(--ml-auth-border);
+    backdrop-filter: blur(12px);
+}
+
+.ml-auth .brand {
+    min-width: 0;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    color: var(--ml-auth-text);
+    text-decoration: none;
+}
+
+.ml-auth .brand img {
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: 0 0 auto;
+
+    object-fit: contain;
+    border-radius: var(--ml-auth-radius-sm);
+}
+
+.ml-auth .brand > span {
+    min-width: 0;
+}
+
+.ml-auth .brand strong {
+    display: block;
+
+    color: var(--ml-auth-text);
+
+    font-family: inherit;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+}
+
+.ml-auth .brand small {
+    display: block;
+    margin-top: 0.125rem;
+
+    color: var(--ml-auth-text-secondary);
+
+    font-family: inherit;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    line-height: 1rem;
+    white-space: nowrap;
+}
+
+.ml-auth .main-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--ml-auth-space-4);
+
+    color: var(--ml-auth-text-secondary);
+
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+}
+
+.ml-auth .main-nav a {
+    position: relative;
+
+    min-height: var(--ml-auth-navbar-height);
+    display: inline-flex;
+    align-items: center;
+
+    padding: 0;
+
+    color: var(--ml-auth-text-secondary);
+    border-bottom: 2px solid transparent;
+    text-decoration: none;
+}
+
+.ml-auth .main-nav a:hover {
+    color: var(--ml-auth-primary);
+}
+
+.ml-auth .main-nav a.active:not(.auth-login-link) {
+    color: var(--ml-auth-primary);
+    border-bottom-color: var(--ml-auth-primary);
+}
+
+.ml-auth .main-nav .auth-login-link {
+    min-height: 2.75rem;
+    justify-content: center;
+
+    padding-inline: 1.25rem;
+
+    background: var(--ml-auth-primary);
+    border: 1px solid var(--ml-auth-primary);
+    border-radius: var(--ml-auth-radius-sm);
+
+    color: var(--ml-auth-text-inverse);
+}
+
+.ml-auth .main-nav .auth-login-link:hover,
+.ml-auth .main-nav .auth-login-link.active {
+    background: var(--ml-auth-primary-hover);
+    border-color: var(--ml-auth-primary-hover);
+    color: var(--ml-auth-text-inverse);
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Authentication Footer
+|--------------------------------------------------------------------------
+*/
+
+.ml-auth .site-footer {
+    position: static;
+
+    width: 100%;
+    height: var(--ml-auth-footer-height);
+    min-height: var(--ml-auth-footer-height);
+
+    display: grid;
+    place-items: center;
+
+    margin: 0;
+
+    background: var(--ml-auth-surface);
+    border-top: 1px solid var(--ml-auth-border);
+
+    color: var(--ml-auth-text-secondary);
+
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1rem;
+}
+
+.ml-auth.ml-auth--fixed-footer .site-footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1020;
+}
+
+.ml-auth.ml-auth--fixed-footer .ml-auth-page {
+    padding-bottom:
+        calc(
+            var(--ml-auth-footer-height)
+            + var(--ml-auth-space-4)
+        );
+}
+
+body.ml-auth:not(.ml-auth--fixed-footer) .ml-auth-page {
+    min-height:
+        calc(
+            100vh
+            - var(--ml-auth-navbar-height)
+            - var(--ml-auth-footer-height)
+        );
+}
+
+.ml-auth .ml-auth-page {
+    min-height:
+        calc(
+            100vh
+            - var(--ml-auth-navbar-height)
+        );
+
+    display: grid;
+    align-items: start;
+
+    padding:
+        var(--ml-auth-space-10)
+        var(--ml-auth-space-4)
+        calc(
+            var(--ml-auth-footer-height)
+            + var(--ml-auth-space-4)
+        );
+}
+
+.ml-auth .ml-auth-container {
+    width: min(
+        100%,
+        var(--ml-auth-container-width)
+    );
+
+    margin-inline: auto;
+}
+
+.ml-auth .ml-auth-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.1fr)
+        minmax(32rem, var(--ml-auth-card-width));
+
+    gap: var(--ml-auth-space-10);
+    align-items: center;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Intro Area
+|--------------------------------------------------------------------------
+*/
+
+.ml-auth .ml-auth-intro {
+    min-width: 0;
+    display: grid;
+    gap: var(--ml-auth-space-5);
+}
+
+.ml-auth .ml-auth-intro__content {
+    max-width: 43rem;
+}
+
+.ml-auth .ml-auth-intro__title {
+    max-width: 42rem;
+    margin: 0;
+
+    color: var(--ml-auth-text);
+
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 3.5rem;
+    letter-spacing: -0.025em;
+}
+
+.ml-auth .ml-auth-intro__description {
+    max-width: 41rem;
+    margin:
+        var(--ml-auth-space-2)
+        0
+        0;
+
+    color: var(--ml-auth-text-secondary);
+
+    font-size: 1.0625rem;
+    line-height: 1.75rem;
+}
+
+.ml-auth .ml-auth-intro__body {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(15rem, 19rem);
+
+    gap: var(--ml-auth-space-5);
+    align-items: center;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Optional Supporting Visual
+|--------------------------------------------------------------------------
+*/
+
+.ml-auth .ml-auth-visual {
+    min-height: 16rem;
+    display: grid;
+    place-items: center;
+
+    padding: var(--ml-auth-space-3);
+
+    background: var(--ml-auth-visual-surface);
+    border: 1px solid rgb(2 132 199 / 0.12);
+    border-radius: var(--ml-auth-radius-md);
+}
+
+.ml-auth .ml-auth-visual img {
+    width: 100%;
+    max-width: 15rem;
+    max-height: 13rem;
+
+    object-fit: contain;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Form Column
+|--------------------------------------------------------------------------
+*/
+
+.ml-auth .ml-auth-form-column {
+    width: 100%;
+    max-width: var(--ml-auth-card-width);
+    justify-self: end;
+}
+/*
+|--------------------------------------------------------------------------
+| Additional Authentication Layout Variants
+|--------------------------------------------------------------------------
+*/
+
+.ml-auth .ml-auth-page--form {
+    align-items: start;
+
+    padding-top: var(--ml-auth-space-6);
+    padding-bottom: var(--ml-auth-space-6);
+}
+
+.ml-auth .ml-auth-page--compact {
+    align-items: center;
+}
+
+.ml-auth .ml-auth-grid--compact {
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(28rem, 32rem);
+
+    gap: var(--ml-auth-space-10);
+}
+
+.ml-auth .ml-auth-form-column--compact {
+    max-width: 32rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Desktop Width Protection
+|--------------------------------------------------------------------------
+|
+| Ini bukan desain mobile. Hanya mencegah desktop sempit rusak.
+|
+*/
+
+@media (max-width: 1200px) {
+    .ml-auth .site-header {
+    padding-inline: var(--ml-auth-space-3);
+}
+
+.ml-auth .main-nav {
+    gap: var(--ml-auth-space-3);
+}
+.ml-auth .ml-auth-page {
+    padding-top: var(--ml-auth-space-8);
+    padding-inline: var(--ml-auth-space-3);
+}
+
+.ml-auth .ml-auth-grid {
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(27rem, 30rem);
+
+    gap: var(--ml-auth-space-5);
+}
+.ml-auth .ml-auth-grid--compact {
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(26rem, 30rem);
+
+    gap: var(--ml-auth-space-5);
+}
+    .ml-auth .ml-auth-intro__title {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+    }
+
+    .ml-auth .ml-auth-intro__body {
+        grid-template-columns: 1fr;
+    }
+
+    .ml-auth .ml-auth-visual {
+        display: none;
+    }
+}
+@media (max-height: 760px) and (min-width: 901px) {
+    .ml-auth .ml-auth-page {
+        align-items: start;
+
+        padding-top: var(--ml-auth-space-5);
+        padding-bottom:
+            calc(
+                var(--ml-auth-footer-height)
+                + var(--ml-auth-space-3)
+            );
+    }
+
+    .ml-auth .ml-auth-card {
+        margin-bottom: var(--ml-auth-space-3);
+    }
+}

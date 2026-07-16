@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', $formMode === 'create' ? 'MediLabs Admin - Tambah Layanan' : 'MediLabs Admin - Edit Layanan')
+@section('title', $formMode === 'create' ? 'Tambah Layanan | MediLabs Admin' : 'Edit Layanan | MediLabs Admin')
 
 @section('content')
     <section class="admin-section">
@@ -20,6 +20,15 @@
             @if ($formMode === 'edit')
                 @method('PUT')
             @endif
+
+            <div class="admin-service-image-note" role="note">
+                <i class="bi bi-image" aria-hidden="true"></i>
+                <span>
+                    Layanan yang belum memiliki ilustrasi khusus akan memakai
+                    visual default generik pada halaman pasien. Upload gambar belum
+                    tersedia karena memerlukan field database dan penyimpanan file.
+                </span>
+            </div>
 
             <label>
                 <span>Nama Layanan</span>
