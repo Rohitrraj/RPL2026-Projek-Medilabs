@@ -112,7 +112,7 @@
                                     {{ optional($reservation->reservation_date)->format('d M Y') }}
                                     {{ substr((string) $reservation->reservation_time, 0, 5) }}
                                 </td>
-                                <td>{{ $reservation->status }}</td>
+                                <td> <x-status-badge :status="$reservation->status" /> </td>
                             </tr>
                         @empty
                             <tr>
