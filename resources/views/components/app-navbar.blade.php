@@ -45,7 +45,7 @@
             <a class="{{ request()->routeIs('services.*') ? 'active' : '' }}" href="{{ route('services.index') }}">Layanan</a>
             <a class="{{ request()->routeIs('patients.*') || request()->routeIs('reservations.*') ? 'active' : '' }}" href="{{ route('reservations.create') }}">Reservasi</a>
             <a class="{{ request()->routeIs('reservations.status') || request()->routeIs('reservations.history') ? 'active' : '' }}" href="{{ route('reservations.status') }}">Cek Status</a>
-            <a class="{{ request()->routeIs('login') ? 'active' : '' }}" href="{{ route('login') }}">Login</a>
+            <a class="{{ request()->routeIs('login') ? 'active' : '' }}" href="{{ route('login') }}" > Masuk </a>
         @endauth
     </nav>
 </header>

@@ -12,6 +12,7 @@ export default defineConfig({
                 'resources/css/admin.css',
                 'resources/js/admin.js',
                 'resources/css/auth.css',
+                'resources/js/auth.js',
             ],
             refresh: true,
             fonts: [

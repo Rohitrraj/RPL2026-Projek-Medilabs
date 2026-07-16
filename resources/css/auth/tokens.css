@@ -54,9 +54,10 @@
 
     /* Dimensions */
     --ml-auth-navbar-height: 4rem;       /* 64px */
-    --ml-auth-container-width: 75rem;    /* 1200px */
-    --ml-auth-card-width: 30rem;         /* 480px */
-    --ml-auth-control-height: 3rem;      /* 48px */
+    --ml-auth-footer-height: 3rem;
+--ml-auth-container-width: 80rem;  /* 1280px */
+--ml-auth-card-width: 34rem;       /* 544px */
+--ml-auth-control-height: 3.25rem; /* 52px */
     --ml-auth-icon-button-size: 3rem;    /* 48px */
 
     /* Radius */
