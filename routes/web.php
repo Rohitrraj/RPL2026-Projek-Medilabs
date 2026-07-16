@@ -51,13 +51,12 @@ Route::middleware('guest')->group(function () {
 });
 
 
-Route::get('/cek-status', [ReservationController::class, 'status'])
-    ->name('reservations.status');
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [MediLabsController::class, 'profile'])
         ->name('profile.show');
+
+    Route::get('/cek-status', [ReservationController::class, 'status'])
+        ->name('reservations.status');
 
     Route::post('/logout', [AuthController::class, 'logout'])
         ->name('logout');
@@ -77,8 +76,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/riwayat-reservasi', 'history')
             ->name('reservations.history');
 
-        Route::delete('/riwayat-reservasi/{reservation}', 'destroy')
-            ->name('reservations.destroy');
+        Route::patch('/riwayat-reservasi/{reservation}/batalkan', 'cancel')
+            ->name('reservations.cancel');
     });
 });
 

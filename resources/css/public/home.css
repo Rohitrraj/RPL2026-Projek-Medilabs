@@ -245,12 +245,20 @@ body.ml-public--home .page-content {
     height: 3rem;
     display: grid;
     place-items: center;
+    overflow: hidden;
 
     background: var(--ml-public-primary-soft);
     border-radius: var(--ml-public-radius-sm);
 
     color: var(--ml-public-primary);
     font-size: 1.25rem;
+}
+
+.ml-public .ml-home-service-card__visual img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
 }
 
 .ml-public .ml-home-service-card__link {

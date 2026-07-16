@@ -23,8 +23,8 @@
                 <h1 class="ml-public-page-title">Riwayat Reservasi</h1>
 
                 <p class="ml-public-page-description">
-                    Lihat reservasi yang pernah dibuat, periksa detail, dan kelola
-                    data yang masih dapat dihapus.
+                    Lihat reservasi yang pernah dibuat, periksa detail, dan batalkan
+                    reservasi yang masih memenuhi ketentuan.
                 </p>
             </div>
 
@@ -200,21 +200,21 @@
                                             Detail
                                         </a>
 
-                                        @if (in_array($item->status, ['Menunggu', 'Dibatalkan'], true))
+                                        @if (in_array($item->status, ['Menunggu', 'Terjadwal'], true))
                                             <form
-                                                action="{{ route('reservations.destroy', $item) }}"
+                                                action="{{ route('reservations.cancel', $item) }}"
                                                 method="POST"
                                                 data-confirm-form
-                                                data-confirm-message="Hapus reservasi {{ $item->code }} dari riwayat? Tindakan ini tidak dapat dibatalkan."
+                                                data-confirm-message="Batalkan reservasi {{ $item->code }}? Data reservasi akan tetap tersimpan."
                                             >
                                                 @csrf
-                                                @method('DELETE')
+                                                @method('PATCH')
 
                                                 <button
                                                     class="ml-public-button ml-public-button--danger ml-public-button--sm"
                                                     type="submit"
                                                 >
-                                                    Hapus
+                                                    Batalkan
                                                 </button>
                                             </form>
                                         @endif
@@ -230,8 +230,8 @@
         <div class="ml-public-notice">
             <i class="bi bi-info-circle ml-public-notice__icon" aria-hidden="true"></i>
             <span>
-                Reservasi hanya dapat dihapus dari riwayat ketika berstatus
-                Menunggu atau Dibatalkan. Reservasi yang sudah diproses atau selesai tidak dapat dihapus.
+                Reservasi dapat dibatalkan ketika berstatus Menunggu atau Terjadwal.
+                Data yang dibatalkan tetap tersimpan dan dapat dilihat oleh pasien serta administrator.
             </span>
         </div>
     </section>
