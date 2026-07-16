@@ -1,81 +1,154 @@
 @extends('layouts.app')
 
-@section('title', 'MediLabs - Layanan Populer')
+@section('title', $service->name . ' - MediLabs')
 
 @section('content')
     @php
-        $serviceName = $service->name ?? 'Hematologi Lengkap';
-        $description = $service->description ?? 'Pemeriksaan darah komprehensif untuk mengevaluasi komponen darah.';
-        $benefit = $service->benefit ?? 'Membantu mendeteksi kondisi kesehatan melalui pemeriksaan laboratorium.';
-        $preparation = $service->preparation ?? 'Ikuti arahan petugas sebelum pemeriksaan.';
-        $price = $service->price ?? 145000;
+        $serviceImages = [
+            'hematologi-lengkap' => 'assets/images/laypophematologipage.jpg',
+            'gula-darah-puasa' => 'assets/images/laypopguladarah.jpg',
+            'profil-lipid-lengkap' => 'assets/images/laypopkolesterol.jpg',
+            'asam-urat' => 'assets/images/laypopasamurat.png',
+        ];
+
+        $serviceImage = $serviceImages[$service->slug]
+            ?? 'assets/images/laypophematologipage.jpg';
     @endphp
 
-    <section class="service-detail-layout">
-        <article class="dark-panel service-detail-card">
-            <h1>{{ $serviceName }}</h1>
+    <section class="ml-service-detail">
+        <nav aria-label="Breadcrumb">
+            <ol class="ml-public-breadcrumb">
+                <li><a href="{{ route('home') }}">Beranda</a></li>
+                <li><i class="bi bi-chevron-right" aria-hidden="true"></i></li>
+                <li><a href="{{ route('services.index') }}">Layanan</a></li>
+                <li><i class="bi bi-chevron-right" aria-hidden="true"></i></li>
+                <li aria-current="page">{{ $service->name }}</li>
+            </ol>
+        </nav>
 
-            <div class="service-info-block">
-                <span class="line-icon clipboard-icon"></span>
-                <div>
-                    <h2>Nama Layanan</h2>
-                    <p>{{ $serviceName }}</p>
+        <article class="ml-service-detail-hero">
+            <div class="ml-service-detail-hero__content">
+                <span class="ml-public-eyebrow">
+                    <i class="bi bi-check-circle" aria-hidden="true"></i>
+                    Layanan aktif
+                </span>
+
+                <h1 class="ml-service-detail-hero__title">
+                    {{ $service->name }}
+                </h1>
+
+                <p class="ml-service-detail-hero__description">
+                    {{ $service->description
+                        ?: 'Layanan pemeriksaan laboratorium MediLabs.' }}
+                </p>
+
+                <div class="ml-service-detail-hero__meta">
+                    <strong class="ml-service-price">
+                        Rp {{ number_format((float) $service->price, 0, ',', '.') }}
+                    </strong>
+
+                    <x-status-badge status="Aktif" />
+                </div>
+
+                <div class="ml-public-inline-actions">
+                    <a
+                        class="ml-public-button ml-public-button--primary"
+                        href="{{ route('reservations.create', ['service' => $service->id]) }}"
+                    >
+                        <i class="bi bi-calendar2-plus" aria-hidden="true"></i>
+                        Reservasi Layanan Ini
+                    </a>
+
+                    <a
+                        class="ml-public-button ml-public-button--outline"
+                        href="{{ route('services.index') }}"
+                    >
+                        Lihat Layanan Lain
+                    </a>
                 </div>
             </div>
 
-            <div class="service-info-block">
-                <span class="line-icon list-icon"></span>
-                <div>
-                    <h2>Deskripsi</h2>
-                    <p>{{ $description }}</p>
-                </div>
+            <div class="ml-service-detail-hero__media">
+                <img
+                    src="{{ asset($serviceImage) }}"
+                    alt="Ilustrasi pemeriksaan {{ $service->name }}"
+                >
             </div>
-
-            <div class="service-info-block">
-                <span class="line-icon pulse-icon"></span>
-                <div>
-                    <h2>Manfaat Pemeriksaan</h2>
-                    <p>{{ $benefit }}</p>
-                </div>
-            </div>
-
-            <div class="service-info-block">
-                <span class="line-icon calendar-icon"></span>
-                <div>
-                    <h2>Persiapan Sebelum Pemeriksaan</h2>
-                    <p>{{ $preparation }}</p>
-                </div>
-            </div>
-
-            <div class="service-info-block">
-                <span class="line-icon tag-icon"></span>
-                <div>
-                    <h2>Estimasi Harga</h2>
-                    <p>Rp{{ number_format($price, 0, ',', '.') }}</p>
-                </div>
-            </div>
-
-            <a class="button button-primary service-button" href="{{ route('reservations.create') }}">Reservasi Sekarang</a>
         </article>
 
-        <aside class="service-side">
-            <img class="lab-image" src="{{ asset('assets/images/laypophematologipage.jpg') }}" alt="Pemeriksaan sampel di laboratorium">
+        <div class="ml-service-info-grid">
+            <article class="ml-service-info-card">
+                <span class="ml-public-icon-box" aria-hidden="true">
+                    <i class="bi bi-heart-pulse"></i>
+                </span>
 
-            <div class="white-info-card">
-                <span class="circle-icon clock-symbol"></span>
                 <div>
-                    <h2>Jadwal Tersedia</h2>
-                    <p>Senin - Minggu<br>07.00 - 19.00 WIB</p>
+                    <h2>Manfaat Pemeriksaan</h2>
+                    <p>
+                        {{ $service->benefit
+                            ?: 'Membantu memperoleh informasi kesehatan melalui pemeriksaan laboratorium.' }}
+                    </p>
                 </div>
+            </article>
+
+            <article class="ml-service-info-card">
+                <span class="ml-public-icon-box" aria-hidden="true">
+                    <i class="bi bi-clipboard2-check"></i>
+                </span>
+
+                <div>
+                    <h2>Persiapan Sebelum Pemeriksaan</h2>
+                    <p>
+                        {{ $service->preparation
+                            ?: 'Ikuti arahan petugas sebelum pemeriksaan dilakukan.' }}
+                    </p>
+                </div>
+            </article>
+
+            <article class="ml-service-info-card">
+                <span class="ml-public-icon-box" aria-hidden="true">
+                    <i class="bi bi-clock"></i>
+                </span>
+
+                <div>
+                    <h2>Jam Reservasi</h2>
+                    <p>
+                        Pilihan waktu reservasi tersedia mulai pukul
+                        07.00 sampai 19.00 WIB.
+                    </p>
+                </div>
+            </article>
+
+            <article class="ml-service-info-card">
+                <span class="ml-public-icon-box" aria-hidden="true">
+                    <i class="bi bi-info-circle"></i>
+                </span>
+
+                <div>
+                    <h2>Informasi Penting</h2>
+                    <p>
+                        Pilih tanggal dan jam yang tersedia melalui form reservasi.
+                        Detail pemeriksaan dapat dikonfirmasi kembali kepada petugas.
+                    </p>
+                </div>
+            </article>
+        </div>
+
+        <aside class="ml-service-cta">
+            <div>
+                <h2>Siap membuat reservasi?</h2>
+                <p>
+                    Lengkapi data pasien, pilih jadwal, lalu simpan reservasi Anda.
+                </p>
             </div>
 
-            <div class="white-info-card">
-                <span class="circle-icon info-symbol"></span>
-                <div>
-                    <h2>Informasi</h2>
-                    <p>Hasil pemeriksaan biasanya tersedia dalam 1x24 jam kerja.</p>
-                </div>
-            </div>
+            <a
+                class="ml-public-button ml-public-button--primary"
+                href="{{ route('reservations.create', ['service' => $service->id]) }}"
+            >
+                Mulai Reservasi
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
         </aside>
     </section>
 @endsection
